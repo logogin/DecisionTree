@@ -4,10 +4,13 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.dmg.pmml_3_1.DataField;
@@ -17,6 +20,7 @@ import org.dmg.pmml_3_1.Node;
 import org.dmg.pmml_3_1.PMML;
 import org.dmg.pmml_3_1.ScoreDistribution;
 import org.dmg.pmml_3_1.SimplePredicate;
+import org.dmg.pmml_3_1.Value;
 
 import com.logogin.decisiontree.model.expression.LogicalExpression;
 import com.logogin.decisiontree.model.expression.LogicalTerm;
@@ -32,17 +36,19 @@ public class DecisionTreeModel {
     private String id;
     private String name;
     private PMML pmml;
-    private List<List<Node>> rules;
+    private List<List<Node>> spreadedTree;
+    private List<Rule> rules;
 
     public DecisionTreeModel(String id, String name, PMML pmml) {
         this.id = id;
         this.name = name;
         this.pmml = pmml;
+        spreadTree();
         buildRules();
     }
 
-    private void buildRules() {
-        rules = new ArrayList<List<Node>>();
+    private void spreadTree() {
+        spreadedTree = new ArrayList<List<Node>>();
         Deque<Node> nodeStack = new ArrayDeque<Node>();
         Deque<List<Node>> exprStack = new ArrayDeque<List<Node>>();
         for ( Node root : getRootNodes() ) {
@@ -65,10 +71,24 @@ public class DecisionTreeModel {
                     exprStack.push(new ArrayList<Node>(rule));
                 }
             } else {
-                rules.add(rule);
+                spreadedTree.add(rule);
             }
         }
         assert !exprStack.isEmpty() : "exprStack not empty";
+    }
+
+    private void buildRules() {
+        rules = new ArrayList<Rule>();
+        for ( List<Node> rule : spreadedTree ) {
+            LogicalExpression expr = new LogicalExpression();
+            for ( Node node : rule ) {
+                for ( SimplePredicate predicate : node.getSimplePredicates() ) {
+                  expr.and(createTerm(predicate));
+                }
+            }
+            Node node = rule.get(rule.size() - 1);
+            rules.add(new Rule(expr, node.getScore(), node.getRecordCount(), getScoreDistributionRecordCount(node, node.getScore())));
+        }
     }
 
     public String getName() {
@@ -111,7 +131,7 @@ public class DecisionTreeModel {
     }
 
     public int getRulesCount() {
-        return rules.size();
+        return spreadedTree.size();
 //        int result = 0;
 //        Deque<Node> nodeStack = new ArrayDeque<Node>();
 //        for ( Node root : getRootNodes() ) {
@@ -133,8 +153,8 @@ public class DecisionTreeModel {
 
     public int getRulesCountForScore(String score) {
         int result = 0;
-        for ( List<Node> rule : rules ) {
-            if ( rule.get(rule.size() - 1).getScore().equals(score) ) {
+        for ( Rule rule : rules ) {
+            if ( rule.getScore().equals(score) ) {
                 result++;
             }
         }
@@ -169,9 +189,8 @@ public class DecisionTreeModel {
 
     public int getFrequentRulesCountForScore(String score, double threshold) {
         int result = 0;
-        for ( List<Node> rule : rules ) {
-            Node node = rule.get(rule.size() - 1);
-            if ( node.getScore().equals(score) && getScoreDistributionRecordCount(node, node.getScore()) >= threshold ) {
+        for ( Rule rule : rules ) {
+            if ( rule.getScore().equals(score) && rule.getScoreRecordCount() >= threshold ) {
                 result++;
             }
         }
@@ -198,10 +217,9 @@ public class DecisionTreeModel {
     public int getRelativeRulesCountForScore(String score, double percentage) {
         int result = 0;
         List<Double> scores = new ArrayList<Double>();
-        for ( List<Node> rule : rules ) {
-            Node node = rule.get(rule.size() - 1);
-            if ( node.getScore().equals(score) ) {
-                scores.add(getScoreDistributionRecordCount(node, node.getScore()));
+        for ( Rule rule : rules ) {
+            if ( rule.getScore().equals(score) ) {
+                scores.add(rule.getScoreRecordCount());
             }
         }
 //        Deque<Node> nodeStack = new ArrayDeque<Node>();
@@ -236,17 +254,18 @@ public class DecisionTreeModel {
     }
 
     public List<Rule> getRules() {
-        List<Rule> result = new ArrayList<Rule>();
-        for ( List<Node> rule : rules ) {
-            LogicalExpression expr = new LogicalExpression();
-            for ( Node node : rule ) {
-                for ( SimplePredicate predicate : node.getSimplePredicates() ) {
-                  expr.and(createTerm(predicate));
-                }
-            }
-            Node node = rule.get(rule.size() - 1);
-            result.add(new Rule(expr, node.getScore(), node.getRecordCount(), getScoreDistributionRecordCount(node, node.getScore())));
-        }
+        return rules;
+//        List<Rule> result = new ArrayList<Rule>();
+//        for ( List<Node> rule : spreadedTree ) {
+//            LogicalExpression expr = new LogicalExpression();
+//            for ( Node node : rule ) {
+//                for ( SimplePredicate predicate : node.getSimplePredicates() ) {
+//                  expr.and(createTerm(predicate));
+//                }
+//            }
+//            Node node = rule.get(rule.size() - 1);
+//            result.add(new Rule(expr, node.getScore(), node.getRecordCount(), getScoreDistributionRecordCount(node, node.getScore())));
+//        }
 //        Deque<Node> nodeStack = new ArrayDeque<Node>();
 //        Deque<LogicalExpression> exprStack = new ArrayDeque<LogicalExpression>();
 //        for ( Node root : getRootNodes() ) {
@@ -272,12 +291,12 @@ public class DecisionTreeModel {
 //            }
 //        }
 //        assert !exprStack.isEmpty() : "exprStack not empty";
-        return result;
+//        return result;
     }
 
     public Set<Rule> getRulesIntersection(Collection<Rule> rulesToRetain, Set<String> ignoredDataFields) {
         Set<Rule> result = new HashSet<Rule>();
-        for ( Rule rule : getRules() ) {
+        for ( Rule rule : rules ) {
             for ( Rule ruleToRetain : rulesToRetain ) {
                 if (rule.getExpression().equalsIgnoreTerms(ruleToRetain.getExpression(), ignoredDataFields)) {
                     result.add(rule);
@@ -355,5 +374,45 @@ public class DecisionTreeModel {
 
     private LogicalTerm createTerm(SimplePredicate predicate) {
         return new LogicalTerm(predicate.getField(), predicate.getValue(), translateOperator(predicate.getOperator()));
+    }
+
+    public List<Rule> getFrequentRules(Double threshold) {
+        List<Rule> result = new ArrayList<Rule>();
+        for ( Rule rule : rules ) {
+            if ( rule.getScoreRecordCount() >= threshold ) {
+                result.add(rule);
+            }
+        }
+        return result;
+    }
+
+    public List<Rule> getRelativeRules(Double percentage) {
+        List<Rule> result = new ArrayList<Rule>();
+        Map<String, List<Rule>> recordCounts = new HashMap<String, List<Rule>>();
+        for ( Value value : getPredictedDataField().getValue() ) {
+            recordCounts.put(value.getValue(), new ArrayList<Rule>());
+        }
+        for ( Rule rule : rules ) {
+            recordCounts.get(rule.getScore()).add(rule);
+        }
+
+        for ( Value value : getPredictedDataField().getValue() ) {
+            double threshold = getScoreDistributionRecordCount(getRootNodes().get(0), value.getValue())*percentage;
+            Collections.sort(recordCounts.get(value.getValue()), new Comparator<Rule>() {
+                @Override
+                public int compare(Rule o1, Rule o2) {
+                    return o2.getScoreRecordCount().compareTo(o1.getScoreRecordCount());
+                }
+            });
+            double total = 0.0;
+            for ( Rule rule : recordCounts.get(value.getValue()) ) {
+                total += rule.getScoreRecordCount();
+                result.add(rule);
+                if ( total >= threshold ) {
+                    break;
+                }
+            }
+        }
+        return result;
     }
 }

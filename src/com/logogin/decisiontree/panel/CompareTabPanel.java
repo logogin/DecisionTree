@@ -13,10 +13,19 @@ package com.logogin.decisiontree.panel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.logogin.decisiontree.TreeAnalyzerApp;
 import com.logogin.decisiontree.TreeAnalyzerView;
 import com.logogin.decisiontree.model.ComboBoxItem;
+import com.logogin.decisiontree.model.DecisionTreeModel;
+import com.logogin.decisiontree.model.Rule;
+import com.logogin.decisiontree.model.event.AliasChangeEvent;
+import com.logogin.decisiontree.model.event.AliasChangeListener;
+import com.logogin.decisiontree.model.event.ModelChangeEvent;
+import com.logogin.decisiontree.model.event.ModelChangeListener;
 
 import javax.swing.ActionMap;
 import javax.swing.DefaultCellEditor;
@@ -93,6 +102,7 @@ public class CompareTabPanel extends javax.swing.JPanel {
             }
         });
         ignoredFiltersTable.setName("ignoredFiltersTable"); // NOI18N
+        ignoredFiltersTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(ignoredFiltersTable);
         ResourceMap resourceMap = Application.getInstance(TreeAnalyzerApp.class).getContext().getResourceMap(CompareTabPanel.class);
         ignoredFiltersTable.getColumnModel().getColumn(0).setHeaderValue(resourceMap.getString("ignoredFiltersTable.columnModel.title0")); // NOI18N
@@ -125,12 +135,13 @@ public class CompareTabPanel extends javax.swing.JPanel {
 
         jScrollPane2.setName("jScrollPane2"); // NOI18N
 
+        leftRulesTable.setAutoCreateRowSorter(true);
         leftRulesTable.setModel(new DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "No.", "Rule", "Class value", "No. of instances"
+                "No.", "Rule", "Class", "No. instances"
             }
         ) {
             Class[] types = new Class [] {
@@ -149,6 +160,7 @@ public class CompareTabPanel extends javax.swing.JPanel {
             }
         });
         leftRulesTable.setName("leftRulesTable"); // NOI18N
+        leftRulesTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(leftRulesTable);
         leftRulesTable.getColumnModel().getColumn(0).setHeaderValue(resourceMap.getString("leftRulesTable.columnModel.title0")); // NOI18N
         leftRulesTable.getColumnModel().getColumn(1).setHeaderValue(resourceMap.getString("leftRulesTable.columnModel.title1")); // NOI18N
@@ -159,12 +171,13 @@ public class CompareTabPanel extends javax.swing.JPanel {
 
         jScrollPane3.setName("jScrollPane3"); // NOI18N
 
+        rightRulesTable.setAutoCreateRowSorter(true);
         rightRulesTable.setModel(new DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "No.", "Rule", "Class value", "No. of instances"
+                "No.", "Rule", "Class", "No. instances"
             }
         ) {
             Class[] types = new Class [] {
@@ -183,6 +196,7 @@ public class CompareTabPanel extends javax.swing.JPanel {
             }
         });
         rightRulesTable.setName("rightRulesTable"); // NOI18N
+        rightRulesTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane3.setViewportView(rightRulesTable);
         rightRulesTable.getColumnModel().getColumn(0).setHeaderValue(resourceMap.getString("rightRulesTable.columnModel.title0")); // NOI18N
         rightRulesTable.getColumnModel().getColumn(1).setHeaderValue(resourceMap.getString("rightRulesTable.columnModel.title1")); // NOI18N
@@ -238,9 +252,26 @@ public class CompareTabPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_rightModelComboBoxActionPerformed
 
     private void postInitComponents() {
-        dataFieldsComboBox.setModel(new DefaultComboBoxModel(
-                app.getController().getDataFieldNames(
-                        ((TreeAnalyzerView)app.getMainView()).getOverviewTableModel())));
+        app.getController().addModelChangeListener(new ModelChangeListener() {
+            @Override
+            public void modelChanged(ModelChangeEvent e) {
+                if ( ModelChangeEvent.MODEL_REMOVED != e.getType() ) {
+                    dataFieldsComboBox.setModel(new DefaultComboBoxModel(
+                            app.getController().getDataFieldNames()));
+
+                    leftModelComboBox.setModel(new DefaultComboBoxModel(app.getController().getEnabledTreeModelsItems()));
+                    rightModelComboBox.setModel(new DefaultComboBoxModel(app.getController().getEnabledTreeModelsItems()));
+                }
+            }
+        });
+
+        app.getController().addAliasChangeListener(new AliasChangeListener() {
+            @Override
+            public void aliasChanged(AliasChangeEvent e) {
+                applyAction();
+            }
+        });
+
         dataFieldsComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -251,43 +282,81 @@ public class CompareTabPanel extends javax.swing.JPanel {
                 {
                     ((DefaultTableModel)ignoredFiltersTable.getModel()).addRow(new Object[] {false, ""});
                 }
-
             }
         });
 
-        leftModelComboBox.setModel(new DefaultComboBoxModel(
-                app.getController().getEnabledTreeModelsItems(
-                        ((TreeAnalyzerView)app.getMainView()).getOverviewTableModel())));
-        rightModelComboBox.setModel(new DefaultComboBoxModel(
-                app.getController().getEnabledTreeModelsItems(
-                        ((TreeAnalyzerView)app.getMainView()).getOverviewTableModel())));
+//        leftModelComboBox.setModel(new DefaultComboBoxModel(createComboBoxItems(app.getC)TreeModelsItems
+//                app.getController().getEnabledTreeModelsItems(
+//                        ((TreeAnalyzerView)app.getMainView()).getOverviewTableModel())));
+//        rightModelComboBox.setModel(new DefaultComboBoxModel(
+//                app.getController().getEnabledTreeModelsItems(
+//                        ((TreeAnalyzerView)app.getMainView()).getOverviewTableModel())));
     }
 
     @Action
     public void applyAction() {
         String leftTreeModelId = (String)((ComboBoxItem)leftModelComboBox.getSelectedItem()).getValue();
         String rightTreeModelId = (String)((ComboBoxItem)rightModelComboBox.getSelectedItem()).getValue();
-        app.getController().compareTreeModels(leftTreeModelId, rightTreeModelId
-                , (DefaultTableModel)leftRulesTable.getModel()
-                , (DefaultTableModel)rightRulesTable.getModel()
-                , (DefaultTableModel)ignoredFiltersTable.getModel());
+//        app.getController().compareTreeModels(leftTreeModelId, rightTreeModelId
+//                , (DefaultTableModel)leftRulesTable.getModel()
+//                , (DefaultTableModel)rightRulesTable.getModel()
+//                , (DefaultTableModel)ignoredFiltersTable.getModel());
 
+        DecimalFormat format = new DecimalFormat("#,##0.0#");
+        DecisionTreeModel leftTreeModel = app.getController().getTreeModel(leftTreeModelId);
+        DecisionTreeModel rightTreeModel = app.getController().getTreeModel(rightTreeModelId);
+
+        Set<String> ignoredDataFields = getIgnoredDataFields();
+        Set<Rule> leftIntersection = leftTreeModel.getRulesIntersection(rightTreeModel.getRules(), ignoredDataFields);
+        Set<Rule> rightIntersection = rightTreeModel.getRulesIntersection(leftTreeModel.getRules(), ignoredDataFields);
+
+        DefaultTableModel leftRulesTableModel = (DefaultTableModel)leftRulesTable.getModel();
+        DefaultTableModel rightRulesTableModel = (DefaultTableModel)rightRulesTable.getModel();
+
+        leftRulesTableModel.setRowCount(0);
+        rightRulesTableModel.setRowCount(0);
+        int i = 0;
+        for ( Rule rule : leftIntersection ) {
+            i++;
+            leftRulesTableModel.addRow(new Object[] {i, rule.getExpression()
+                    , app.getController().getClassValueAlias(rule.getScore())
+                    , format.format(rule.getScoreRecordCount())});
+        }
+
+        i = 0;
+        for ( Rule rule : rightIntersection ) {
+            i++;
+            rightRulesTableModel.addRow(new Object[] {i, rule.getExpression()
+                    , app.getController().getClassValueAlias(rule.getScore())
+                    , format.format(rule.getScoreRecordCount())});
+        }
     }
 
-    public void updateModels() {
-        dataFieldsComboBox.setModel(new DefaultComboBoxModel(app
-                .getController().getDataFieldNames(
-                        ((TreeAnalyzerView) app.getMainView())
-                                .getOverviewTableModel())));
-        leftModelComboBox.setModel(new DefaultComboBoxModel(app.getController()
-                .getEnabledTreeModelsItems(
-                        ((TreeAnalyzerView) app.getMainView())
-                                .getOverviewTableModel())));
-        rightModelComboBox.setModel(new DefaultComboBoxModel(app
-                .getController().getEnabledTreeModelsItems(
-                        ((TreeAnalyzerView) app.getMainView())
-                                .getOverviewTableModel())));
+    private Set<String> getIgnoredDataFields() {
+        DefaultTableModel ignoredDataFieldsTableModel = (DefaultTableModel)ignoredFiltersTable.getModel();
+        Set<String> ignoredDataFields = new HashSet<String>();
+        for ( int i=0; i<ignoredDataFieldsTableModel.getRowCount(); i++ ) {
+            if ( (Boolean)ignoredDataFieldsTableModel.getValueAt(i, 0) ) {
+                ignoredDataFields.add((String)ignoredDataFieldsTableModel.getValueAt(i, 1));
+            }
+        }
+        return ignoredDataFields;
     }
+
+//    public void updateModels() {
+//        dataFieldsComboBox.setModel(new DefaultComboBoxModel(app
+//                .getController().getDataFieldNames(
+//                        ((TreeAnalyzerView) app.getMainView())
+//                                .getOverviewTableModel())));
+//        leftModelComboBox.setModel(new DefaultComboBoxModel(app.getController()
+//                .getEnabledTreeModelsItems(
+//                        ((TreeAnalyzerView) app.getMainView())
+//                                .getOverviewTableModel())));
+//        rightModelComboBox.setModel(new DefaultComboBoxModel(app
+//                .getController().getEnabledTreeModelsItems(
+//                        ((TreeAnalyzerView) app.getMainView())
+//                                .getOverviewTableModel())));
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JComboBox dataFieldsComboBox;

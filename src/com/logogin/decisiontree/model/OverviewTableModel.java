@@ -25,7 +25,7 @@ public class OverviewTableModel extends AbstractTableModel {
     private Class<?>[] types = new Class [] {Boolean.class, String.class, Integer.class};
     private boolean[] canEdit = new boolean [] {true, false, false};
 
-    private Map<String, DecisionTreeModel> pmmlModels = new LinkedHashMap<String, DecisionTreeModel>();
+    //private Map<String, DecisionTreeModel> pmmlModels = new LinkedHashMap<String, DecisionTreeModel>();
     private List<Object[]> rows;
 
     public OverviewTableModel() {
@@ -142,5 +142,35 @@ public class OverviewTableModel extends AbstractTableModel {
             }
         }
         return result;
+    }
+
+    public void addTreeModel(DecisionTreeModel treeModel) {
+        String id = treeModel.getId();
+        //boolean updated = false;
+        for ( int i = 0; i < rows.size(); i++ ) {
+            Object[] row = rows.get(i);
+            if ( id.equals(row[3]) ) {
+                setValueAt(treeModel.getName(), i, 1);
+                setValueAt(treeModel.getRulesCount(), i, 2);
+                fireTableRowsUpdated(i, i);
+                //updated = true;
+                return;
+                //break;
+            }
+        }
+        rows.add(new Object[] {true, treeModel.getName(), treeModel.getRulesCount(), id});
+        fireTableRowsInserted(getRowCount() - 1, getRowCount() - 1);
+//        if ( !updated ) {
+//            rows.add(new Object[] {true, name, rulesCount, id});
+//            fireTableRowsInserted(getRowCount() - 1, getRowCount() - 1);
+//        }
+    }
+
+    public String getTreeModelId(int rowIndex) {
+        return (String)getValueAt(rowIndex, 3);
+    }
+
+    public boolean getTreeModelEnabled(int rowIndex) {
+        return (Boolean)getValueAt(rowIndex, 0);
     }
 }

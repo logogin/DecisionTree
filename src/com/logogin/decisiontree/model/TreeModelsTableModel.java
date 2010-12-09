@@ -14,12 +14,12 @@ import javax.swing.table.AbstractTableModel;
 public class TreeModelsTableModel extends AbstractTableModel {
 
     private List<Object[]> rows;
-    private int classValuesCount;
-    private String[] columnIdentifiers;
+    //private int classValuesCount;
+    private String[] columnNames;
 
-    public TreeModelsTableModel(int classValuesCount, String[] columnIdentifiers) {
-        this.classValuesCount = classValuesCount;
-        this.columnIdentifiers = columnIdentifiers;
+    public TreeModelsTableModel() {
+        //this.classValuesCount = 0;
+        this.columnNames = new String[] {"Name", "Rules"};
         rows = new ArrayList<Object[]>();
     }
 
@@ -30,12 +30,12 @@ public class TreeModelsTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return columnIdentifiers.length;
+        return columnNames.length;
     }
 
     @Override
     public String getColumnName(int column) {
-        return columnIdentifiers[column];
+        return columnNames[column];
     }
 
     @Override
@@ -53,7 +53,7 @@ public class TreeModelsTableModel extends AbstractTableModel {
             , int[] rulesCounts
             , int[] frequentRulesCounts
             , int[] relativeRulesCounts) {
-
+        int classValuesCount = rulesCounts.length;
         Object[] row = new Object[2 + 3 * classValuesCount + 1];
         row[0] = name;
         row[1] = rulesCount;
@@ -71,9 +71,9 @@ public class TreeModelsTableModel extends AbstractTableModel {
         return (String)getValueAt(rowIndex, getColumnCount());
     }
 
-    public void setColumnIdentifiers(String[] columnIdentifiers) {
-        this.columnIdentifiers = columnIdentifiers;
-    }
+//    public void setColumnIdentifiers(String[] columnIdentifiers) {
+//        this.columnIdentifiers = columnIdentifiers;
+//    }
 
     public void clear() {
         int rowCount = getRowCount();
@@ -81,5 +81,10 @@ public class TreeModelsTableModel extends AbstractTableModel {
             rows.clear();
             fireTableRowsDeleted(0, rowCount - 1);
         }
+    }
+
+    public void setColumnNames(String[] columnIdentifiers) {
+        this.columnNames = columnIdentifiers;
+        fireTableStructureChanged();
     }
 }

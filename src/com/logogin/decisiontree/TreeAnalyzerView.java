@@ -5,6 +5,8 @@
 package com.logogin.decisiontree;
 
 import com.logogin.decisiontree.model.OverviewTableModel;
+import com.logogin.decisiontree.model.event.ModelChangeEvent;
+import com.logogin.decisiontree.model.event.ModelChangeListener;
 import com.logogin.decisiontree.panel.CompareTabPanel;
 import com.logogin.decisiontree.panel.ModelsTabPanel;
 import com.logogin.decisiontree.panel.OverviewTabPanel;
@@ -42,6 +44,7 @@ public class TreeAnalyzerView extends FrameView {
 
     private ModelsTabPanel modelsTabPanel;
     private CompareTabPanel compareTabPanel;
+    private boolean tabPanelsAdded;
 
     public TreeAnalyzerView(SingleFrameApplication app) {
         super(app);
@@ -122,7 +125,6 @@ public class TreeAnalyzerView extends FrameView {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
         mainPanel = new JPanel();
         tabbedPane = new JTabbedPane();
         overviewTabPanel = new OverviewTabPanel();
@@ -224,37 +226,55 @@ public class TreeAnalyzerView extends FrameView {
     }// </editor-fold>//GEN-END:initComponents
 
     private void postInitComponents() {
+        tabPanelsAdded = false;
+
+        modelsTabPanel = new ModelsTabPanel();
+        modelsTabPanel.setName("modelsTabPanel"); // NOI18N
+        compareTabPanel = new CompareTabPanel();
+        compareTabPanel.setName("compareTabPanel"); // NOI18N
+
+        getApp().getController().addModelChangeListener(new ModelChangeListener() {
+            @Override
+            public void modelChanged(ModelChangeEvent e) {
+                if ( ModelChangeEvent.MODEL_ADDED == e.getType() ) {
+                    addTabPanels();
+                }
+                if ( ModelChangeEvent.MODEL_REMOVED == e.getType() ) {
+                    removeTabPanels();
+                }
+            }
+        });
+        //onLoadModelsSuccess();
         //tabbedPane.setEnabledAt(1, false);
     }
 
-    public void onLoadModelsSuccess() {
-        if ( null == modelsTabPanel ) {
-            modelsTabPanel = new ModelsTabPanel();
-            modelsTabPanel.setName("modelsTabPanel"); // NOI18N
+    private void addTabPanels() {
+        if ( !tabPanelsAdded ) {
             ResourceMap resourceMap = TreeAnalyzerApp.getApplication().getContext().getResourceMap(TreeAnalyzerView.class);
             tabbedPane.addTab(resourceMap.getString("modelsTabPanel.TabConstraints.tabTitle"), modelsTabPanel);
-        }
-        if ( null == compareTabPanel ) {
-            compareTabPanel = new CompareTabPanel();
-            compareTabPanel.setName("compareTabPanel"); // NOI18N
-            ResourceMap resourceMap = TreeAnalyzerApp.getApplication().getContext().getResourceMap(TreeAnalyzerView.class);
             tabbedPane.addTab(resourceMap.getString("compareTabPanel.TabConstraints.tabTitle"), compareTabPanel);
+            tabPanelsAdded = true;
         }
     }
 
-    public void onUnloadAll() {
-        tabbedPane.remove(modelsTabPanel);
-        modelsTabPanel = null;
-        tabbedPane.remove(compareTabPanel);
-        compareTabPanel = null;
+    private void removeTabPanels() {
+        if ( tabPanelsAdded ) {
+            tabbedPane.remove(modelsTabPanel);
+            tabbedPane.remove(compareTabPanel);
+            tabPanelsAdded = false;
+        }
     }
 
-    public OverviewTableModel getOverviewTableModel() {
-        return overviewTabPanel.getOverviewTableModel();
-    }
+//    public OverviewTableModel getOverviewTableModel() {
+//        return overviewTabPanel.getOverviewTableModel();
+//    }
 
-    public void updateCompareTabModels() {
-        compareTabPanel.updateModels();
+//    public void updateCompareTabModels() {
+//        compareTabPanel.updateModels();
+//    }
+
+    private TreeAnalyzerApp getApp() {
+        return (TreeAnalyzerApp)getApplication();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

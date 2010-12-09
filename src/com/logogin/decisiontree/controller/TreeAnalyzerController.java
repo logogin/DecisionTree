@@ -1,4 +1,4 @@
-package com.logogin.decisiontree;
+package com.logogin.decisiontree.controller;
 
 import java.beans.PropertyChangeEvent;
 import java.io.FileInputStream;
@@ -8,6 +8,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +28,8 @@ import com.logogin.decisiontree.model.DecisionTreeModel;
 import com.logogin.decisiontree.model.OverviewTableModel;
 import com.logogin.decisiontree.model.Rule;
 import com.logogin.decisiontree.model.TreeModelsTableModel;
+import com.logogin.decisiontree.model.event.AliasChangeEvent;
+import com.logogin.decisiontree.model.event.ModelChangeEvent;
 
 /**
  * $Id$
@@ -34,7 +37,7 @@ import com.logogin.decisiontree.model.TreeModelsTableModel;
  * @created Nov 15, 2010
  * @author Pavel Danchenko
  */
-public class TreeAnalyzerController /* extends AbstractBean*/ {
+public class TreeAnalyzerController /* extends AbstractBean*/  extends BaseController {
 
 //    private static final String DATA_FIELD_ALIASES_PROPERTY = "dataFieldAliases";
     //private OverviewTableModel overviewTableModel;
@@ -47,19 +50,21 @@ public class TreeAnalyzerController /* extends AbstractBean*/ {
 
     private DataField predictedDataField;
     private Map<String, DecisionTreeModel> treeModels;
+    private Map<String, Boolean> enabledTreeModels;
 //    private Set<String> dataFieldNames;
     private Map<String, String> dataFieldAliases;
 
     public TreeAnalyzerController() {
-        treeModels = new HashMap<String, DecisionTreeModel>();
-        dataFieldAliases = new HashMap<String, String>();
+        treeModels = new LinkedHashMap<String, DecisionTreeModel>();
+        enabledTreeModels = new LinkedHashMap<String, Boolean>();
+        dataFieldAliases = new LinkedHashMap<String, String>();
         //initDataFieldAliasesFromProperties();
     }
 
     private void initDataFieldAliasesFromProperties() {
         Properties props = new Properties();
         try {
-            props.load(new FileInputStream("PMMLAnalizer.properties"));
+            props.load(new FileInputStream("TreeAnalizer.properties"));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -67,8 +72,10 @@ public class TreeAnalyzerController /* extends AbstractBean*/ {
             String[] parts = propertyName.split("\\.");
             if ( parts.length == 2 ) {
                 dataFieldAliases.put(propertyName, props.getProperty(propertyName));
+
             }
         }
+        //fireAliasChanged(new AliasChangeEvent(this));
         //firePropertyChange(DATA_FIELD_ALIASES_PROPERTY, null, null);
     }
 
@@ -86,16 +93,27 @@ public class TreeAnalyzerController /* extends AbstractBean*/ {
 //        overviewTableModel = tableModel;
 //    }
 
-    public void addTreeModel(DecisionTreeModel treeModel, OverviewTableModel overviewTableModel) {
+    public void addTreeModel(DecisionTreeModel treeModel) {
+        treeModels.put(treeModel.getId(), treeModel);
         if ( null == predictedDataField ) {
             predictedDataField = treeModel.getPredictedDataField();
         }
         if ( !predictedDataField.getName().equals(treeModel.getPredictedDataField().getName()) ) {
             throw new IllegalArgumentException("Incompartible models: different predicted fields");
         }
-        treeModels.put(treeModel.getId(), treeModel);
-        overviewTableModel.addTreeModel(treeModel.getId(), treeModel.getName(), treeModel.getRulesCount());
+        fireModelChanged(new ModelChangeEvent(this, treeModel));
     }
+
+//    public void addTreeModel(DecisionTreeModel treeModel, OverviewTableModel overviewTableModel) {
+//        if ( null == predictedDataField ) {
+//            predictedDataField = treeModel.getPredictedDataField();
+//        }
+//        if ( !predictedDataField.getName().equals(treeModel.getPredictedDataField().getName()) ) {
+//            throw new IllegalArgumentException("Incompartible models: different predicted fields");
+//        }
+//        treeModels.put(treeModel.getId(), treeModel);
+//        overviewTableModel.addTreeModel(treeModel.getId(), treeModel.getName(), treeModel.getRulesCount());
+//    }
 
 //    public List<DecisionTreeModel> getTreeModels() {
 //        return new ArrayList<DecisionTreeModel>(treeModels.values());
@@ -105,6 +123,12 @@ public class TreeAnalyzerController /* extends AbstractBean*/ {
         treeModels.clear();
         predictedDataField = null;
         overviewTableModel.clear();
+    }
+
+    public void unloadTreeModels() {
+        treeModels.clear();
+        predictedDataField = null;
+        fireModelChanged(ModelChangeEvent.createModelRemovedEvent(this));
     }
 
     public void recalculateTreeModelsTable(Double scoreThreshold, Double coverageThreshold
@@ -143,21 +167,21 @@ public class TreeAnalyzerController /* extends AbstractBean*/ {
         return columnNames;
     }
 
-    public void setColumnIdentifiers(TreeModelsTableModel treeModelsTableModel) {
-        int classValuesCount = getClassValuesCount();
-        String[] classValueAliases = getClassValueAliases();
-        String[] columnNames = new String[2 + 3 * classValuesCount];
-        columnNames[0] = "Name";
-        columnNames[1] = "Rules";
-        for (int i = 0; i < classValuesCount; i++) {
-            columnNames[2 + i] = classValueAliases[i];
-            columnNames[2 + classValuesCount + i] = "Frequent rules "
-                    + classValueAliases[i];
-            columnNames[2 + 2 * classValuesCount + i] = "90% rules coverage "
-                    + classValueAliases[i];
-        }
-        treeModelsTableModel.setColumnIdentifiers(columnNames);
-    }
+//    public void setColumnIdentifiers(TreeModelsTableModel treeModelsTableModel) {
+//        int classValuesCount = getClassValuesCount();
+//        String[] classValueAliases = getClassValueAliases();
+//        String[] columnNames = new String[2 + 3 * classValuesCount];
+//        columnNames[0] = "Name";
+//        columnNames[1] = "Rules";
+//        for (int i = 0; i < classValuesCount; i++) {
+//            columnNames[2 + i] = classValueAliases[i];
+//            columnNames[2 + classValuesCount + i] = "Frequent rules "
+//                    + classValueAliases[i];
+//            columnNames[2 + 2 * classValuesCount + i] = "90% rules coverage "
+//                    + classValueAliases[i];
+//        }
+//        treeModelsTableModel.setColumnIdentifiers(columnNames);
+//    }
 
     private String[] getClassValueAliases() {
         String[] classValueAliases = new String[predictedDataField.getValue().size()];
@@ -168,11 +192,15 @@ public class TreeAnalyzerController /* extends AbstractBean*/ {
         return classValueAliases;
     }
 
-    private String getClassValueAlias(String classValue) {
-        return dataFieldAliases.containsKey(predictedDataField.getName() + "." + classValue) ? dataFieldAliases.get(predictedDataField.getName() + "." + classValue) : predictedDataField.getName() + "[" + classValue + "]";
+    public String getClassValueAlias(String classValue) {
+        return dataFieldAliases.containsKey(createAliasKey(predictedDataField.getName(), classValue)) ? dataFieldAliases.get(predictedDataField.getName() + "." + classValue) : predictedDataField.getName() + "[" + classValue + "]";
     }
 
-    private int[] getRelativeRulesCounts(DecisionTreeModel treeModel, Double coverageThreshold) {
+    private String createAliasKey(String dataFieldName, String classValue) {
+        return dataFieldName + "." + classValue;
+    }
+
+    public int[] getRelativeRulesCounts(DecisionTreeModel treeModel, Double coverageThreshold) {
         int[] relativeRulesCounts = new int[predictedDataField.getValue().size()];
         for ( int i = 0; i < predictedDataField.getValue().size(); i++ ) {
             Value value = predictedDataField.getValue().get(i);
@@ -181,7 +209,7 @@ public class TreeAnalyzerController /* extends AbstractBean*/ {
         return relativeRulesCounts;
     }
 
-    private int[] getFrequentRulesCounts(DecisionTreeModel treeModel, Double scoreThreshold) {
+    public int[] getFrequentRulesCounts(DecisionTreeModel treeModel, Double scoreThreshold) {
         int[] frequentRulesCounts = new int[predictedDataField.getValue().size()];
         for ( int i = 0; i < predictedDataField.getValue().size(); i++ ) {
             Value value = predictedDataField.getValue().get(i);
@@ -190,7 +218,7 @@ public class TreeAnalyzerController /* extends AbstractBean*/ {
         return frequentRulesCounts;
     }
 
-    private int[] getRulesCounts(DecisionTreeModel treeModel) {
+    public int[] getRulesCounts(DecisionTreeModel treeModel) {
         int[] rulesCounts = new int[predictedDataField.getValue().size()];
         for ( int i = 0; i < predictedDataField.getValue().size(); i++ ) {
             Value value = predictedDataField.getValue().get(i);
@@ -257,6 +285,8 @@ public class TreeAnalyzerController /* extends AbstractBean*/ {
         return ignoredDataFields;
     }
 
+
+
     public void onDataFieldAliasesTableChanged(TableModelEvent e) {
         if ( TableModelEvent.INSERT == e.getType() || TableModelEvent.INSERT == e.getType() ) {
             TableModel tableModel = (TableModel)e.getSource();
@@ -289,9 +319,25 @@ public class TreeAnalyzerController /* extends AbstractBean*/ {
         }
     }
 
+    public void initDataFieldAliases() {
+        initDataFieldAliasesFromProperties();
+//        for ( Map.Entry<String, String> entry : dataFieldAliases.entrySet() ) {
+//            String[] parts = entry.getKey().split("\\.");
+//            dataFieldAliasesTableModel.addRow(new Object[]{parts[0], parts[1], entry.getValue()});
+//        }
+    }
+
     public String[] getDataFieldNames(OverviewTableModel overviewTableModel) {
         Set<String> dataFieldNames = new LinkedHashSet<String>();
         for ( String treeModelId : overviewTableModel.getEnabledTreeModels() ) {
+            dataFieldNames.addAll(treeModels.get(treeModelId).getDataFieldNames());
+        }
+        return dataFieldNames.toArray(new String[dataFieldNames.size()]);
+    }
+
+    public String[] getDataFieldNames() {
+        Set<String> dataFieldNames = new LinkedHashSet<String>();
+        for ( String treeModelId : getEnabledTreeModels() ) {
             dataFieldNames.addAll(treeModels.get(treeModelId).getDataFieldNames());
         }
         return dataFieldNames.toArray(new String[dataFieldNames.size()]);
@@ -303,5 +349,56 @@ public class TreeAnalyzerController /* extends AbstractBean*/ {
             items.add(new ComboBoxItem(treeModels.get(treeModelId).getName(), treeModelId));
         }
         return items.toArray(new ComboBoxItem[items.size()]);
+    }
+
+    public ComboBoxItem[] getEnabledTreeModelsItems() {
+        List<ComboBoxItem> items = new ArrayList<ComboBoxItem>();
+        for ( String treeModelId : getEnabledTreeModels() ) {
+            items.add(new ComboBoxItem(treeModels.get(treeModelId).getName(), treeModelId));
+        }
+        return items.toArray(new ComboBoxItem[items.size()]);
+    }
+
+    public StringBuffer getWekaOutput(int rowIndex, TreeModelsTableModel treeModelsTableModel) {
+        return treeModels.get(treeModelsTableModel.getTreeModel(rowIndex)).dumpWekaTree();
+    }
+
+    public void setDataFieldAlias(String dataFieldName, String classValue, String alias) {
+        dataFieldAliases.put(createAliasKey(dataFieldName, classValue), alias);
+        fireAliasChanged(new AliasChangeEvent(this));
+    }
+
+    public void setTreeModelEnabled(String treeModelId, boolean enabled) {
+        enabledTreeModels.put(treeModelId, enabled);
+        fireModelChanged(new ModelChangeEvent(this, treeModels.get(treeModelId), enabled));
+    }
+
+    public List<String> getEnabledTreeModels() {
+        List<String> result = new ArrayList<String>();
+        for ( Map.Entry<String, Boolean> entry : enabledTreeModels.entrySet() ) {
+            if ( entry.getValue() ) {
+                result.add(entry.getKey());
+            }
+        }
+        return result;
+    }
+
+    public DecisionTreeModel getTreeModel(String treeModelId) {
+        return treeModels.get(treeModelId);
+    }
+
+    public Map<String, String> getDataFieldAliases() {
+        return new LinkedHashMap<String, String>(dataFieldAliases);
+    }
+
+    public String[] getClassValues() {
+        if ( null == predictedDataField ) {
+            return new String[] {};
+        }
+        String[] result = new String[predictedDataField.getValue().size()];
+        for ( int i=0; i<predictedDataField.getValue().size(); i++ ) {
+            result[i] = predictedDataField.getValue().get(i).getValue();
+        }
+        return result;
     }
 }

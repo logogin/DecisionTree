@@ -11,13 +11,10 @@
 
 package com.logogin.decisiontree.panel;
 
-import com.logogin.decisiontree.TreeAnalyzerApp;
-import com.logogin.decisiontree.TreeAnalyzerView;
-import com.logogin.decisiontree.model.TreeModelsTableModel;
-
 import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
+import java.util.List;
+
 import javax.swing.ActionMap;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -31,11 +28,23 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.ResourceMap;
+
+import com.logogin.decisiontree.TreeAnalyzerApp;
+import com.logogin.decisiontree.model.DecisionTreeModel;
+import com.logogin.decisiontree.model.Rule;
+import com.logogin.decisiontree.model.TreeModelsTableModel;
+import com.logogin.decisiontree.model.event.AliasChangeEvent;
+import com.logogin.decisiontree.model.event.AliasChangeListener;
+import com.logogin.decisiontree.model.event.ModelChangeEvent;
+import com.logogin.decisiontree.model.event.ModelChangeListener;
+import com.logogin.decisiontree.view.ModelPropertiesFrame;
 
 /**
  *
@@ -44,10 +53,12 @@ import org.jdesktop.application.ResourceMap;
 public class ModelsTabPanel extends javax.swing.JPanel {
 
     private TreeAnalyzerApp app;
+    private ModelPropertiesFrame propertiesFrame;
 
     /** Creates new form ModelsTabPanel */
     public ModelsTabPanel() {
         app = TreeAnalyzerApp.getApplication();
+        propertiesFrame = new ModelPropertiesFrame(app);
         initComponents();
         postInitComponents();
     }
@@ -70,6 +81,7 @@ public class ModelsTabPanel extends javax.swing.JPanel {
         jScrollPane2 = new JScrollPane();
         rulesTable = new JTable();
         jButton1 = new JButton();
+        jButton2 = new JButton();
 
         setName("Form"); // NOI18N
 
@@ -88,19 +100,24 @@ public class ModelsTabPanel extends javax.swing.JPanel {
 
         jScrollPane1.setName("jScrollPane1"); // NOI18N
 
-        modelsTable.setModel(new TreeModelsTableModel(app.getController().getClassValuesCount(), app.getController().getColumnIdentifiers(Double.valueOf(coverageThresholdText.getText()))));
+        modelsTable.setAutoCreateRowSorter(true);
+        modelsTable.setModel(new TreeModelsTableModel());
         modelsTable.setName("modelsTable"); // NOI18N
         modelsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modelsTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(modelsTable);
+        modelsTable.getColumnModel().getColumn(0).setHeaderValue(resourceMap.getString("modelsTable.columnModel.title0")); // NOI18N
+        modelsTable.getColumnModel().getColumn(1).setHeaderValue(resourceMap.getString("modelsTable.columnModel.title1")); // NOI18N
 
         jScrollPane2.setName("jScrollPane2"); // NOI18N
 
+        rulesTable.setAutoCreateRowSorter(true);
         rulesTable.setModel(new DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "No.", "Rule", "Class value", "No. of instances"
+                "No.", "Rule", "Class", "No. instances"
             }
         ) {
             Class[] types = new Class [] {
@@ -119,6 +136,7 @@ public class ModelsTabPanel extends javax.swing.JPanel {
             }
         });
         rulesTable.setName("rulesTable"); // NOI18N
+        rulesTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(rulesTable);
         rulesTable.getColumnModel().getColumn(0).setHeaderValue(resourceMap.getString("rulesTable.columnModel.title0")); // NOI18N
         rulesTable.getColumnModel().getColumn(1).setHeaderValue(resourceMap.getString("rulesTable.columnModel.title1")); // NOI18N
@@ -131,6 +149,10 @@ public class ModelsTabPanel extends javax.swing.JPanel {
         jButton1.setText(resourceMap.getString("jButton1.text")); // NOI18N
         jButton1.setName("jButton1"); // NOI18N
 
+        jButton2.setAction(actionMap.get("showPropertiesAction")); // NOI18N
+        jButton2.setText(resourceMap.getString("jButton2.text")); // NOI18N
+        jButton2.setName("jButton2"); // NOI18N
+
         GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -138,8 +160,8 @@ public class ModelsTabPanel extends javax.swing.JPanel {
             .addGroup(Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(Alignment.TRAILING)
-                    .addComponent(jScrollPane1, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE)
                     .addGroup(Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(Alignment.LEADING)
                             .addComponent(jLabel2)
@@ -150,7 +172,9 @@ public class ModelsTabPanel extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(coverageThresholdText, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(ComponentPlacement.RELATED)
-                                .addComponent(jButton1)))))
+                                .addComponent(jButton1)
+                                .addPreferredGap(ComponentPlacement.RELATED)
+                                .addComponent(jButton2)))))
                 .addContainerGap())
         );
 
@@ -167,7 +191,8 @@ public class ModelsTabPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(coverageThresholdText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
                 .addPreferredGap(ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 147, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(ComponentPlacement.UNRELATED)
@@ -177,33 +202,160 @@ public class ModelsTabPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void postInitComponents() {
+        //initModelsTableColumns();
         //app.getController().setColumnIdentifiers((TreeModelsTableModel)modelsTable.getModel());
         modelsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                modelsTableValueChanged(e);
+                updateRulesTable(e.getFirstIndex());
+//                app.getController().getupdateTreeModelRulesTable(e.getFirstIndex()
+//                        , (TreeModelsTableModel)modelsTable.getModel()
+//                        , (DefaultTableModel)rulesTable.getModel());
+//                modelsTableValueChanged(e);
             }
         });
-    }
+        app.getController().addAliasChangeListener(new AliasChangeListener() {
+            @Override
+            public void aliasChanged(AliasChangeEvent e) {
+                updateModelsTableColumns();
+//                ((TreeModelsTableModel)modelsTable.getModel()).setColumnIdentifiers(
+//                        app.getController().getColumnIdentifiers(Double.valueOf(coverageThresholdText.getText())));
+                recalculateAction();
+            }
+        });
+        app.getController().addModelChangeListener(new ModelChangeListener() {
+            @Override
+            public void modelChanged(ModelChangeEvent e) {
+                if ( ModelChangeEvent.MODEL_REMOVED != e.getType() ) {
+                    updateModelsTableColumns();
+                    recalculateAction();
+                }
+            }
+        });
+     }
+
+//    private void initModelsTableColumns() {
+//        for ( String classValue : app.getController().getClassValues(); i++ ) {
+//            modelsTable.getColumnModel().addColumn(new TableColumn().set);
+//        }
+//        // TODO Auto-generated method stub
+//
+//    }
 
     @Action
     public void recalculateAction() {
         Double scoreThreshold = Double.valueOf(scoreThresholdText.getText());
         Double coverageThreshold = Double.valueOf(coverageThresholdText.getText())/100.0;
-        app.getController().recalculateTreeModelsTable(scoreThreshold, coverageThreshold
-                , ((TreeAnalyzerView)app.getMainView()).getOverviewTableModel()
-                , (TreeModelsTableModel)modelsTable.getModel());
+
+        TreeModelsTableModel treeModelsTableModel = (TreeModelsTableModel)modelsTable.getModel();
+        DefaultTableModel rulesTableModel = (DefaultTableModel)rulesTable.getModel();
+        modelsTable.clearSelection();
+        treeModelsTableModel.clear();
+        rulesTableModel.setRowCount(0);
+
+        treeModelsTableModel.setColumnNames(app.getController().getColumnIdentifiers(coverageThreshold * 100));
+
+        for ( String treeModelId : app.getController().getEnabledTreeModels() ) {
+            DecisionTreeModel treeModel = app.getController().getTreeModel(treeModelId);
+            treeModelsTableModel.addTreeModel(
+                    treeModel.getId()
+                    , treeModel.getName()
+                    , treeModel.getRulesCount()
+                    , app.getController().getRulesCounts(treeModel)
+                    , app.getController().getFrequentRulesCounts(treeModel, scoreThreshold)
+                    , app.getController().getRelativeRulesCounts(treeModel, coverageThreshold));
+        }
+//        app.getController().recalculateTreeModelsTable(scoreThreshold, coverageThreshold
+//                , ((TreeAnalyzerView)app.getMainView()).getOverviewTableModel()
+//                , (TreeModelsTableModel)modelsTable.getModel());
     }
 
-    private void modelsTableValueChanged(ListSelectionEvent e) {
-        app.getController().updateTreeModelRulesTable(e.getFirstIndex()
-                , (TreeModelsTableModel)modelsTable.getModel()
-                , (DefaultTableModel)rulesTable.getModel());
+//    private void modelsTableValueChanged(ListSelectionEvent e) {
+//        app.getController().updateTreeModelRulesTable(e.getFirstIndex()
+//                , (TreeModelsTableModel)modelsTable.getModel()
+//                , (DefaultTableModel)rulesTable.getModel());
+//    }
+
+//    private void initModelsTableColumns() {
+//        String[] classValues = app.getController().getClassValues();
+//        //String coverageThreshold = coverageThresholdText.getText();
+//        for ( String classValue : classValues ) {
+//            TableColumn column = new TableColumn();
+//            column.setIdentifier(classValue + ".rules");
+//            modelsTable.getColumnModel().addColumn(column);
+//            modelsTable.removeC
+//            column = new TableColumn();
+//            column.setIdentifier(classValue + ".frequent");
+//            modelsTable.getColumnModel().addColumn(column);
+//            column = new TableColumn();
+//            column.setIdentifier(classValue + ".relative");
+//            modelsTable.getColumnModel().addColumn(column);
+//        }
+//        updateModelsTableColumns();
+//    }
+
+    private void updateModelsTableColumns() {
+        String[] classValues = app.getController().getClassValues();
+        String coverageThreshold = coverageThresholdText.getText();
+
+        DefaultTableColumnModel columnModel = new DefaultTableColumnModel();
+        TableColumn column = new TableColumn();
+        column.setHeaderValue("Name");
+        columnModel.addColumn(column);
+
+        column.setHeaderValue("Rules");
+        columnModel.addColumn(column);
+        for ( String classValue : classValues ) {
+            column = new TableColumn();
+            column.setHeaderValue(app.getController().getClassValueAlias(classValue));
+            columnModel.addColumn(column);
+
+            column = new TableColumn();
+            column.setHeaderValue("Frequent rules " + app.getController().getClassValueAlias(classValue));
+            columnModel.addColumn(column);
+
+            column = new TableColumn();
+            column.setHeaderValue(coverageThreshold + "% rules coverage " + app.getController().getClassValueAlias(classValue));
+            columnModel.addColumn(column);
+        }
+        modelsTable.setColumnModel(columnModel);
+    }
+
+    private void updateRulesTable(int rowIndex) {
+        //app.getController().getTreeModel(((TreeModelsTableModel)modelsTable.getModel()).getTreeModel(rowIndex));
+        DefaultTableModel rulesTableModel = (DefaultTableModel)rulesTable.getModel();
+        rulesTableModel.setRowCount(0);
+//        if ( rowIndex < 0 || treeModelsTableModel.getRowCount() == 0 ) {
+//            return;
+//        }
+        String selectedTreeModelId = ((TreeModelsTableModel)modelsTable.getModel()).getTreeModel(rowIndex);
+        List<Rule> rules = app.getController().getTreeModel(selectedTreeModelId).getRules();
+        int i = 1;
+        DecimalFormat format = new DecimalFormat("#,##0.0#");
+        for ( Rule rule : rules ) {
+            rulesTableModel.addRow(
+                    new Object[] {i++
+                            , rule.getExpression()
+                            , app.getController().getClassValueAlias(rule.getScore())
+                            , format.format(rule.getRecordCount()) + "/" + format.format(rule.getScoreRecordCount())});
+        }
+    }
+
+    @Action
+    public void showPropertiesAction() {
+        Double scoreThreshold = Double.valueOf(scoreThresholdText.getText());
+        Double coverageThreshold = Double.valueOf(coverageThresholdText.getText())/100.0;
+        String treeModelId = ((TreeModelsTableModel)modelsTable.getModel()).getTreeModel(modelsTable.getSelectedRow());
+        propertiesFrame.setTreeModel(treeModelId, scoreThreshold, coverageThreshold);
+        app.show(propertiesFrame);
+//        jTextPane1.setText(app.getController().getWekaOutput(modelsTable.getSelectedRow(), (TreeModelsTableModel)modelsTable.getModel()).toString());
+//        jFrame1.setVisible(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JTextField coverageThresholdText;
     private JButton jButton1;
+    private JButton jButton2;
     private JLabel jLabel1;
     private JLabel jLabel2;
     private JScrollPane jScrollPane1;
