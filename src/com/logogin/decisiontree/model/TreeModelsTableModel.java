@@ -14,11 +14,9 @@ import javax.swing.table.AbstractTableModel;
 public class TreeModelsTableModel extends AbstractTableModel {
 
     private List<Object[]> rows;
-    //private int classValuesCount;
     private String[] columnNames;
 
     public TreeModelsTableModel() {
-        //this.classValuesCount = 0;
         this.columnNames = new String[] {"Name", "Rules"};
         rows = new ArrayList<Object[]>();
     }
@@ -70,10 +68,6 @@ public class TreeModelsTableModel extends AbstractTableModel {
     public String getTreeModel(int rowIndex) {
         return (String)getValueAt(rowIndex, getColumnCount());
     }
-
-//    public void setColumnIdentifiers(String[] columnIdentifiers) {
-//        this.columnIdentifiers = columnIdentifiers;
-//    }
 
     public void clear() {
         int rowCount = getRowCount();

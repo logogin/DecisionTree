@@ -14,18 +14,12 @@ package com.logogin.decisiontree.panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
-
-import com.logogin.decisiontree.TreeAnalyzerApp;
-import com.logogin.decisiontree.TreeAnalyzerView;
-import com.logogin.decisiontree.model.ComboBoxItem;
-import com.logogin.decisiontree.model.DecisionTreeModel;
-import com.logogin.decisiontree.model.Rule;
-import com.logogin.decisiontree.model.event.AliasChangeEvent;
-import com.logogin.decisiontree.model.event.AliasChangeListener;
-import com.logogin.decisiontree.model.event.ModelChangeEvent;
-import com.logogin.decisiontree.model.event.ModelChangeListener;
 
 import javax.swing.ActionMap;
 import javax.swing.DefaultCellEditor;
@@ -39,10 +33,23 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.ResourceMap;
+
+import com.logogin.decisiontree.TreeAnalyzerApp;
+import com.logogin.decisiontree.model.ComboBoxItem;
+import com.logogin.decisiontree.model.DecisionTreeModel;
+import com.logogin.decisiontree.model.Rule;
+import com.logogin.decisiontree.model.event.AliasChangeEvent;
+import com.logogin.decisiontree.model.event.AliasChangeListener;
+import com.logogin.decisiontree.model.event.ModelChangeEvent;
+import com.logogin.decisiontree.model.event.ModelChangeListener;
 
 /**
  *
@@ -51,6 +58,7 @@ import org.jdesktop.application.ResourceMap;
 public class CompareTabPanel extends javax.swing.JPanel {
 
     private TreeAnalyzerApp app;
+    private Map<String, List<Integer>> rulesDiff;
 
     /** Creates new form CompareTabPanel */
     public CompareTabPanel() {
@@ -105,7 +113,9 @@ public class CompareTabPanel extends javax.swing.JPanel {
         ignoredFiltersTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(ignoredFiltersTable);
         ResourceMap resourceMap = Application.getInstance(TreeAnalyzerApp.class).getContext().getResourceMap(CompareTabPanel.class);
+        ignoredFiltersTable.getColumnModel().getColumn(0).setPreferredWidth(5);
         ignoredFiltersTable.getColumnModel().getColumn(0).setHeaderValue(resourceMap.getString("ignoredFiltersTable.columnModel.title0")); // NOI18N
+        ignoredFiltersTable.getColumnModel().getColumn(1).setPreferredWidth(95);
         ignoredFiltersTable.getColumnModel().getColumn(1).setHeaderValue(resourceMap.getString("ignoredFiltersTable.columnModel.title1")); // NOI18N
         ignoredFiltersTable.getColumnModel().getColumn(1).setCellEditor(new DefaultCellEditor(dataFieldsComboBox));
 
@@ -159,12 +169,19 @@ public class CompareTabPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        leftRulesTable.setColumnSelectionAllowed(true);
         leftRulesTable.setName("leftRulesTable"); // NOI18N
+        leftRulesTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         leftRulesTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(leftRulesTable);
+        leftRulesTable.getColumnModel().getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        leftRulesTable.getColumnModel().getColumn(0).setPreferredWidth(15);
         leftRulesTable.getColumnModel().getColumn(0).setHeaderValue(resourceMap.getString("leftRulesTable.columnModel.title0")); // NOI18N
+        leftRulesTable.getColumnModel().getColumn(1).setPreferredWidth(500);
         leftRulesTable.getColumnModel().getColumn(1).setHeaderValue(resourceMap.getString("leftRulesTable.columnModel.title1")); // NOI18N
+        leftRulesTable.getColumnModel().getColumn(2).setPreferredWidth(20);
         leftRulesTable.getColumnModel().getColumn(2).setHeaderValue(resourceMap.getString("leftRulesTable.columnModel.title2")); // NOI18N
+        leftRulesTable.getColumnModel().getColumn(3).setPreferredWidth(20);
         leftRulesTable.getColumnModel().getColumn(3).setHeaderValue(resourceMap.getString("leftRulesTable.columnModel.title3")); // NOI18N
 
         jSplitPane1.setLeftComponent(jScrollPane2);
@@ -195,12 +212,19 @@ public class CompareTabPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        rightRulesTable.setColumnSelectionAllowed(true);
         rightRulesTable.setName("rightRulesTable"); // NOI18N
+        rightRulesTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         rightRulesTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane3.setViewportView(rightRulesTable);
+        rightRulesTable.getColumnModel().getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        rightRulesTable.getColumnModel().getColumn(0).setPreferredWidth(15);
         rightRulesTable.getColumnModel().getColumn(0).setHeaderValue(resourceMap.getString("rightRulesTable.columnModel.title0")); // NOI18N
+        rightRulesTable.getColumnModel().getColumn(1).setPreferredWidth(500);
         rightRulesTable.getColumnModel().getColumn(1).setHeaderValue(resourceMap.getString("rightRulesTable.columnModel.title1")); // NOI18N
+        rightRulesTable.getColumnModel().getColumn(2).setPreferredWidth(20);
         rightRulesTable.getColumnModel().getColumn(2).setHeaderValue(resourceMap.getString("rightRulesTable.columnModel.title2")); // NOI18N
+        rightRulesTable.getColumnModel().getColumn(3).setPreferredWidth(20);
         rightRulesTable.getColumnModel().getColumn(3).setHeaderValue(resourceMap.getString("rightRulesTable.columnModel.title3")); // NOI18N
 
         jSplitPane1.setRightComponent(jScrollPane3);
@@ -255,12 +279,11 @@ public class CompareTabPanel extends javax.swing.JPanel {
         app.getController().addModelChangeListener(new ModelChangeListener() {
             @Override
             public void modelChanged(ModelChangeEvent e) {
-                if ( ModelChangeEvent.MODEL_REMOVED != e.getType() ) {
-                    dataFieldsComboBox.setModel(new DefaultComboBoxModel(
-                            app.getController().getDataFieldNames()));
-
+                if ( ModelChangeEvent.MODELS_CHANGED == e.getType() ) {
+                    dataFieldsComboBox.setModel(new DefaultComboBoxModel(app.getController().getDataFieldNames()));
                     leftModelComboBox.setModel(new DefaultComboBoxModel(app.getController().getEnabledTreeModelsItems()));
                     rightModelComboBox.setModel(new DefaultComboBoxModel(app.getController().getEnabledTreeModelsItems()));
+                    applyAction();
                 }
             }
         });
@@ -285,22 +308,21 @@ public class CompareTabPanel extends javax.swing.JPanel {
             }
         });
 
-//        leftModelComboBox.setModel(new DefaultComboBoxModel(createComboBoxItems(app.getC)TreeModelsItems
-//                app.getController().getEnabledTreeModelsItems(
-//                        ((TreeAnalyzerView)app.getMainView()).getOverviewTableModel())));
-//        rightModelComboBox.setModel(new DefaultComboBoxModel(
-//                app.getController().getEnabledTreeModelsItems(
-//                        ((TreeAnalyzerView)app.getMainView()).getOverviewTableModel())));
+        leftRulesTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+//                List<Integer> rightDiff = rulesDiff.get(e.getFirstIndex() + ".left");
+//                for ( int rowIndex : rightDiff ) {
+//                    rightRulesTable.getCellRenderer(rowIndex, 0).getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column).
+//                }
+            }
+        });
     }
 
     @Action
     public void applyAction() {
         String leftTreeModelId = (String)((ComboBoxItem)leftModelComboBox.getSelectedItem()).getValue();
         String rightTreeModelId = (String)((ComboBoxItem)rightModelComboBox.getSelectedItem()).getValue();
-//        app.getController().compareTreeModels(leftTreeModelId, rightTreeModelId
-//                , (DefaultTableModel)leftRulesTable.getModel()
-//                , (DefaultTableModel)rightRulesTable.getModel()
-//                , (DefaultTableModel)ignoredFiltersTable.getModel());
 
         DecimalFormat format = new DecimalFormat("#,##0.0#");
         DecisionTreeModel leftTreeModel = app.getController().getTreeModel(leftTreeModelId);
@@ -309,6 +331,7 @@ public class CompareTabPanel extends javax.swing.JPanel {
         Set<String> ignoredDataFields = getIgnoredDataFields();
         Set<Rule> leftIntersection = leftTreeModel.getRulesIntersection(rightTreeModel.getRules(), ignoredDataFields);
         Set<Rule> rightIntersection = rightTreeModel.getRulesIntersection(leftTreeModel.getRules(), ignoredDataFields);
+        createRulesDiff(leftIntersection, rightIntersection);
 
         DefaultTableModel leftRulesTableModel = (DefaultTableModel)leftRulesTable.getModel();
         DefaultTableModel rightRulesTableModel = (DefaultTableModel)rightRulesTable.getModel();
@@ -332,6 +355,26 @@ public class CompareTabPanel extends javax.swing.JPanel {
         }
     }
 
+    private void createRulesDiff(Set<Rule> leftIntersection, Set<Rule> rightIntersection) {
+        rulesDiff = new HashMap<String, List<Integer>>();
+        int i = 0;
+        for ( Rule leftRule : leftIntersection ) {
+            String leftKey = i + ".left";
+            rulesDiff.put(leftKey, new ArrayList<Integer>());
+            int j = 0;
+            for ( Rule rightRule : rightIntersection ) {
+                String rightKey = j + ".right";
+                rulesDiff.put(rightKey, new ArrayList<Integer>());
+                if ( leftRule.equals(rightRule) ) {
+                    rulesDiff.get(leftKey).add(j);
+                    rulesDiff.get(rightKey).add(i);
+                }
+                j++;
+            }
+            i++;
+        }
+    }
+
     private Set<String> getIgnoredDataFields() {
         DefaultTableModel ignoredDataFieldsTableModel = (DefaultTableModel)ignoredFiltersTable.getModel();
         Set<String> ignoredDataFields = new HashSet<String>();
@@ -342,21 +385,6 @@ public class CompareTabPanel extends javax.swing.JPanel {
         }
         return ignoredDataFields;
     }
-
-//    public void updateModels() {
-//        dataFieldsComboBox.setModel(new DefaultComboBoxModel(app
-//                .getController().getDataFieldNames(
-//                        ((TreeAnalyzerView) app.getMainView())
-//                                .getOverviewTableModel())));
-//        leftModelComboBox.setModel(new DefaultComboBoxModel(app.getController()
-//                .getEnabledTreeModelsItems(
-//                        ((TreeAnalyzerView) app.getMainView())
-//                                .getOverviewTableModel())));
-//        rightModelComboBox.setModel(new DefaultComboBoxModel(app
-//                .getController().getEnabledTreeModelsItems(
-//                        ((TreeAnalyzerView) app.getMainView())
-//                                .getOverviewTableModel())));
-//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JComboBox dataFieldsComboBox;

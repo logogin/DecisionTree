@@ -11,25 +11,13 @@
 
 package com.logogin.decisiontree.panel;
 
-import java.awt.Dimension;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.logogin.decisiontree.TreeAnalyzerApp;
-import com.logogin.decisiontree.TreeAnalyzerView;
-import com.logogin.decisiontree.model.DecisionTreeModel;
-import com.logogin.decisiontree.model.JAXBUtil;
-import com.logogin.decisiontree.model.OverviewTableModel;
-import com.logogin.decisiontree.model.event.AliasChangeEvent;
-import com.logogin.decisiontree.model.event.AliasChangeListener;
-import com.logogin.decisiontree.model.event.ModelChangeEvent;
-import com.logogin.decisiontree.model.event.ModelChangeListener;
-
 import javax.swing.ActionMap;
 import javax.swing.DebugGraphics;
-
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
@@ -41,13 +29,19 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.ResourceMap;
 import org.jdesktop.application.Task;
+
+import com.logogin.decisiontree.TreeAnalyzerApp;
+import com.logogin.decisiontree.model.DecisionTreeModel;
+import com.logogin.decisiontree.model.JAXBUtil;
+import com.logogin.decisiontree.model.OverviewTableModel;
+import com.logogin.decisiontree.model.event.ModelChangeEvent;
+import com.logogin.decisiontree.model.event.ModelChangeListener;
 
 /**
  *
@@ -96,8 +90,11 @@ public class OverviewTabPanel extends javax.swing.JPanel {
         overviewTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(overviewTable);
         ResourceMap resourceMap = Application.getInstance(TreeAnalyzerApp.class).getContext().getResourceMap(OverviewTabPanel.class);
+        overviewTable.getColumnModel().getColumn(0).setPreferredWidth(10);
         overviewTable.getColumnModel().getColumn(0).setHeaderValue(resourceMap.getString("overviewTable.columnModel.title0")); // NOI18N
+        overviewTable.getColumnModel().getColumn(1).setPreferredWidth(45);
         overviewTable.getColumnModel().getColumn(1).setHeaderValue(resourceMap.getString("overviewTable.columnModel.title1")); // NOI18N
+        overviewTable.getColumnModel().getColumn(2).setPreferredWidth(45);
         overviewTable.getColumnModel().getColumn(2).setHeaderValue(resourceMap.getString("overviewTable.columnModel.title2")); // NOI18N
 
         ActionMap actionMap = Application.getInstance(TreeAnalyzerApp.class).getContext().getActionMap(OverviewTabPanel.class, this);
@@ -137,8 +134,11 @@ public class OverviewTabPanel extends javax.swing.JPanel {
         dataFieldAliasesTable.setName("dataFieldAliasesTable"); // NOI18N
         dataFieldAliasesTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(dataFieldAliasesTable);
+        dataFieldAliasesTable.getColumnModel().getColumn(0).setPreferredWidth(25);
         dataFieldAliasesTable.getColumnModel().getColumn(0).setHeaderValue(resourceMap.getString("dataFieldAliasesTable.columnModel.title0")); // NOI18N
+        dataFieldAliasesTable.getColumnModel().getColumn(1).setPreferredWidth(25);
         dataFieldAliasesTable.getColumnModel().getColumn(1).setHeaderValue(resourceMap.getString("dataFieldAliasesTable.columnModel.title1")); // NOI18N
+        dataFieldAliasesTable.getColumnModel().getColumn(2).setPreferredWidth(50);
         dataFieldAliasesTable.getColumnModel().getColumn(2).setHeaderValue(resourceMap.getString("dataFieldAliasesTable.columnModel.title2")); // NOI18N
 
         GroupLayout layout = new GroupLayout(this);
@@ -172,6 +172,14 @@ public class OverviewTabPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void postInitComponents() {
+        ResourceMap resourceMap = app.getContext().getResourceMap(OverviewTabPanel.class);
+        overviewTable.getColumnModel().getColumn(0).setPreferredWidth(10);
+        overviewTable.getColumnModel().getColumn(0).setHeaderValue(resourceMap.getString("overviewTable.columnModel.title0")); // NOI18N
+        overviewTable.getColumnModel().getColumn(1).setPreferredWidth(45);
+        overviewTable.getColumnModel().getColumn(1).setHeaderValue(resourceMap.getString("overviewTable.columnModel.title1")); // NOI18N
+        overviewTable.getColumnModel().getColumn(2).setPreferredWidth(45);
+        overviewTable.getColumnModel().getColumn(2).setHeaderValue(resourceMap.getString("overviewTable.columnModel.title2")); // NOI18N
+
         app.getController().initDataFieldAliases();
         initAliasesTable();
         app.getController().addModelChangeListener(new ModelChangeListener() {
@@ -180,9 +188,12 @@ public class OverviewTabPanel extends javax.swing.JPanel {
                 if ( ModelChangeEvent.MODEL_ADDED == e.getType() ) {
                     ((OverviewTableModel)overviewTable.getModel()).addTreeModel(e.getTreeModel());
                 }
+                if ( ModelChangeEvent.MODELS_REMOVED == e.getType() ) {
+                    ((OverviewTableModel)overviewTable.getModel()).clear();
+                }
             }
         });
-        //app.getController().initDataFieldAliases((DefaultTableModel)dataFieldAliasesTable.getModel());
+
         dataFieldAliasesTable.getModel().addTableModelListener(new TableModelListener() {
             @Override
             public void tableChanged(TableModelEvent e) {
@@ -192,11 +203,7 @@ public class OverviewTabPanel extends javax.swing.JPanel {
                     app.getController().setDataFieldAlias((String)tableModel.getValueAt(rowIndex, 0)
                             , (String)tableModel.getValueAt(rowIndex, 1)
                             , (String)tableModel.getValueAt(rowIndex, 2));
-//                    String value = tableModel.getValueAt(rowIndex, 0) + "." + tableModel.getValueAt(rowIndex, 1);
-//                    String alias = (String)tableModel.getValueAt(rowIndex, 2);
-//                    dataFieldAliases.put(value, alias);
                 }
-//                app.getController().onDataFieldAliasesTableChanged(e);
             }
         });
 
@@ -208,31 +215,9 @@ public class OverviewTabPanel extends javax.swing.JPanel {
                     int rowIndex = e.getFirstRow();
                     app.getController().setTreeModelEnabled(tableModel.getTreeModelId(rowIndex)
                             , tableModel.getTreeModelEnabled(rowIndex));
-                    //((TreeAnalyzerView)app.getMainView()).updateCompareTabModels();
                 }
             }
         });
-
-//        Dimension tableDim = overviewTable.getPreferredSize();
-//
-//        double[] percentages = new double[] {0.1, 0.8, 0.1};
-//        double total = 0;
-//
-//        for (int i = 0; i < overviewTable.getColumnModel().getColumnCount(); i++)
-//        {
-//            total += percentages[i];
-//        }
-//
-//        for (int i = 0; i < overviewTable.getColumnModel().getColumnCount(); i++)
-//        {
-//            TableColumn column = overviewTable.getColumnModel().getColumn(i);
-//            column.setPreferredWidth(
-//                 (int)(tableDim.width * (percentages[i] / total)));
-//        }
-//
-//        overviewTable.getColumnModel().getColumn(0).setMinWidth(10);
-//        overviewTable.getColumnModel().getColumn(0).setMaxWidth(30);
-
     }
 
     private void initAliasesTable() {
@@ -264,7 +249,6 @@ public class OverviewTabPanel extends javax.swing.JPanel {
             // Your Task's code here.  This method runs
             // on a background thread, so don't reference
             // the Swing GUI from here.
-            //OverviewTableModel overviewTreeModel = (OverviewTableModel)overviewTable.getModel();
             int i = 0;
             List<DecisionTreeModel> result = new ArrayList<DecisionTreeModel>();
             float percent = 1.0f / modelFileChooser.getSelectedFiles().length;
@@ -272,9 +256,9 @@ public class OverviewTabPanel extends javax.swing.JPanel {
             for ( File file : modelFileChooser.getSelectedFiles() ) {
                 try {
                     setMessage("Processing model " + file.getAbsolutePath());
-                    DecisionTreeModel treeModel = new DecisionTreeModel(file.getAbsolutePath(), file.getName(), JAXBUtil.unmarshal(file, true));
+                    DecisionTreeModel treeModel = new DecisionTreeModel(file.getAbsolutePath(), file.getName()
+                            , JAXBUtil.unmarshal(file, true));
                     result.add(treeModel);
-                    //app.getController().addTreeModel(treeModel);
                     setProgress(percent * ++i);
                 } catch (Exception ex) {
                     setMessage("Error");
@@ -292,17 +276,13 @@ public class OverviewTabPanel extends javax.swing.JPanel {
             for ( DecisionTreeModel treeModel : result ) {
                 app.getController().addTreeModel(treeModel);
             }
-            //((TreeAnalyzerView)app.getMainView()).onLoadModelsSuccess();
+            app.getController().fireModelsChanged();
         }
     }
 
     @Action
     public void unloadAllAction() {
         app.getController().unloadTreeModels();
-    }
-
-    public OverviewTableModel getOverviewTableModel() {
-        return (OverviewTableModel)overviewTable.getModel();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

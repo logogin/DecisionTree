@@ -71,7 +71,6 @@ public class ModelPropertiesFrame extends javax.swing.JFrame {
         jScrollPane2 = new JScrollPane();
         wekaTextPane = new JTextPane();
 
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setName("Form"); // NOI18N
 
         tabbedPane.setName("tabbedPane"); // NOI18N
@@ -108,9 +107,13 @@ public class ModelPropertiesFrame extends javax.swing.JFrame {
         rulesTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(rulesTable);
         ResourceMap resourceMap = Application.getInstance(TreeAnalyzerApp.class).getContext().getResourceMap(ModelPropertiesFrame.class);
+        rulesTable.getColumnModel().getColumn(0).setPreferredWidth(20);
         rulesTable.getColumnModel().getColumn(0).setHeaderValue(resourceMap.getString("rulesTable.columnModel.title0")); // NOI18N
+        rulesTable.getColumnModel().getColumn(1).setPreferredWidth(500);
         rulesTable.getColumnModel().getColumn(1).setHeaderValue(resourceMap.getString("rulesTable.columnModel.title1")); // NOI18N
+        rulesTable.getColumnModel().getColumn(2).setPreferredWidth(20);
         rulesTable.getColumnModel().getColumn(2).setHeaderValue(resourceMap.getString("rulesTable.columnModel.title2")); // NOI18N
+        rulesTable.getColumnModel().getColumn(3).setPreferredWidth(20);
         rulesTable.getColumnModel().getColumn(3).setHeaderValue(resourceMap.getString("rulesTable.columnModel.title3")); // NOI18N
 
         GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
@@ -147,7 +150,7 @@ public class ModelPropertiesFrame extends javax.swing.JFrame {
                 Integer.class, String.class, String.class, String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, true, true
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -161,9 +164,13 @@ public class ModelPropertiesFrame extends javax.swing.JFrame {
         frequentRulesTable.setName("frequentRulesTable"); // NOI18N
         frequentRulesTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane3.setViewportView(frequentRulesTable);
+        frequentRulesTable.getColumnModel().getColumn(0).setPreferredWidth(20);
         frequentRulesTable.getColumnModel().getColumn(0).setHeaderValue(resourceMap.getString("frequentRulesTable.columnModel.title0")); // NOI18N
+        frequentRulesTable.getColumnModel().getColumn(1).setPreferredWidth(500);
         frequentRulesTable.getColumnModel().getColumn(1).setHeaderValue(resourceMap.getString("frequentRulesTable.columnModel.title1")); // NOI18N
+        frequentRulesTable.getColumnModel().getColumn(2).setPreferredWidth(20);
         frequentRulesTable.getColumnModel().getColumn(2).setHeaderValue(resourceMap.getString("frequentRulesTable.columnModel.title2")); // NOI18N
+        frequentRulesTable.getColumnModel().getColumn(3).setPreferredWidth(20);
         frequentRulesTable.getColumnModel().getColumn(3).setHeaderValue(resourceMap.getString("frequentRulesTable.columnModel.title3")); // NOI18N
 
         GroupLayout frequentRulesPanelLayout = new GroupLayout(frequentRulesPanel);
@@ -200,7 +207,7 @@ public class ModelPropertiesFrame extends javax.swing.JFrame {
                 Integer.class, String.class, String.class, String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, true, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -214,9 +221,13 @@ public class ModelPropertiesFrame extends javax.swing.JFrame {
         relativeRulesTable.setName("relativeRulesTable"); // NOI18N
         relativeRulesTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane4.setViewportView(relativeRulesTable);
+        relativeRulesTable.getColumnModel().getColumn(0).setPreferredWidth(20);
         relativeRulesTable.getColumnModel().getColumn(0).setHeaderValue(resourceMap.getString("relativeRulesTable.columnModel.title0")); // NOI18N
+        relativeRulesTable.getColumnModel().getColumn(1).setPreferredWidth(500);
         relativeRulesTable.getColumnModel().getColumn(1).setHeaderValue(resourceMap.getString("relativeRulesTable.columnModel.title1")); // NOI18N
+        relativeRulesTable.getColumnModel().getColumn(2).setPreferredWidth(20);
         relativeRulesTable.getColumnModel().getColumn(2).setHeaderValue(resourceMap.getString("relativeRulesTable.columnModel.title2")); // NOI18N
+        relativeRulesTable.getColumnModel().getColumn(3).setPreferredWidth(20);
         relativeRulesTable.getColumnModel().getColumn(3).setHeaderValue(resourceMap.getString("relativeRulesTable.columnModel.title3")); // NOI18N
 
         GroupLayout relativeRulesPanelLayout = new GroupLayout(relativeRulesPanel);
@@ -286,6 +297,7 @@ public class ModelPropertiesFrame extends javax.swing.JFrame {
         setTitle("Properties of " + treeModel.getName() + " (" + treeModelId + ")");
 
         DefaultTableModel rulesTableModel = (DefaultTableModel)rulesTable.getModel();
+        rulesTableModel.setRowCount(0);
         int i = 1;
         DecimalFormat format = new DecimalFormat("#,##0.0#");
         for ( Rule rule : treeModel.getRules() ) {
@@ -298,6 +310,7 @@ public class ModelPropertiesFrame extends javax.swing.JFrame {
 
         tabbedPane.setTitleAt(1, "Frequent rules (" + scoreThreshold + ")");
         DefaultTableModel frequentRulesTableModel = (DefaultTableModel)frequentRulesTable.getModel();
+        frequentRulesTableModel.setRowCount(0);
         i = 1;
         for ( Rule rule : treeModel.getFrequentRules(scoreThreshold) ) {
             frequentRulesTableModel.addRow(
@@ -309,6 +322,7 @@ public class ModelPropertiesFrame extends javax.swing.JFrame {
 
         tabbedPane.setTitleAt(2, "Relative rules (" + coverageThreshold * 100 + ")");
         DefaultTableModel relativeRulesTableModel = (DefaultTableModel)relativeRulesTable.getModel();
+        relativeRulesTableModel.setRowCount(0);
         i = 1;
         for ( Rule rule : treeModel.getRelativeRules(coverageThreshold) ) {
             relativeRulesTableModel.addRow(
@@ -317,7 +331,6 @@ public class ModelPropertiesFrame extends javax.swing.JFrame {
                             , app.getController().getClassValueAlias(rule.getScore())
                             , format.format(rule.getRecordCount()) + "/" + format.format(rule.getScoreRecordCount())});
         }
-
 
         wekaTextPane.setText(treeModel.dumpWekaTree().toString());
     }

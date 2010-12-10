@@ -4,16 +4,15 @@
 
 package com.logogin.decisiontree;
 
-import com.logogin.decisiontree.model.OverviewTableModel;
-import com.logogin.decisiontree.model.event.ModelChangeEvent;
-import com.logogin.decisiontree.model.event.ModelChangeListener;
-import com.logogin.decisiontree.panel.CompareTabPanel;
-import com.logogin.decisiontree.panel.ModelsTabPanel;
-import com.logogin.decisiontree.panel.OverviewTabPanel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.ActionMap;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JButton;
+import javax.swing.Icon;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -24,18 +23,20 @@ import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
+import javax.swing.Timer;
+
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
+import org.jdesktop.application.FrameView;
 import org.jdesktop.application.ResourceMap;
 import org.jdesktop.application.SingleFrameApplication;
-import org.jdesktop.application.FrameView;
 import org.jdesktop.application.TaskMonitor;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.Timer;
-import javax.swing.Icon;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
+
+import com.logogin.decisiontree.model.event.ModelChangeEvent;
+import com.logogin.decisiontree.model.event.ModelChangeListener;
+import com.logogin.decisiontree.panel.CompareTabPanel;
+import com.logogin.decisiontree.panel.ModelsTabPanel;
+import com.logogin.decisiontree.panel.OverviewTabPanel;
 
 /**
  * The application's main frame.
@@ -233,19 +234,17 @@ public class TreeAnalyzerView extends FrameView {
         compareTabPanel = new CompareTabPanel();
         compareTabPanel.setName("compareTabPanel"); // NOI18N
 
-        getApp().getController().addModelChangeListener(new ModelChangeListener() {
+        TreeAnalyzerApp.getApplication().getController().addModelChangeListener(new ModelChangeListener() {
             @Override
             public void modelChanged(ModelChangeEvent e) {
                 if ( ModelChangeEvent.MODEL_ADDED == e.getType() ) {
                     addTabPanels();
                 }
-                if ( ModelChangeEvent.MODEL_REMOVED == e.getType() ) {
+                if ( ModelChangeEvent.MODELS_REMOVED == e.getType() ) {
                     removeTabPanels();
                 }
             }
         });
-        //onLoadModelsSuccess();
-        //tabbedPane.setEnabledAt(1, false);
     }
 
     private void addTabPanels() {
@@ -263,18 +262,6 @@ public class TreeAnalyzerView extends FrameView {
             tabbedPane.remove(compareTabPanel);
             tabPanelsAdded = false;
         }
-    }
-
-//    public OverviewTableModel getOverviewTableModel() {
-//        return overviewTabPanel.getOverviewTableModel();
-//    }
-
-//    public void updateCompareTabModels() {
-//        compareTabPanel.updateModels();
-//    }
-
-    private TreeAnalyzerApp getApp() {
-        return (TreeAnalyzerApp)getApplication();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

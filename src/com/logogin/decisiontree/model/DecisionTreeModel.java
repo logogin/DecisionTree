@@ -61,10 +61,6 @@ public class DecisionTreeModel {
             List<Node> rule = exprStack.pop();
             List<Node> children = node.getNodes();
             rule.add(node);
-//            List<SimplePredicate> predicates = node.getSimplePredicates();
-//            for ( SimplePredicate predicate : predicates ) {
-//                expr.and(createTerm(predicate));
-//            }
             if ( !children.isEmpty() ) {
                 for ( Node child : children ) {
                     nodeStack.push(child);
@@ -131,24 +127,7 @@ public class DecisionTreeModel {
     }
 
     public int getRulesCount() {
-        return spreadedTree.size();
-//        int result = 0;
-//        Deque<Node> nodeStack = new ArrayDeque<Node>();
-//        for ( Node root : getRootNodes() ) {
-//            nodeStack.push(root);
-//        }
-//        while (!nodeStack.isEmpty()) {
-//            Node node = nodeStack.pop();
-//            List<Node> children = node.getNodes();
-//            if ( !children.isEmpty() ) {
-//                for ( Node child : children ) {
-//                    nodeStack.push(child);
-//                }
-//            } else {
-//                result++;
-//            }
-//        }
-//        return result;
+        return rules.size();
     }
 
     public int getRulesCountForScore(String score) {
@@ -158,23 +137,6 @@ public class DecisionTreeModel {
                 result++;
             }
         }
-//        Deque<Node> nodeStack = new ArrayDeque<Node>();
-//        for ( Node root : getRootNodes() ) {
-//            nodeStack.push(root);
-//        }
-//        while (!nodeStack.isEmpty()) {
-//            Node node = nodeStack.pop();
-//            List<Node> children = node.getNodes();
-//            if ( !children.isEmpty() ) {
-//                for ( Node child : children ) {
-//                    nodeStack.push(child);
-//                }
-//            } else {
-//                if ( node.getScore().equals(score) ) {
-//                    result++;
-//                }
-//            }
-//        }
         return result;
     }
 
@@ -194,23 +156,6 @@ public class DecisionTreeModel {
                 result++;
             }
         }
-//        Deque<Node> nodeStack = new ArrayDeque<Node>();
-//        for ( Node root : getRootNodes() ) {
-//            nodeStack.push(root);
-//        }
-//        while (!nodeStack.isEmpty()) {
-//            Node node = nodeStack.pop();
-//            List<Node> children = node.getNodes();
-//            if ( !children.isEmpty() ) {
-//                for ( Node child : children ) {
-//                    nodeStack.push(child);
-//                }
-//            } else {
-//                if ( node.getScore().equals(score) && getScoreDistributionRecordCount(node, node.getScore()) >= threshold ) {
-//                    result++;
-//                }
-//            }
-//        }
         return result;
     }
 
@@ -222,23 +167,6 @@ public class DecisionTreeModel {
                 scores.add(rule.getScoreRecordCount());
             }
         }
-//        Deque<Node> nodeStack = new ArrayDeque<Node>();
-//        for ( Node root : getRootNodes() ) {
-//            nodeStack.push(root);
-//        }
-//        while (!nodeStack.isEmpty()) {
-//            Node node = nodeStack.pop();
-//            List<Node> children = node.getNodes();
-//            if ( !children.isEmpty() ) {
-//                for ( Node child : children ) {
-//                    nodeStack.push(child);
-//                }
-//            } else {
-//                if ( node.getScore().equals(score) ) {
-//                    scores.add(getScoreDistributionRecordCount(node, node.getScore()));
-//                }
-//            }
-//        }
 
         double threshold = getScoreDistributionRecordCount(getRootNodes().get(0), score)*percentage;
         Collections.sort(scores, Collections.reverseOrder());
@@ -255,43 +183,6 @@ public class DecisionTreeModel {
 
     public List<Rule> getRules() {
         return rules;
-//        List<Rule> result = new ArrayList<Rule>();
-//        for ( List<Node> rule : spreadedTree ) {
-//            LogicalExpression expr = new LogicalExpression();
-//            for ( Node node : rule ) {
-//                for ( SimplePredicate predicate : node.getSimplePredicates() ) {
-//                  expr.and(createTerm(predicate));
-//                }
-//            }
-//            Node node = rule.get(rule.size() - 1);
-//            result.add(new Rule(expr, node.getScore(), node.getRecordCount(), getScoreDistributionRecordCount(node, node.getScore())));
-//        }
-//        Deque<Node> nodeStack = new ArrayDeque<Node>();
-//        Deque<LogicalExpression> exprStack = new ArrayDeque<LogicalExpression>();
-//        for ( Node root : getRootNodes() ) {
-//            nodeStack.push(root);
-//            exprStack.push(new LogicalExpression());
-//        }
-//
-//        while (!nodeStack.isEmpty()) {
-//            Node node = nodeStack.pop();
-//            LogicalExpression expr = exprStack.pop();
-//            List<Node> children = node.getNodes();
-//            List<SimplePredicate> predicates = node.getSimplePredicates();
-//            for ( SimplePredicate predicate : predicates ) {
-//                expr.and(createTerm(predicate));
-//            }
-//            if ( !children.isEmpty() ) {
-//                for ( Node child : children ) {
-//                    nodeStack.push(child);
-//                    exprStack.push(expr.clone());
-//                }
-//            } else {
-//                result.add(new Rule(expr, node.getScore(), node.getRecordCount(), getScoreDistributionRecordCount(node, node.getScore())));
-//            }
-//        }
-//        assert !exprStack.isEmpty() : "exprStack not empty";
-//        return result;
     }
 
     public Set<Rule> getRulesIntersection(Collection<Rule> rulesToRetain, Set<String> ignoredDataFields) {
@@ -355,11 +246,6 @@ public class DecisionTreeModel {
 
         return text;
     }
-
-//    private String getDistinguishingName(String absolutePath) {
-//        String[] parts = absolutePath.split("/");
-//        return parts[parts.length - 1];
-//    }
 
     private LogicalTerm.Operator translateOperator(SimplePredicate.Operator operator) {
         switch (operator) {

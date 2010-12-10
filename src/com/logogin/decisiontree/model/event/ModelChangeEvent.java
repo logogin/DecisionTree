@@ -12,10 +12,11 @@ import com.logogin.decisiontree.model.DecisionTreeModel;
  */
 public class ModelChangeEvent extends EventObject {
 
-    public static final int MODEL_ENABLED = 1;
-    public static final int MODEL_DISABLED = 2;
+//    public static final int MODEL_ENABLED = 1;
+//    public static final int MODEL_DISABLED = 2;
     public static final int MODEL_ADDED = 3;
-    public static final int MODEL_REMOVED = 4;
+    public static final int MODELS_REMOVED = 4;
+    public static final int MODELS_CHANGED = 5;
 
     private DecisionTreeModel treeModel;
     private int type;
@@ -30,10 +31,10 @@ public class ModelChangeEvent extends EventObject {
         this.type = MODEL_ADDED;
     }
 
-    public ModelChangeEvent(Object source, DecisionTreeModel treeModel, boolean enabled) {
-        this(source, treeModel);
-        this.type = enabled ? MODEL_ENABLED : MODEL_DISABLED;
-    }
+//    public ModelChangeEvent(Object source, DecisionTreeModel treeModel, boolean enabled) {
+//        this(source, treeModel);
+//        this.type = enabled ? MODEL_ENABLED : MODEL_DISABLED;
+//    }
 
     public DecisionTreeModel getTreeModel() {
         return treeModel;
@@ -43,9 +44,15 @@ public class ModelChangeEvent extends EventObject {
         return type;
     }
 
-    public static ModelChangeEvent createModelRemovedEvent(Object source) {
+    public static ModelChangeEvent createModelsRemovedEvent(Object source) {
         ModelChangeEvent e = new ModelChangeEvent(source);
-        e.type = MODEL_REMOVED;
+        e.type = MODELS_REMOVED;
+        return e;
+    }
+
+    public static ModelChangeEvent createModelsChangedEvent(Object source) {
+        ModelChangeEvent e = new ModelChangeEvent(source);
+        e.type = MODELS_CHANGED;
         return e;
     }
 }

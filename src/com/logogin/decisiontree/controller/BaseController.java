@@ -11,10 +11,6 @@ public abstract class BaseController {
 
     private EventListenerList listenerList = new EventListenerList();
 
-//    private BaseController() {
-//        listenerList = new EventListenerList();
-//    }
-
     public void addModelChangeListener(ModelChangeListener l) {
         listenerList.add(ModelChangeListener.class, l);
     }
@@ -23,7 +19,7 @@ public abstract class BaseController {
         listenerList.add(AliasChangeListener.class, l);
     }
 
-    public void fireModelChanged(ModelChangeEvent e) {
+    protected void fireModelChanged(ModelChangeEvent e) {
         // Guaranteed to return a non-null array
         Object[] listeners = listenerList.getListenerList();
         // Process the listeners last to first, notifying
@@ -35,7 +31,7 @@ public abstract class BaseController {
         }
     }
 
-    public void fireAliasChanged(AliasChangeEvent e) {
+    protected void fireAliasChanged(AliasChangeEvent e) {
         // Guaranteed to return a non-null array
         Object[] listeners = listenerList.getListenerList();
         // Process the listeners last to first, notifying
@@ -46,13 +42,4 @@ public abstract class BaseController {
             }
         }
     }
-//
-//    public void removeTableModelListener(ModelChangeListener l) {
-//        listenerList.remove(ModelChangeListener.class, l);
-//    }
-//
-//    public ModelChangeListener[] getTableModelListeners() {
-//        return (TableModelListener[])listenerList.getListeners(
-//                TableModelListener.class);
-//    }
 }
