@@ -139,6 +139,10 @@ public class Node {
         return PMML.findTargetTypeObjects(content, SimplePredicate.class);
     }
 
+    public True getTrue() {
+        return PMML.findTargetTypeObject(content, True.class);
+    }
+
     /**
      * Gets the value of the id property.
      *

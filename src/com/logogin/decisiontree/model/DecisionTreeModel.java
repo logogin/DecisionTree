@@ -10,7 +10,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
 
 import org.dmg.pmml_3_1.DataField;
@@ -201,12 +203,21 @@ public class DecisionTreeModel {
         Deque<Node> nodeStack = new ArrayDeque<Node>();
         Deque<Integer> depthStack = new ArrayDeque<Integer>();
         //Deque<LogicalExpression> exprStack = new ArrayDeque<LogicalExpression>();
-        for (Node root : getRootNodes()) {
-            nodeStack.push(root);
+        //depthStack.push(0);
+        ListIterator<Node> rootIter = getRootNodes().listIterator(getRootNodes().size());
+        while (rootIter.hasPrevious()) {
+            nodeStack.push(rootIter.previous());
             depthStack.push(0);
         }
+//        for (Node root : getRootNodes()) {
+//            nodeStack.push(root);
+//            depthStack.push(0);
+//            //depthStack.add(0);
+//        }
+
 
         while (!nodeStack.isEmpty()) {
+            boolean newline = false;
             int depth = depthStack.pop();
             for (int i = 0; i < depth; i++) {
                 text.append("|   ");
@@ -217,14 +228,36 @@ public class DecisionTreeModel {
             List<SimplePredicate> predicates = node.getSimplePredicates();
             for (SimplePredicate predicate : predicates) {
                 expr.and(createTerm(predicate));
+                newline = true;
             }
             text.append(expr.toString());
             if (!children.isEmpty()) {
-                depth++;
-                for (Node child : children) {
-                    nodeStack.push(child);
-                    depthStack.push(depth);
+                if ( newline ) {
+                    depth++;
                 }
+                //depthStack.push(depth);
+                ListIterator<Node> iter = children.listIterator(children.size());
+                while (iter.hasPrevious()) {
+                    Node child = iter.previous();
+                    if ( null != child.getTrue() && child.getNodes().isEmpty() ) {
+                        text.append(": ").append(child.getScore()).append(" (").append(child.getRecordCount());
+                        Double numIncorrect = child.getRecordCount() - getScoreDistributionRecordCount(child, child.getScore());
+                        if ( numIncorrect > 0.0 ) {
+                            text.append("/").append(numIncorrect);
+                        }
+                        text.append(")");
+                        //text.append(" id=").append(child.getId());
+                        newline = true;
+                    } else {
+                        nodeStack.push(child);
+                        depthStack.push(depth);
+                    }
+                }
+//                for (Node child : children) {
+//                    nodeStack.add(child);
+//                    //depthStack.push(depth);
+//                    depthStack.add(depth);
+//                }
             } else {
                 text.append(": ").append(node.getScore()).append(" (").append(node.getRecordCount());
                 Double numIncorrect = node.getRecordCount() - getScoreDistributionRecordCount(node, node.getScore());
@@ -232,12 +265,15 @@ public class DecisionTreeModel {
                     text.append("/").append(numIncorrect);
                 }
                 text.append(")");
-                text.append(" id=").append(node.getId()+" ");
+                //text.append(" id=").append(node.getId());
 //                result.add(new Rule(expr, node.getScore(), node
 //                        .getRecordCount(), getScoreDistributionRecordCount(
 //                        node, node.getScore())));
+                newline = true;
             }
-            text.append("\n");
+            if ( newline ) {
+                text.append("\n");
+            }
         }
         assert !nodeStack.isEmpty() : "nodeStack not empty";
         assert !depthStack.isEmpty() : "depthStack not empty";
