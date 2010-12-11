@@ -15,9 +15,11 @@ public class TreeModelsTableModel extends AbstractTableModel {
 
     private List<Object[]> rows;
     private String[] columnNames;
+    private Class<?>[] columnClasses;
 
     public TreeModelsTableModel() {
-        this.columnNames = new String[] {"Name", "Rules"};
+        columnNames = new String[] {"Name", "Rules"};
+        columnClasses = new Class<?>[] {String.class, Integer.class};
         rows = new ArrayList<Object[]>();
     }
 
@@ -37,6 +39,11 @@ public class TreeModelsTableModel extends AbstractTableModel {
     }
 
     @Override
+    public Class<?> getColumnClass(int columnIndex) {
+        return columnClasses[columnIndex];
+    }
+
+    @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         return rows.get(rowIndex)[columnIndex];
     }
@@ -50,18 +57,30 @@ public class TreeModelsTableModel extends AbstractTableModel {
             , int rulesCount
             , int[] rulesCounts
             , int[] frequentRulesCounts
-            , int[] relativeRulesCounts) {
+            , int[] relativeRulesCounts
+            , double[] scoreRecordCounts
+            , double[] relativeScoreRecordCounts) {
         int classValuesCount = rulesCounts.length;
-        Object[] row = new Object[2 + 3 * classValuesCount + 1];
-        row[0] = name;
-        row[1] = rulesCount;
-        for ( int i=0; i<classValuesCount; i++ ) {
-            row[2 + i] = rulesCounts[i];
-            row[2 + classValuesCount + i] = frequentRulesCounts[i];
-            row[2 + 2 * classValuesCount + i] = relativeRulesCounts[i];
+        List<Object> row = new ArrayList<Object>();
+        row.add(name);
+        row.add(rulesCount);
+        for (int i = 0; i < classValuesCount; i++) {
+            row.add(rulesCounts[i]);
         }
-        row[2 + 3 * classValuesCount] = id;
-        rows.add(row);
+        for (int i = 0; i < classValuesCount; i++) {
+            row.add(scoreRecordCounts[i]);
+        }
+        for (int i = 0; i < classValuesCount; i++) {
+            row.add(frequentRulesCounts[i]);
+        }
+        for (int i = 0; i < classValuesCount; i++) {
+            row.add(relativeRulesCounts[i]);
+        }
+        for (int i = 0; i < classValuesCount; i++) {
+            row.add(relativeScoreRecordCounts[i]);
+        }
+        row.add(id);
+        rows.add(row.toArray());
         fireTableRowsInserted(getRowCount() - 1, getRowCount() - 1);
     }
 
@@ -77,8 +96,9 @@ public class TreeModelsTableModel extends AbstractTableModel {
         }
     }
 
-    public void setColumnNames(String[] columnIdentifiers) {
-        this.columnNames = columnIdentifiers;
+    public void setColumns(String[] columnNames, Class<?>[] columnClasses) {
+        this.columnNames = columnNames;
+        this.columnClasses = columnClasses;
         fireTableStructureChanged();
     }
 }

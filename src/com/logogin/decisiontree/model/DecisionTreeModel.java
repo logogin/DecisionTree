@@ -38,6 +38,8 @@ public class DecisionTreeModel {
     private PMML pmml;
     private List<List<Node>> spreadedTree;
     private List<Rule> rules;
+    private Map<String, Double> scoreRecordCounts;
+    private Map<String, List<Rule>> sortedRules;
 
     public DecisionTreeModel(String id, String name, PMML pmml) {
         this.id = id;
@@ -45,6 +47,7 @@ public class DecisionTreeModel {
         this.pmml = pmml;
         spreadTree();
         buildRules();
+        sortRules();
     }
 
     private void spreadTree() {
@@ -84,6 +87,29 @@ public class DecisionTreeModel {
             }
             Node node = rule.get(rule.size() - 1);
             rules.add(new Rule(expr, node.getScore(), node.getRecordCount(), getScoreDistributionRecordCount(node, node.getScore())));
+        }
+    }
+
+    private void sortRules() {
+        sortedRules = new HashMap<String, List<Rule>>();
+        scoreRecordCounts = new HashMap<String, Double>();
+        for ( Value value : getPredictedDataField().getValue() ) {
+            sortedRules.put(value.getValue(), new ArrayList<Rule>());
+            scoreRecordCounts.put(value.getValue(), 0.0);
+        }
+        for ( Rule rule : rules ) {
+            sortedRules.get(rule.getScore()).add(rule);
+            double scoreRecordCount = scoreRecordCounts.get(rule.getScore()) + rule.getRecordCount();
+            scoreRecordCounts.put(rule.getScore(), scoreRecordCount);
+        }
+
+        for ( Value value : getPredictedDataField().getValue() ) {
+            Collections.sort(sortedRules.get(value.getValue()), new Comparator<Rule>() {
+                @Override
+                public int compare(Rule o1, Rule o2) {
+                    return o2.getRecordCount().compareTo(o1.getRecordCount());
+                }
+            });
         }
     }
 
@@ -131,13 +157,7 @@ public class DecisionTreeModel {
     }
 
     public int getRulesCountForScore(String score) {
-        int result = 0;
-        for ( Rule rule : rules ) {
-            if ( rule.getScore().equals(score) ) {
-                result++;
-            }
-        }
-        return result;
+        return sortedRules.get(score).size();
     }
 
     private Double getScoreDistributionRecordCount(Node node, String classValue) {
@@ -154,28 +174,6 @@ public class DecisionTreeModel {
         for ( Rule rule : rules ) {
             if ( rule.getScore().equals(score) && rule.getScoreRecordCount() >= threshold ) {
                 result++;
-            }
-        }
-        return result;
-    }
-
-    public int getRelativeRulesCountForScore(String score, double percentage) {
-        int result = 0;
-        List<Double> scores = new ArrayList<Double>();
-        for ( Rule rule : rules ) {
-            if ( rule.getScore().equals(score) ) {
-                scores.add(rule.getScoreRecordCount());
-            }
-        }
-
-        double threshold = getScoreDistributionRecordCount(getRootNodes().get(0), score)*percentage;
-        Collections.sort(scores, Collections.reverseOrder());
-        double total = 0.0;
-        for ( Double scoreValue : scores ) {
-            total += scoreValue;
-            result++;
-            if ( total >= threshold ) {
-                break;
             }
         }
         return result;
@@ -274,29 +272,47 @@ public class DecisionTreeModel {
 
     public List<Rule> getRelativeRules(Double percentage) {
         List<Rule> result = new ArrayList<Rule>();
-        Map<String, List<Rule>> recordCounts = new HashMap<String, List<Rule>>();
         for ( Value value : getPredictedDataField().getValue() ) {
-            recordCounts.put(value.getValue(), new ArrayList<Rule>());
-        }
-        for ( Rule rule : rules ) {
-            recordCounts.get(rule.getScore()).add(rule);
-        }
-
-        for ( Value value : getPredictedDataField().getValue() ) {
-            double threshold = getScoreDistributionRecordCount(getRootNodes().get(0), value.getValue())*percentage;
-            Collections.sort(recordCounts.get(value.getValue()), new Comparator<Rule>() {
-                @Override
-                public int compare(Rule o1, Rule o2) {
-                    return o2.getScoreRecordCount().compareTo(o1.getScoreRecordCount());
-                }
-            });
+            double threshold = scoreRecordCounts.get(value.getValue()) * percentage;
             double total = 0.0;
-            for ( Rule rule : recordCounts.get(value.getValue()) ) {
-                total += rule.getScoreRecordCount();
+            for ( Rule rule : sortedRules.get(value.getValue()) ) {
+                total += rule.getRecordCount();
                 result.add(rule);
                 if ( total >= threshold ) {
                     break;
                 }
+            }
+        }
+        return result;
+    }
+
+    public int getRelativeRulesCountForScore(String score, double percentage) {
+        int result = 0;
+        double total = 0.0;
+        double threshold = scoreRecordCounts.get(score) * percentage;
+        for ( Rule rule : sortedRules.get(score) ) {
+            total += rule.getRecordCount();
+            result++;
+            if ( total >= threshold ) {
+                break;
+            }
+        }
+        return result;
+    }
+
+    public double getScoreRecordCount(String score) {
+        return scoreRecordCounts.get(score);
+    }
+
+    public double getRelativeScoreRecordCount(String score, double percentage) {
+        double result = 0.0;
+        double total = 0.0;
+        double threshold = scoreRecordCounts.get(score) * percentage;
+        for ( Rule rule : sortedRules.get(score) ) {
+            total += rule.getRecordCount();
+            result += rule.getScoreRecordCount();
+            if ( total >= threshold ) {
+                break;
             }
         }
         return result;

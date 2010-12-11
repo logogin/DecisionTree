@@ -13,6 +13,7 @@ package com.logogin.decisiontree.panel;
 
 import java.awt.Component;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ActionMap;
@@ -207,7 +208,7 @@ public class ModelsTabPanel extends javax.swing.JPanel {
         modelsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                if ( e.getFirstIndex() != -1 ) {
+                if ( e.getFirstIndex() != -1 && !e.getValueIsAdjusting() ) {
                     updateRulesTable(e.getFirstIndex());
                 }
             }
@@ -241,14 +242,13 @@ public class ModelsTabPanel extends javax.swing.JPanel {
         treeModelsTableModel.clear();
         rulesTableModel.setRowCount(0);
 
-        treeModelsTableModel.setColumnNames(app.getController().getColumnIdentifiers(coverageThreshold * 100));
+        treeModelsTableModel.setColumns(createColumnNames(coverageThreshold), createColumnClasses());
         int width = 80 / (modelsTable.getColumnCount() - 2);
         modelsTable.getColumnModel().getColumn(0).setPreferredWidth(10);
         modelsTable.getColumnModel().getColumn(1).setPreferredWidth(10);
         for ( int i = 2; i < modelsTable.getColumnCount(); i++ ) {
             modelsTable.getColumnModel().getColumn(i).setPreferredWidth(width);
         }
-
         for ( String treeModelId : app.getController().getEnabledTreeModels() ) {
             DecisionTreeModel treeModel = app.getController().getTreeModel(treeModelId);
             treeModelsTableModel.addTreeModel(
@@ -257,7 +257,9 @@ public class ModelsTabPanel extends javax.swing.JPanel {
                     , treeModel.getRulesCount()
                     , app.getController().getRulesCounts(treeModel)
                     , app.getController().getFrequentRulesCounts(treeModel, scoreThreshold)
-                    , app.getController().getRelativeRulesCounts(treeModel, coverageThreshold));
+                    , app.getController().getRelativeRulesCounts(treeModel, coverageThreshold)
+                    , app.getController().getScoreRecordCounts(treeModel)
+                    , app.getController().getRelativeScoreRecordCounts(treeModel, coverageThreshold));
         }
     }
 
@@ -274,8 +276,55 @@ public class ModelsTabPanel extends javax.swing.JPanel {
                     new Object[] {i++
                             , rule.getExpression()
                             , app.getController().getClassValueAlias(rule.getScore())
-                            , format.format(rule.getRecordCount()) + "/" + format.format(rule.getScoreRecordCount())});
+                            , format.format(rule.getRecordCount()) + "/" + format.format(rule.getRecordCount() - rule.getScoreRecordCount())});
         }
+    }
+
+    private String[] createColumnNames(Double coverageThreshold) {
+        int classValuesCount = app.getController().getClassValuesCount();
+        String[] classValueAliases = app.getController().getClassValueAliases();
+        List<String> columnNames = new ArrayList<String>();
+        columnNames.add("Name");
+        columnNames.add("Rules");
+        for (int i = 0; i < classValuesCount; i++) {
+            columnNames.add(classValueAliases[i]);
+        }
+        for (int i = 0; i < classValuesCount; i++) {
+            columnNames.add("No. instances " + classValueAliases[i]);
+        }
+        for (int i = 0; i < classValuesCount; i++) {
+            columnNames.add("Frequent rules " + classValueAliases[i]);
+        }
+        for (int i = 0; i < classValuesCount; i++) {
+            columnNames.add(coverageThreshold * 100 + "% rules coverage " + classValueAliases[i]);
+        }
+        for (int i = 0; i < classValuesCount; i++) {
+            columnNames.add("No. instances rules coverage " + classValueAliases[i]);
+        }
+        return columnNames.toArray(new String[columnNames.size()]);
+    }
+
+    private Class<?>[] createColumnClasses() {
+        int classValuesCount = app.getController().getClassValuesCount();
+        List<Class<?>> columnClasses = new ArrayList<Class<?>>();
+        columnClasses.add(String.class);
+        columnClasses.add(Integer.class);
+        for (int i = 0; i < classValuesCount; i++) {
+            columnClasses.add(Integer.class);
+        }
+        for (int i = 0; i < classValuesCount; i++) {
+            columnClasses.add(Double.class);
+        }
+        for (int i = 0; i < classValuesCount; i++) {
+            columnClasses.add(Integer.class);
+        }
+        for (int i = 0; i < classValuesCount; i++) {
+            columnClasses.add(Integer.class);
+        }
+        for (int i = 0; i < classValuesCount; i++) {
+            columnClasses.add(Double.class);
+        }
+        return columnClasses.toArray(new Class<?>[columnClasses.size()]);
     }
 
     @Action

@@ -11,6 +11,8 @@
 
 package com.logogin.decisiontree.panel;
 
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
@@ -36,6 +38,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import org.jdesktop.application.Action;
@@ -169,7 +172,6 @@ public class CompareTabPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        leftRulesTable.setColumnSelectionAllowed(true);
         leftRulesTable.setName("leftRulesTable"); // NOI18N
         leftRulesTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         leftRulesTable.getTableHeader().setReorderingAllowed(false);
@@ -212,7 +214,6 @@ public class CompareTabPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        rightRulesTable.setColumnSelectionAllowed(true);
         rightRulesTable.setName("rightRulesTable"); // NOI18N
         rightRulesTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         rightRulesTable.getTableHeader().setReorderingAllowed(false);
@@ -276,6 +277,21 @@ public class CompareTabPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_rightModelComboBoxActionPerformed
 
     private void postInitComponents() {
+//        leftRulesTable.getColumnModel().getColumn(1).setCellRenderer(new DefaultTableCellRenderer() {
+//            @Override
+//            public Component getTableCellRendererComponent(JTable table,
+//                    Object value, boolean isSelected, boolean hasFocus,
+//                    int row, int column) {
+//                super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+//                if ( rightRulesTable.getSelectedRow() != -1 ) {
+//                    if ( rulesDiff.get(rightRulesTable.getSelectedRow() + ".right").contains(row) ) {
+//                        setBackground(Color.green);
+//                    }
+//                }
+//                return this;
+//            }
+//        });
+
         app.getController().addModelChangeListener(new ModelChangeListener() {
             @Override
             public void modelChanged(ModelChangeEvent e) {
@@ -308,15 +324,23 @@ public class CompareTabPanel extends javax.swing.JPanel {
             }
         });
 
-        leftRulesTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-//                List<Integer> rightDiff = rulesDiff.get(e.getFirstIndex() + ".left");
-//                for ( int rowIndex : rightDiff ) {
-//                    rightRulesTable.getCellRenderer(rowIndex, 0).getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column).
+//        leftRulesTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+//            @Override
+//            public void valueChanged(ListSelectionEvent e) {
+//                if ( e.getFirstIndex() != -1 && !e.getValueIsAdjusting() ) {
+//                    rightRulesTable.clearSelection();
 //                }
-            }
-        });
+//            }
+//        });
+//
+//        rightRulesTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+//            @Override
+//            public void valueChanged(ListSelectionEvent e) {
+//                if ( e.getFirstIndex() != -1 && !e.getValueIsAdjusting() ) {
+//                    leftRulesTable.clearSelection();
+//                }
+//            }
+//        });
     }
 
     @Action
@@ -331,7 +355,7 @@ public class CompareTabPanel extends javax.swing.JPanel {
         Set<String> ignoredDataFields = getIgnoredDataFields();
         Set<Rule> leftIntersection = leftTreeModel.getRulesIntersection(rightTreeModel.getRules(), ignoredDataFields);
         Set<Rule> rightIntersection = rightTreeModel.getRulesIntersection(leftTreeModel.getRules(), ignoredDataFields);
-        createRulesDiff(leftIntersection, rightIntersection);
+        //createRulesDiff(leftIntersection, rightIntersection);
 
         DefaultTableModel leftRulesTableModel = (DefaultTableModel)leftRulesTable.getModel();
         DefaultTableModel rightRulesTableModel = (DefaultTableModel)rightRulesTable.getModel();
@@ -343,7 +367,7 @@ public class CompareTabPanel extends javax.swing.JPanel {
             i++;
             leftRulesTableModel.addRow(new Object[] {i, rule.getExpression()
                     , app.getController().getClassValueAlias(rule.getScore())
-                    , format.format(rule.getScoreRecordCount())});
+                    , format.format(rule.getRecordCount())});
         }
 
         i = 0;
@@ -351,7 +375,7 @@ public class CompareTabPanel extends javax.swing.JPanel {
             i++;
             rightRulesTableModel.addRow(new Object[] {i, rule.getExpression()
                     , app.getController().getClassValueAlias(rule.getScore())
-                    , format.format(rule.getScoreRecordCount())});
+                    , format.format(rule.getRecordCount())});
         }
     }
 
@@ -363,11 +387,26 @@ public class CompareTabPanel extends javax.swing.JPanel {
             rulesDiff.put(leftKey, new ArrayList<Integer>());
             int j = 0;
             for ( Rule rightRule : rightIntersection ) {
-                String rightKey = j + ".right";
-                rulesDiff.put(rightKey, new ArrayList<Integer>());
+                //String rightKey = j + ".right";
+                //rulesDiff.put(rightKey, new ArrayList<Integer>());
                 if ( leftRule.equals(rightRule) ) {
                     rulesDiff.get(leftKey).add(j);
-                    rulesDiff.get(rightKey).add(i);
+                    //rulesDiff.get(rightKey).add(i);
+                }
+                j++;
+            }
+            i++;
+        }
+        for ( Rule rightRule : rightIntersection ) {
+            String rightKey = i + ".right";
+            rulesDiff.put(rightKey, new ArrayList<Integer>());
+            int j = 0;
+            for ( Rule leftRule : leftIntersection ) {
+                //String rightKey = j + ".right";
+                //rulesDiff.put(rightKey, new ArrayList<Integer>());
+                if ( rightRule.equals(leftRule) ) {
+                    rulesDiff.get(rightKey).add(j);
+                    //rulesDiff.get(rightKey).add(i);
                 }
                 j++;
             }

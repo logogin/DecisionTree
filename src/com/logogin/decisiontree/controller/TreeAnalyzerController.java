@@ -92,7 +92,7 @@ public class TreeAnalyzerController extends BaseController {
         return columnNames;
     }
 
-    private String[] getClassValueAliases() {
+    public String[] getClassValueAliases() {
         String[] classValueAliases = new String[predictedDataField.getValue().size()];
         for ( int i = 0; i < predictedDataField.getValue().size(); i++ ) {
             Value value = predictedDataField.getValue().get(i);
@@ -134,6 +134,24 @@ public class TreeAnalyzerController extends BaseController {
             rulesCounts[i] = treeModel.getRulesCountForScore(value.getValue());
         }
         return rulesCounts;
+    }
+
+    public double[] getScoreRecordCounts(DecisionTreeModel treeModel) {
+        double[] scoreRecordCounts = new double[predictedDataField.getValue().size()];
+        for ( int i = 0; i < predictedDataField.getValue().size(); i++ ) {
+            Value value = predictedDataField.getValue().get(i);
+            scoreRecordCounts[i] = treeModel.getScoreRecordCount(value.getValue());
+        }
+        return scoreRecordCounts;
+    }
+
+    public double[] getRelativeScoreRecordCounts(DecisionTreeModel treeModel, Double coverageThreshold) {
+        double[] relativeScoreRecordCounts = new double[predictedDataField.getValue().size()];
+        for ( int i = 0; i < predictedDataField.getValue().size(); i++ ) {
+            Value value = predictedDataField.getValue().get(i);
+            relativeScoreRecordCounts[i] = treeModel.getRelativeScoreRecordCount(value.getValue(), coverageThreshold);
+        }
+        return relativeScoreRecordCounts;
     }
 
     public void initDataFieldAliases() {

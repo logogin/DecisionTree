@@ -305,7 +305,7 @@ public class ModelPropertiesFrame extends javax.swing.JFrame {
                     new Object[] {i++
                             , rule.getExpression()
                             , app.getController().getClassValueAlias(rule.getScore())
-                            , format.format(rule.getRecordCount()) + "/" + format.format(rule.getScoreRecordCount())});
+                            , format.format(rule.getRecordCount()) + "/" + format.format(rule.getRecordCount() - rule.getScoreRecordCount())});
         }
 
         tabbedPane.setTitleAt(1, "Frequent rules (" + scoreThreshold + ")");
@@ -317,7 +317,7 @@ public class ModelPropertiesFrame extends javax.swing.JFrame {
                     new Object[] {i++
                             , rule.getExpression()
                             , app.getController().getClassValueAlias(rule.getScore())
-                            , format.format(rule.getRecordCount()) + "/" + format.format(rule.getScoreRecordCount())});
+                            , format.format(rule.getRecordCount()) + "/" + format.format(rule.getRecordCount() - rule.getScoreRecordCount())});
         }
 
         tabbedPane.setTitleAt(2, "Relative rules (" + coverageThreshold * 100 + ")");
@@ -329,7 +329,7 @@ public class ModelPropertiesFrame extends javax.swing.JFrame {
                     new Object[] {i++
                             , rule.getExpression()
                             , app.getController().getClassValueAlias(rule.getScore())
-                            , format.format(rule.getRecordCount()) + "/" + format.format(rule.getScoreRecordCount())});
+                            , format.format(rule.getRecordCount()) + "/" + format.format(rule.getRecordCount() - rule.getScoreRecordCount())});
         }
 
         wekaTextPane.setText(treeModel.dumpWekaTree().toString());

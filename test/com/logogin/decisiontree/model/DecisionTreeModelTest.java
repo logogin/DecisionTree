@@ -29,7 +29,7 @@ public class DecisionTreeModelTest {
         Assert.assertEquals(7, treeModel.getFrequentRulesCountForScore("0", 100));
         Assert.assertEquals(0, treeModel.getFrequentRulesCountForScore("1", 100));
         Assert.assertEquals(5, treeModel.getRelativeRulesCountForScore("0", 0.9));
-        Assert.assertEquals(27, treeModel.getRelativeRulesCountForScore("1", 0.9));
+        Assert.assertEquals(20, treeModel.getRelativeRulesCountForScore("1", 0.9));
 
         Rule rule = treeModel.getRules().get(0);
         Assert.assertEquals("personality = True and aimSex = True", rule.getExpression().toString());
@@ -38,5 +38,29 @@ public class DecisionTreeModelTest {
         Assert.assertEquals(Double.valueOf(66.0), rule.getScoreRecordCount());
 
         System.out.println(treeModel.dumpWekaTree());
+    }
+
+    @Test
+    public void testLatviaModel() throws Exception {
+        DecisionTreeModel treeModel = new DecisionTreeModel("d:/Temp/dating_ru_latvia.pmml"
+                , "dating_ru_latvia.pmml"
+                , JAXBUtil.unmarshal(new File("d:/Temp/dating_ru_latvia.pmml"), true));
+        Assert.assertEquals(139, treeModel.getRulesCountForScore("0"));
+        Assert.assertEquals(36, treeModel.getRelativeRulesCountForScore("0", 0.9));
+        double total = 0.0;
+        for ( Rule rule : treeModel.getRules() ) {
+            total+= rule.getRecordCount();
+        }
+        System.out.println(total);
+        Assert.assertEquals(Double.valueOf(6727.0), Double.valueOf(total));
+
+        total = 0.0;
+        for ( Rule rule : treeModel.getRelativeRules(0.9) ) {
+            if ( rule.getScore().equals("0") ) {
+                total+= rule.getRecordCount();
+            }
+        }
+        System.out.println(total);
+        Assert.assertTrue(total <= 2798.0 * 0.9);
     }
 }
