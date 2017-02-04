@@ -1,0 +1,1516 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PMML version="3.1" xmlns="http://www.dmg.org/PMML-3_1"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Header copyright="slaks">
+		<Application name="KNIME" version="2.2" />
+	</Header>
+	<DataDictionary numberOfFields="51">
+		<DataField name="age" optype="continuous" dataType="double">
+			<Interval closure="closedClosed" leftMargin="16.0"
+				rightMargin="50.0" />
+		</DataField>
+		<DataField name="photos" optype="continuous" dataType="double">
+			<Interval closure="closedClosed" leftMargin="0.0"
+				rightMargin="107.0" />
+		</DataField>
+		<DataField name="frPairFF" optype="categorical" dataType="string">
+			<Value value="False" />
+			<Value value="True" />
+		</DataField>
+		<DataField name="frPairMF" optype="categorical" dataType="string">
+			<Value value="False" />
+			<Value value="True" />
+		</DataField>
+		<DataField name="frPairMM" optype="categorical" dataType="string">
+			<Value value="False" />
+			<Value value="True" />
+		</DataField>
+		<DataField name="zodiac" optype="categorical" dataType="string">
+			<Value value="none" />
+			<Value value="Libra" />
+			<Value value="Sagittarius" />
+			<Value value="Aries" />
+			<Value value="Cancer" />
+			<Value value="Aquarius" />
+			<Value value="Scorpio" />
+			<Value value="Pisces" />
+			<Value value="Taurus" />
+			<Value value="Leo" />
+			<Value value="Virgo" />
+			<Value value="Gemini" />
+			<Value value="Capricorn" />
+		</DataField>
+		<DataField name="sexpreference" optype="categorical"
+			dataType="string">
+			<Value value="False" />
+			<Value value="True" />
+		</DataField>
+		<DataField name="sexfrequency" optype="categorical"
+			dataType="string">
+			<Value value="1" />
+			<Value value="2" />
+			<Value value="3" />
+			<Value value="4" />
+			<Value value="5" />
+		</DataField>
+		<DataField name="isbody" optype="categorical" dataType="string">
+			<Value value="True" />
+			<Value value="False" />
+		</DataField>
+		<DataField name="body" optype="categorical" dataType="string">
+			<Value value="1" />
+			<Value value="2" />
+			<Value value="3" />
+			<Value value="4" />
+		</DataField>
+		<DataField name="bodyhas" optype="categorical" dataType="string">
+			<Value value="False" />
+			<Value value="True" />
+		</DataField>
+		<DataField name="kids" optype="categorical" dataType="string">
+			<Value value="1" />
+			<Value value="2" />
+			<Value value="3" />
+			<Value value="4" />
+		</DataField>
+		<DataField name="married" optype="categorical" dataType="string">
+			<Value value="1" />
+			<Value value="2" />
+			<Value value="3" />
+			<Value value="4" />
+		</DataField>
+		<DataField name="orientation" optype="categorical" dataType="string">
+			<Value value="1" />
+			<Value value="2" />
+			<Value value="3" />
+		</DataField>
+		<DataField name="aimFriendship" optype="categorical"
+			dataType="string">
+			<Value value="True" />
+			<Value value="False" />
+		</DataField>
+		<DataField name="aimLove" optype="categorical" dataType="string">
+			<Value value="True" />
+			<Value value="False" />
+		</DataField>
+		<DataField name="aimMarriage" optype="categorical" dataType="string">
+			<Value value="False" />
+			<Value value="True" />
+		</DataField>
+		<DataField name="aimOther" optype="categorical" dataType="string">
+			<Value value="False" />
+			<Value value="True" />
+		</DataField>
+		<DataField name="aimSex" optype="categorical" dataType="string">
+			<Value value="True" />
+			<Value value="False" />
+		</DataField>
+		<DataField name="aimSexMoney" optype="categorical" dataType="string">
+			<Value value="False" />
+			<Value value="True" />
+		</DataField>
+		<DataField name="materialsupport" optype="categorical"
+			dataType="string">
+			<Value value="1" />
+			<Value value="2" />
+			<Value value="3" />
+		</DataField>
+		<DataField name="personality" optype="categorical" dataType="string">
+			<Value value="False" />
+			<Value value="True" />
+		</DataField>
+		<DataField name="religion" optype="categorical" dataType="string">
+			<Value value="True" />
+			<Value value="False" />
+		</DataField>
+		<DataField name="isdayregime" optype="categorical" dataType="string">
+			<Value value="True" />
+			<Value value="False" />
+		</DataField>
+		<DataField name="dayregime" optype="categorical" dataType="string">
+			<Value value="1" />
+			<Value value="2" />
+		</DataField>
+		<DataField name="wealth" optype="categorical" dataType="string">
+			<Value value="1" />
+			<Value value="2" />
+			<Value value="3" />
+			<Value value="4" />
+		</DataField>
+		<DataField name="dwelling" optype="categorical" dataType="string">
+			<Value value="1" />
+			<Value value="2" />
+			<Value value="3" />
+			<Value value="4" />
+			<Value value="5" />
+			<Value value="6" />
+		</DataField>
+		<DataField name="ispriorities" optype="categorical"
+			dataType="string">
+			<Value value="False" />
+			<Value value="True" />
+		</DataField>
+		<DataField name="prCarrier" optype="categorical" dataType="string">
+			<Value value="False" />
+			<Value value="True" />
+		</DataField>
+		<DataField name="prEquilibrium" optype="categorical"
+			dataType="string">
+			<Value value="False" />
+			<Value value="True" />
+		</DataField>
+		<DataField name="prFamily" optype="categorical" dataType="string">
+			<Value value="False" />
+			<Value value="True" />
+		</DataField>
+		<DataField name="prPubService" optype="categorical"
+			dataType="string">
+			<Value value="False" />
+			<Value value="True" />
+		</DataField>
+		<DataField name="prRealization" optype="categorical"
+			dataType="string">
+			<Value value="False" />
+			<Value value="True" />
+		</DataField>
+		<DataField name="prSex" optype="categorical" dataType="string">
+			<Value value="False" />
+			<Value value="True" />
+		</DataField>
+		<DataField name="prWealth" optype="categorical" dataType="string">
+			<Value value="False" />
+			<Value value="True" />
+		</DataField>
+		<DataField name="music" optype="categorical" dataType="string">
+			<Value value="True" />
+			<Value value="False" />
+		</DataField>
+		<DataField name="hair" optype="categorical" dataType="string">
+			<Value value="True" />
+			<Value value="False" />
+		</DataField>
+		<DataField name="profession" optype="categorical" dataType="string">
+			<Value value="True" />
+			<Value value="False" />
+		</DataField>
+		<DataField name="interest" optype="categorical" dataType="string">
+			<Value value="True" />
+			<Value value="False" />
+		</DataField>
+		<DataField name="car" optype="categorical" dataType="string">
+			<Value value="False" />
+			<Value value="True" />
+		</DataField>
+		<DataField name="exciteme" optype="categorical" dataType="string">
+			<Value value="True" />
+			<Value value="False" />
+		</DataField>
+		<DataField name="insexilike" optype="categorical" dataType="string">
+			<Value value="False" />
+			<Value value="True" />
+		</DataField>
+		<DataField name="heteroexperience" optype="categorical"
+			dataType="string">
+			<Value value="False" />
+			<Value value="True" />
+		</DataField>
+		<DataField name="sports" optype="categorical" dataType="string">
+			<Value value="False" />
+			<Value value="True" />
+		</DataField>
+		<DataField name="freeday" optype="categorical" dataType="string">
+			<Value value="True" />
+			<Value value="False" />
+		</DataField>
+		<DataField name="aboutme" optype="continuous" dataType="double">
+			<Interval closure="closedClosed" leftMargin="0.0"
+				rightMargin="1639.0" />
+		</DataField>
+		<DataField name="smoking" optype="categorical" dataType="string">
+			<Value value="1" />
+			<Value value="2" />
+		</DataField>
+		<DataField name="alcohol" optype="categorical" dataType="string">
+			<Value value="1" />
+			<Value value="2" />
+			<Value value="3" />
+		</DataField>
+		<DataField name="minAge" optype="continuous" dataType="double">
+			<Interval closure="closedClosed" leftMargin="16.0"
+				rightMargin="51.0" />
+		</DataField>
+		<DataField name="maxAge" optype="continuous" dataType="double">
+			<Interval closure="closedClosed" leftMargin="20.0"
+				rightMargin="60.0" />
+		</DataField>
+		<DataField name="gender" optype="categorical" dataType="string">
+			<Value value="0" />
+			<Value value="1" />
+		</DataField>
+	</DataDictionary>
+	<TreeModel modelName="DecisionTree" functionName="classification"
+		splitCharacteristic="multiSplit">
+		<MiningSchema>
+			<MiningField name="age" />
+			<MiningField name="photos" />
+			<MiningField name="frPairFF" />
+			<MiningField name="frPairMF" />
+			<MiningField name="frPairMM" />
+			<MiningField name="zodiac" />
+			<MiningField name="sexpreference" />
+			<MiningField name="sexfrequency" />
+			<MiningField name="isbody" />
+			<MiningField name="body" />
+			<MiningField name="bodyhas" />
+			<MiningField name="kids" />
+			<MiningField name="married" />
+			<MiningField name="orientation" />
+			<MiningField name="aimFriendship" />
+			<MiningField name="aimLove" />
+			<MiningField name="aimMarriage" />
+			<MiningField name="aimOther" />
+			<MiningField name="aimSex" />
+			<MiningField name="aimSexMoney" />
+			<MiningField name="materialsupport" />
+			<MiningField name="personality" />
+			<MiningField name="religion" />
+			<MiningField name="isdayregime" />
+			<MiningField name="dayregime" />
+			<MiningField name="wealth" />
+			<MiningField name="dwelling" />
+			<MiningField name="ispriorities" />
+			<MiningField name="prCarrier" />
+			<MiningField name="prEquilibrium" />
+			<MiningField name="prFamily" />
+			<MiningField name="prPubService" />
+			<MiningField name="prRealization" />
+			<MiningField name="prSex" />
+			<MiningField name="prWealth" />
+			<MiningField name="music" />
+			<MiningField name="hair" />
+			<MiningField name="profession" />
+			<MiningField name="interest" />
+			<MiningField name="car" />
+			<MiningField name="exciteme" />
+			<MiningField name="insexilike" />
+			<MiningField name="heteroexperience" />
+			<MiningField name="sports" />
+			<MiningField name="freeday" />
+			<MiningField name="aboutme" />
+			<MiningField name="smoking" />
+			<MiningField name="alcohol" />
+			<MiningField name="minAge" />
+			<MiningField name="maxAge" />
+			<MiningField name="gender" usageType="predicted" />
+		</MiningSchema>
+		<Node id="0" score="0" recordCount="9003.0">
+			<True />
+			<ScoreDistribution value="0" recordCount="6640.0" />
+			<ScoreDistribution value="1" recordCount="2363.0" />
+			<Node id="1" score="0" recordCount="6911.0">
+				<SimplePredicate field="car" operator="equal" value="False" />
+				<ScoreDistribution value="0" recordCount="5798.0" />
+				<ScoreDistribution value="1" recordCount="1113.0" />
+				<Node id="2" score="1" recordCount="254.0">
+					<SimplePredicate field="photos" operator="lessOrEqual"
+						value="0.0" />
+					<ScoreDistribution value="0" recordCount="102.0" />
+					<ScoreDistribution value="1" recordCount="152.0" />
+					<Node id="3" score="1" recordCount="242.0">
+						<SimplePredicate field="aimOther" operator="equal"
+							value="False" />
+						<ScoreDistribution value="0" recordCount="102.0" />
+						<ScoreDistribution value="1" recordCount="140.0" />
+						<Node id="4" score="1" recordCount="176.0">
+							<SimplePredicate field="prFamily" operator="equal"
+								value="False" />
+							<ScoreDistribution value="0" recordCount="55.0" />
+							<ScoreDistribution value="1" recordCount="121.0" />
+							<Node id="5" score="1" recordCount="91.25925925925932">
+								<SimplePredicate field="minAge" operator="lessOrEqual"
+									value="21.0" />
+								<ScoreDistribution value="0" recordCount="21.148148148148167" />
+								<ScoreDistribution value="1" recordCount="70.11111111111116" />
+							</Node>
+							<Node id="6" score="1" recordCount="84.74074074074068">
+								<True />
+								<ScoreDistribution value="0" recordCount="33.85185185185183" />
+								<ScoreDistribution value="1" recordCount="50.88888888888885" />
+								<Node id="7" score="1" recordCount="62.96296296296292">
+									<SimplePredicate field="aimFriendship"
+										operator="equal" value="False" />
+									<ScoreDistribution value="0" recordCount="18.99999999999999" />
+									<ScoreDistribution value="1" recordCount="43.962962962962926" />
+								</Node>
+								<Node id="8" score="0" recordCount="21.77777777777777">
+									<SimplePredicate field="aimFriendship"
+										operator="equal" value="True" />
+									<ScoreDistribution value="0" recordCount="14.851851851851848" />
+									<ScoreDistribution value="1" recordCount="6.925925925925924" />
+								</Node>
+							</Node>
+						</Node>
+						<Node id="9" score="0" recordCount="66.0">
+							<SimplePredicate field="prFamily" operator="equal"
+								value="True" />
+							<ScoreDistribution value="0" recordCount="47.0" />
+							<ScoreDistribution value="1" recordCount="19.0" />
+							<Node id="10" score="0" recordCount="54.0">
+								<SimplePredicate field="prSex" operator="equal"
+									value="False" />
+								<ScoreDistribution value="0" recordCount="46.0" />
+								<ScoreDistribution value="1" recordCount="8.0" />
+							</Node>
+							<Node id="11" score="1" recordCount="12.0">
+								<SimplePredicate field="prSex" operator="equal"
+									value="True" />
+								<ScoreDistribution value="0" recordCount="1.0" />
+								<ScoreDistribution value="1" recordCount="11.0" />
+							</Node>
+						</Node>
+					</Node>
+					<Node id="12" score="1" recordCount="12.0">
+						<SimplePredicate field="aimOther" operator="equal"
+							value="True" />
+						<ScoreDistribution value="0" recordCount="0.0" />
+						<ScoreDistribution value="1" recordCount="12.0" />
+					</Node>
+				</Node>
+				<Node id="13" score="0" recordCount="6657.0">
+					<True />
+					<ScoreDistribution value="0" recordCount="5696.0" />
+					<ScoreDistribution value="1" recordCount="961.0" />
+					<Node id="14" score="0" recordCount="6283.0">
+						<SimplePredicate field="aimSex" operator="equal"
+							value="False" />
+						<ScoreDistribution value="0" recordCount="5474.0" />
+						<ScoreDistribution value="1" recordCount="809.0" />
+						<Node id="15" score="0" recordCount="5834.0">
+							<SimplePredicate field="personality" operator="equal"
+								value="False" />
+							<ScoreDistribution value="0" recordCount="5176.0" />
+							<ScoreDistribution value="1" recordCount="658.0" />
+							<Node id="16" score="0" recordCount="1645.9355563882577">
+								<SimplePredicate field="minAge" operator="lessOrEqual"
+									value="21.0" />
+								<ScoreDistribution value="0" recordCount="1299.9587860622785" />
+								<ScoreDistribution value="1" recordCount="345.97677032597915" />
+								<Node id="17" score="0" recordCount="1196.2218059198713">
+									<SimplePredicate field="aimLove" operator="equal"
+										value="False" />
+									<ScoreDistribution value="0" recordCount="1035.225927313641" />
+									<ScoreDistribution value="1" recordCount="160.99587860623024" />
+									<Node id="18" score="0" recordCount="1145.1124016486067">
+										<SimplePredicate field="prPubService"
+											operator="equal" value="False" />
+										<ScoreDistribution value="0"
+											recordCount="1005.1697264893614" />
+										<ScoreDistribution value="1"
+											recordCount="139.94267515924523" />
+									</Node>
+									<Node id="19" score="0" recordCount="51.1094042712657">
+										<SimplePredicate field="prPubService"
+											operator="equal" value="True" />
+										<ScoreDistribution value="0"
+											recordCount="30.056200824280953" />
+										<ScoreDistribution value="1"
+											recordCount="21.053203446984746" />
+										<Node id="20" score="0" recordCount="40.031097789436686">
+											<SimplePredicate field="prSex" operator="equal"
+												value="False" />
+											<ScoreDistribution value="0"
+												recordCount="28.363431997004614" />
+											<ScoreDistribution value="1"
+												recordCount="11.66766579243207" />
+											<Node id="21" score="0" recordCount="19.310228550019865">
+												<SimplePredicate field="age" operator="lessOrEqual"
+													value="25.0" />
+												<ScoreDistribution value="0"
+													recordCount="19.028100412140475" />
+												<ScoreDistribution value="1"
+													recordCount="0.2821281378793901" />
+											</Node>
+											<Node id="22" score="1" recordCount="20.72086923941682">
+												<True />
+												<ScoreDistribution value="0"
+													recordCount="9.33533158486414" />
+												<ScoreDistribution value="1"
+													recordCount="11.38553765455268" />
+											</Node>
+										</Node>
+										<Node id="23" score="1" recordCount="11.078306481829019">
+											<SimplePredicate field="prSex" operator="equal"
+												value="True" />
+											<ScoreDistribution value="0"
+												recordCount="1.6927688272763406" />
+											<ScoreDistribution value="1"
+												recordCount="9.385537654552678" />
+										</Node>
+									</Node>
+								</Node>
+								<Node id="24" score="0" recordCount="449.7137504683515">
+									<SimplePredicate field="aimLove" operator="equal"
+										value="True" />
+									<ScoreDistribution value="0" recordCount="264.73285874860295" />
+									<ScoreDistribution value="1" recordCount="184.98089171974857" />
+									<Node id="25" score="0" recordCount="247.98089171974846">
+										<SimplePredicate field="age" operator="lessOrEqual"
+											value="25.0" />
+										<ScoreDistribution value="0"
+											recordCount="200.62045710004006" />
+										<ScoreDistribution value="1" recordCount="47.36043461970841" />
+										<Node id="26" score="0" recordCount="173.33832896216055">
+											<SimplePredicate field="prRealization"
+												operator="equal" value="False" />
+											<ScoreDistribution value="0"
+												recordCount="129.5421506182109" />
+											<ScoreDistribution value="1"
+												recordCount="43.79617834394963" />
+											<Node id="27" score="0" recordCount="58.36043461970841">
+												<SimplePredicate field="interest" operator="equal"
+													value="False" />
+												<ScoreDistribution value="0"
+													recordCount="54.51405020607024" />
+												<ScoreDistribution value="1"
+													recordCount="3.8463844136381704" />
+											</Node>
+											<Node id="28" score="0" recordCount="114.97789434245216">
+												<SimplePredicate field="interest" operator="equal"
+													value="True" />
+												<ScoreDistribution value="0"
+													recordCount="75.0281004121407" />
+												<ScoreDistribution value="1"
+													recordCount="39.94979393031146" />
+												<Node id="29" score="1" recordCount="24.79915368170531">
+													<SimplePredicate field="minAge" operator="lessOrEqual"
+														value="18.0" />
+													<ScoreDistribution value="0"
+														recordCount="3.9472373437950004" />
+													<ScoreDistribution value="1"
+														recordCount="20.85191633791031" />
+												</Node>
+												<Node id="30" score="0" recordCount="90.17874066074663">
+													<True />
+													<ScoreDistribution value="0"
+														recordCount="71.08086306834548" />
+													<ScoreDistribution value="1"
+														recordCount="19.097877592401144" />
+												</Node>
+											</Node>
+										</Node>
+										<Node id="31" score="0" recordCount="74.64256275758781">
+											<SimplePredicate field="prRealization"
+												operator="equal" value="True" />
+											<ScoreDistribution value="0"
+												recordCount="71.07830648182903" />
+											<ScoreDistribution value="1"
+												recordCount="3.5642562757587806" />
+										</Node>
+									</Node>
+									<Node id="32" score="1" recordCount="201.73285874860184">
+										<True />
+										<ScoreDistribution value="0" recordCount="64.1124016485619" />
+										<ScoreDistribution value="1"
+											recordCount="137.62045710003994" />
+										<Node id="33" score="1" recordCount="168.090295991014">
+											<SimplePredicate field="prPubService"
+												operator="equal" value="False" />
+											<ScoreDistribution value="0"
+												recordCount="60.41963282128557" />
+											<ScoreDistribution value="1"
+												recordCount="107.67066316972841" />
+											<Node id="34" score="0" recordCount="52.79917572124583">
+												<SimplePredicate field="age" operator="lessOrEqual"
+													value="27.0" />
+												<ScoreDistribution value="0"
+													recordCount="30.106406893969496" />
+												<ScoreDistribution value="1"
+													recordCount="22.69276882727634" />
+												<Node id="35" score="1" recordCount="32.72086923941682">
+													<SimplePredicate field="prWealth" operator="equal"
+														value="False" />
+													<ScoreDistribution value="0"
+														recordCount="15.02810041214048" />
+													<ScoreDistribution value="1"
+														recordCount="17.69276882727634" />
+													<Node id="36" score="0" recordCount="22.02810041214048">
+														<SimplePredicate field="profession"
+															operator="equal" value="False" />
+														<ScoreDistribution value="0"
+															recordCount="11.899587860622919" />
+														<ScoreDistribution value="1"
+															recordCount="10.12851255151756" />
+														<Node id="37" score="0" recordCount="10.92469089546719">
+															<SimplePredicate field="aboutme"
+																operator="lessOrEqual" value="2.0" />
+															<ScoreDistribution value="0"
+																recordCount="7.6425627575878" />
+															<ScoreDistribution value="1"
+																recordCount="3.2821281378793903" />
+														</Node>
+														<Node id="38" score="1" recordCount="11.103409516673292">
+															<True />
+															<ScoreDistribution value="0"
+																recordCount="4.257025103035122" />
+															<ScoreDistribution value="1"
+																recordCount="6.8463844136381695" />
+														</Node>
+													</Node>
+													<Node id="39" score="1" recordCount="10.69276882727634">
+														<SimplePredicate field="profession"
+															operator="equal" value="True" />
+														<ScoreDistribution value="0"
+															recordCount="3.128512551517561" />
+														<ScoreDistribution value="1"
+															recordCount="7.56425627575878" />
+													</Node>
+												</Node>
+												<Node id="40" score="0" recordCount="20.078306481829017">
+													<SimplePredicate field="prWealth" operator="equal"
+														value="True" />
+													<ScoreDistribution value="0"
+														recordCount="15.078306481829017" />
+													<ScoreDistribution value="1" recordCount="5.0" />
+												</Node>
+											</Node>
+											<Node id="41" score="1" recordCount="115.29112026976806">
+												<True />
+												<ScoreDistribution value="0"
+													recordCount="30.313225927316072" />
+												<ScoreDistribution value="1"
+													recordCount="84.97789434245199" />
+											</Node>
+										</Node>
+										<Node id="42" score="1" recordCount="33.6425627575878">
+											<SimplePredicate field="prPubService"
+												operator="equal" value="True" />
+											<ScoreDistribution value="0"
+												recordCount="3.6927688272763413" />
+											<ScoreDistribution value="1"
+												recordCount="29.949793930311458" />
+										</Node>
+									</Node>
+								</Node>
+							</Node>
+							<Node id="43" score="0" recordCount="4188.06444361216">
+								<True />
+								<ScoreDistribution value="0" recordCount="3876.0412139381006" />
+								<ScoreDistribution value="1" recordCount="312.0232296740599" />
+							</Node>
+						</Node>
+						<Node id="44" score="0" recordCount="449.0">
+							<SimplePredicate field="personality" operator="equal"
+								value="True" />
+							<ScoreDistribution value="0" recordCount="298.0" />
+							<ScoreDistribution value="1" recordCount="151.0" />
+							<Node id="45" score="1" recordCount="153.5183823529414">
+								<SimplePredicate field="minAge" operator="lessOrEqual"
+									value="21.0" />
+								<ScoreDistribution value="0" recordCount="69.50735294117659" />
+								<ScoreDistribution value="1" recordCount="84.01102941176481" />
+								<Node id="46" score="1" recordCount="143.4154411764708">
+									<SimplePredicate field="aboutme" operator="lessOrEqual"
+										value="65.0" />
+									<ScoreDistribution value="0" recordCount="59.404411764706" />
+									<ScoreDistribution value="1" recordCount="84.01102941176481" />
+									<Node id="47" score="1" recordCount="121.919117647059">
+										<SimplePredicate field="bodyhas" operator="equal"
+											value="False" />
+										<ScoreDistribution value="0" recordCount="41.93382352941184" />
+										<ScoreDistribution value="1" recordCount="79.98529411764716" />
+										<Node id="48" score="1" recordCount="109.20955882352965">
+											<SimplePredicate field="aimOther" operator="equal"
+												value="False" />
+											<ScoreDistribution value="0"
+												recordCount="41.250000000000114" />
+											<ScoreDistribution value="1"
+												recordCount="67.95955882352953" />
+											<Node id="49" score="1" recordCount="90.10661764705902">
+												<SimplePredicate field="prSex" operator="equal"
+													value="False" />
+												<ScoreDistribution value="0"
+													recordCount="36.56617647058833" />
+												<ScoreDistribution value="1"
+													recordCount="53.540441176470694" />
+												<Node id="50" score="0" recordCount="37.044117647058854">
+													<SimplePredicate field="age" operator="lessOrEqual"
+														value="25.0" />
+													<ScoreDistribution value="0"
+														recordCount="23.573529411764742" />
+													<ScoreDistribution value="1"
+														recordCount="13.470588235294116" />
+												</Node>
+												<Node id="51" score="1" recordCount="53.06250000000009">
+													<True />
+													<ScoreDistribution value="0"
+														recordCount="12.992647058823545" />
+													<ScoreDistribution value="1"
+														recordCount="40.06985294117655" />
+												</Node>
+											</Node>
+											<Node id="52" score="1" recordCount="19.102941176470587">
+												<SimplePredicate field="prSex" operator="equal"
+													value="True" />
+												<ScoreDistribution value="0"
+													recordCount="4.683823529411766" />
+												<ScoreDistribution value="1"
+													recordCount="14.419117647058822" />
+											</Node>
+										</Node>
+										<Node id="53" score="1" recordCount="12.709558823529413">
+											<SimplePredicate field="aimOther" operator="equal"
+												value="True" />
+											<ScoreDistribution value="0"
+												recordCount="0.683823529411766" />
+											<ScoreDistribution value="1"
+												recordCount="12.025735294117647" />
+										</Node>
+									</Node>
+									<Node id="54" score="0" recordCount="21.49632352941178">
+										<SimplePredicate field="bodyhas" operator="equal"
+											value="True" />
+										<ScoreDistribution value="0" recordCount="17.47058823529413" />
+										<ScoreDistribution value="1"
+											recordCount="4.0257352941176485" />
+									</Node>
+								</Node>
+								<Node id="55" score="0" recordCount="10.102941176470592">
+									<True />
+									<ScoreDistribution value="0" recordCount="10.102941176470592" />
+									<ScoreDistribution value="1" recordCount="0.0" />
+								</Node>
+							</Node>
+							<Node id="56" score="0" recordCount="295.4816176470592">
+								<True />
+								<ScoreDistribution value="0" recordCount="228.4926470588236" />
+								<ScoreDistribution value="1" recordCount="66.98897058823559" />
+								<Node id="57" score="0" recordCount="269.31985294117675">
+									<SimplePredicate field="prSex" operator="equal"
+										value="False" />
+									<ScoreDistribution value="0" recordCount="215.2279411764706" />
+									<ScoreDistribution value="1" recordCount="54.09191176470613" />
+								</Node>
+								<Node id="58" score="0" recordCount="26.16176470588242">
+									<SimplePredicate field="prSex" operator="equal"
+										value="True" />
+									<ScoreDistribution value="0" recordCount="13.264705882352969" />
+									<ScoreDistribution value="1" recordCount="12.89705882352945" />
+									<Node id="59" score="0" recordCount="13.60661764705885">
+										<SimplePredicate field="age" operator="lessOrEqual"
+											value="28.0" />
+										<ScoreDistribution value="0"
+											recordCount="11.948529411764728" />
+										<ScoreDistribution value="1"
+											recordCount="1.6580882352941209" />
+									</Node>
+									<Node id="60" score="1" recordCount="12.55514705882357">
+										<True />
+										<ScoreDistribution value="0"
+											recordCount="1.3161764705882415" />
+										<ScoreDistribution value="1"
+											recordCount="11.238970588235329" />
+									</Node>
+								</Node>
+							</Node>
+						</Node>
+					</Node>
+					<Node id="61" score="0" recordCount="374.0">
+						<SimplePredicate field="aimSex" operator="equal"
+							value="True" />
+						<ScoreDistribution value="0" recordCount="222.0" />
+						<ScoreDistribution value="1" recordCount="152.0" />
+						<Node id="62" score="0" recordCount="338.0">
+							<SimplePredicate field="personality" operator="equal"
+								value="False" />
+							<ScoreDistribution value="0" recordCount="218.0" />
+							<ScoreDistribution value="1" recordCount="120.0" />
+							<Node id="63" score="0" recordCount="225.91709844559568">
+								<SimplePredicate field="orientation" operator="equal"
+									value="1" />
+								<ScoreDistribution value="0" recordCount="126.18652849740921" />
+								<ScoreDistribution value="1" recordCount="99.73056994818648" />
+								<Node id="64" score="0" recordCount="209.21243523316048">
+									<SimplePredicate field="frPairMF" operator="equal"
+										value="False" />
+									<ScoreDistribution value="0" recordCount="110.81865284974083" />
+									<ScoreDistribution value="1" recordCount="98.39378238341966" />
+									<Node id="65" score="1" recordCount="126.84997124453741">
+										<SimplePredicate field="minAge" operator="lessOrEqual"
+											value="21.0" />
+										<ScoreDistribution value="0"
+											recordCount="48.502073896593956" />
+										<ScoreDistribution value="1" recordCount="78.34789734794346" />
+										<Node id="66" score="1" recordCount="108.41432305316465">
+											<SimplePredicate field="prPubService"
+												operator="equal" value="False" />
+											<ScoreDistribution value="0"
+												recordCount="47.16528633182712" />
+											<ScoreDistribution value="1"
+												recordCount="61.24903672133753" />
+											<Node id="67" score="1" recordCount="94.5754532107305">
+												<SimplePredicate field="age" operator="lessOrEqual"
+													value="34.0" />
+												<ScoreDistribution value="0"
+													recordCount="47.165286331827126" />
+												<ScoreDistribution value="1"
+													recordCount="47.41016687890338" />
+												<Node id="68" score="0" recordCount="62.271368091208835">
+													<SimplePredicate field="profession"
+														operator="equal" value="False" />
+													<ScoreDistribution value="0"
+														recordCount="40.20745302031251" />
+													<ScoreDistribution value="1"
+														recordCount="22.06391507089633" />
+													<Node id="69" score="0" recordCount="22.185822978656915">
+														<SimplePredicate field="age" operator="lessOrEqual"
+															value="24.0" />
+														<ScoreDistribution value="0"
+															recordCount="20.911107822005437" />
+														<ScoreDistribution value="1"
+															recordCount="1.2747151566514796" />
+													</Node>
+													<Node id="70" score="1" recordCount="40.08554511255193">
+														<True />
+														<ScoreDistribution value="0"
+															recordCount="19.296345198307076" />
+														<ScoreDistribution value="1"
+															recordCount="20.78919991424485" />
+														<Node id="71" score="0" recordCount="12.110325096805585">
+															<SimplePredicate field="photos" operator="lessOrEqual"
+																value="1.0" />
+															<ScoreDistribution value="0"
+																recordCount="8.441931314422167" />
+															<ScoreDistribution value="1"
+																recordCount="3.6683937823834194" />
+														</Node>
+														<Node id="72" score="1" recordCount="27.97522001574635">
+															<True />
+															<ScoreDistribution value="0"
+																recordCount="10.854413883884916" />
+															<ScoreDistribution value="1"
+																recordCount="17.120806131861432" />
+														</Node>
+													</Node>
+												</Node>
+												<Node id="73" score="1" recordCount="32.304085119521645">
+													<SimplePredicate field="profession"
+														operator="equal" value="True" />
+													<ScoreDistribution value="0"
+														recordCount="6.957833311514607" />
+													<ScoreDistribution value="1"
+														recordCount="25.34625180800704" />
+												</Node>
+											</Node>
+											<Node id="74" score="1" recordCount="13.838869842434146">
+												<True />
+												<ScoreDistribution value="0" recordCount="0.0" />
+												<ScoreDistribution value="1"
+													recordCount="13.838869842434146" />
+											</Node>
+										</Node>
+										<Node id="75" score="1" recordCount="18.435648191372753">
+											<SimplePredicate field="prPubService"
+												operator="equal" value="True" />
+											<ScoreDistribution value="0"
+												recordCount="1.3367875647668384" />
+											<ScoreDistribution value="1"
+												recordCount="17.098860626605916" />
+										</Node>
+									</Node>
+									<Node id="76" score="0" recordCount="82.3624639886231">
+										<True />
+										<ScoreDistribution value="0" recordCount="62.31657895314689" />
+										<ScoreDistribution value="1"
+											recordCount="20.045885035476218" />
+										<Node id="77" score="0" recordCount="41.755146607601304">
+											<SimplePredicate field="age" operator="lessOrEqual"
+												value="27.0" />
+											<ScoreDistribution value="0"
+												recordCount="38.866810161816716" />
+											<ScoreDistribution value="1"
+												recordCount="2.888336445784592" />
+										</Node>
+										<Node id="78" score="0" recordCount="40.607317381021815">
+											<True />
+											<ScoreDistribution value="0"
+												recordCount="23.449768791330186" />
+											<ScoreDistribution value="1"
+												recordCount="17.157548589691633" />
+											<Node id="79" score="0" recordCount="26.44336732752545">
+												<SimplePredicate field="prSex" operator="equal"
+													value="False" />
+												<ScoreDistribution value="0"
+													recordCount="20.13614684847336" />
+												<ScoreDistribution value="1"
+													recordCount="6.30722047905209" />
+											</Node>
+											<Node id="80" score="1" recordCount="14.163950053496375">
+												<SimplePredicate field="prSex" operator="equal"
+													value="True" />
+												<ScoreDistribution value="0"
+													recordCount="3.313621942856834" />
+												<ScoreDistribution value="1"
+													recordCount="10.850328110639541" />
+											</Node>
+										</Node>
+									</Node>
+								</Node>
+								<Node id="81" score="0" recordCount="16.704663212435214">
+									<SimplePredicate field="frPairMF" operator="equal"
+										value="True" />
+									<ScoreDistribution value="0" recordCount="15.367875647668377" />
+									<ScoreDistribution value="1" recordCount="1.3367875647668384" />
+								</Node>
+							</Node>
+							<Node id="82" score="0" recordCount="17.51295336787567">
+								<SimplePredicate field="orientation" operator="equal"
+									value="2" />
+								<ScoreDistribution value="0" recordCount="9.59585492227981" />
+								<ScoreDistribution value="1" recordCount="7.91709844559586" />
+							</Node>
+							<Node id="83" score="0" recordCount="94.56994818652812">
+								<SimplePredicate field="orientation" operator="equal"
+									value="3" />
+								<ScoreDistribution value="0" recordCount="82.21761658031058" />
+								<ScoreDistribution value="1" recordCount="12.352331606217543" />
+							</Node>
+						</Node>
+						<Node id="84" score="1" recordCount="36.0">
+							<SimplePredicate field="personality" operator="equal"
+								value="True" />
+							<ScoreDistribution value="0" recordCount="4.0" />
+							<ScoreDistribution value="1" recordCount="32.0" />
+						</Node>
+					</Node>
+				</Node>
+			</Node>
+			<Node id="85" score="1" recordCount="2092.0">
+				<SimplePredicate field="car" operator="equal" value="True" />
+				<ScoreDistribution value="0" recordCount="842.0" />
+				<ScoreDistribution value="1" recordCount="1250.0" />
+				<Node id="86" score="1" recordCount="1304.8462138953741">
+					<SimplePredicate field="minAge" operator="lessOrEqual"
+						value="21.0" />
+					<ScoreDistribution value="0" recordCount="359.1194379391045" />
+					<ScoreDistribution value="1" recordCount="945.7267759562696" />
+					<Node id="87" score="0" recordCount="286.42076502732">
+						<SimplePredicate field="age" operator="lessOrEqual"
+							value="24.0" />
+						<ScoreDistribution value="0" recordCount="153.74941451990486" />
+						<ScoreDistribution value="1" recordCount="132.67135050741513" />
+						<Node id="88" score="0" recordCount="255.18345042934982">
+							<SimplePredicate field="aimOther" operator="equal"
+								value="False" />
+							<ScoreDistribution value="0" recordCount="150.50195160031086" />
+							<ScoreDistribution value="1" recordCount="104.68149882903894" />
+							<Node id="89" score="0" recordCount="227.19359875097396">
+								<SimplePredicate field="aimSex" operator="equal"
+									value="False" />
+								<ScoreDistribution value="0" recordCount="146.007025761123" />
+								<ScoreDistribution value="1" recordCount="81.18657298985096" />
+								<Node id="90" score="0" recordCount="95.21862211300818">
+									<SimplePredicate field="alcohol" operator="equal"
+										value="1" />
+									<ScoreDistribution value="0" recordCount="75.96292063353418" />
+									<ScoreDistribution value="1" recordCount="19.255701479474" />
+								</Node>
+								<Node id="91" score="0" recordCount="111.00015704622024">
+									<SimplePredicate field="alcohol" operator="equal"
+										value="2" />
+									<ScoreDistribution value="0" recordCount="63.34768751388051" />
+									<ScoreDistribution value="1" recordCount="47.65246953233974" />
+									<Node id="92" score="0" recordCount="34.62535138334027">
+										<SimplePredicate field="isbody" operator="equal"
+											value="False" />
+										<ScoreDistribution value="0"
+											recordCount="28.028726032043664" />
+										<ScoreDistribution value="1" recordCount="6.596625351296609" />
+									</Node>
+									<Node id="93" score="1" recordCount="76.37480566287996">
+										<SimplePredicate field="isbody" operator="equal"
+											value="True" />
+										<ScoreDistribution value="0"
+											recordCount="35.318961481836844" />
+										<ScoreDistribution value="1" recordCount="41.05584418104312" />
+										<Node id="94" score="0" recordCount="65.04580136537474">
+											<SimplePredicate field="prPubService"
+												operator="equal" value="False" />
+											<ScoreDistribution value="0"
+												recordCount="35.318961481836844" />
+											<ScoreDistribution value="1"
+												recordCount="29.726839883537902" />
+											<Node id="95" score="0" recordCount="37.27594493663194">
+												<SimplePredicate field="aimLove" operator="equal"
+													value="False" />
+												<ScoreDistribution value="0"
+													recordCount="27.26593512405842" />
+												<ScoreDistribution value="1"
+													recordCount="10.010009812573516" />
+											</Node>
+											<Node id="96" score="1" recordCount="27.7698564287428">
+												<SimplePredicate field="aimLove" operator="equal"
+													value="True" />
+												<ScoreDistribution value="0"
+													recordCount="8.053026357778418" />
+												<ScoreDistribution value="1"
+													recordCount="19.71683007096438" />
+											</Node>
+										</Node>
+										<Node id="97" score="1" recordCount="11.329004297505218">
+											<SimplePredicate field="prPubService"
+												operator="equal" value="True" />
+											<ScoreDistribution value="0" recordCount="0.0" />
+											<ScoreDistribution value="1"
+												recordCount="11.329004297505218" />
+										</Node>
+									</Node>
+								</Node>
+								<Node id="98" score="1" recordCount="20.974819591745472">
+									<SimplePredicate field="alcohol" operator="equal"
+										value="3" />
+									<ScoreDistribution value="0" recordCount="6.696417613708186" />
+									<ScoreDistribution value="1" recordCount="14.278401978037286" />
+								</Node>
+							</Node>
+							<Node id="99" score="1" recordCount="27.989851678376162">
+								<SimplePredicate field="aimSex" operator="equal"
+									value="True" />
+								<ScoreDistribution value="0" recordCount="4.494925839188081" />
+								<ScoreDistribution value="1" recordCount="23.49492583918808" />
+							</Node>
+						</Node>
+						<Node id="100" score="1" recordCount="31.237314597970208">
+							<SimplePredicate field="aimOther" operator="equal"
+								value="True" />
+							<ScoreDistribution value="0" recordCount="3.247462919594041" />
+							<ScoreDistribution value="1" recordCount="27.989851678376166" />
+						</Node>
+					</Node>
+					<Node id="101" score="1" recordCount="1018.4254488680579">
+						<True />
+						<ScoreDistribution value="0" recordCount="205.37002341920135" />
+						<ScoreDistribution value="1" recordCount="813.0554254488565" />
+						<Node id="102" score="1" recordCount="455.4215456674407">
+							<SimplePredicate field="aimLove" operator="equal"
+								value="False" />
+							<ScoreDistribution value="0" recordCount="154.1530054644783" />
+							<ScoreDistribution value="1" recordCount="301.2685402029624" />
+							<Node id="103" score="1" recordCount="331.56362217017534">
+								<SimplePredicate field="prWealth" operator="equal"
+									value="False" />
+								<ScoreDistribution value="0" recordCount="90.11553473848394" />
+								<ScoreDistribution value="1" recordCount="241.4480874316914" />
+								<Node id="104" score="1" recordCount="313.24914428998244">
+									<SimplePredicate field="orientation" operator="equal"
+										value="1" />
+									<ScoreDistribution value="0" recordCount="77.6972873108766" />
+									<ScoreDistribution value="1" recordCount="235.55185697910582" />
+									<Node id="105" score="1" recordCount="283.2382615819414">
+										<SimplePredicate field="aimSex" operator="equal"
+											value="False" />
+										<ScoreDistribution value="0" recordCount="77.07355585107959" />
+										<ScoreDistribution value="1"
+											recordCount="206.16470573086178" />
+										<Node id="106" score="1" recordCount="53.80837094218549">
+											<SimplePredicate field="interest" operator="equal"
+												value="False" />
+											<ScoreDistribution value="0" recordCount="24.7138798865349" />
+											<ScoreDistribution value="1"
+												recordCount="29.094491055650593" />
+											<Node id="107" score="0" recordCount="33.98948863226636">
+												<SimplePredicate field="isbody" operator="equal"
+													value="False" />
+												<ScoreDistribution value="0"
+													recordCount="21.109302579429713" />
+												<ScoreDistribution value="1"
+													recordCount="12.880186052836644" />
+											</Node>
+											<Node id="108" score="1" recordCount="19.818882309919154">
+												<SimplePredicate field="isbody" operator="equal"
+													value="True" />
+												<ScoreDistribution value="0"
+													recordCount="3.6045773071051936" />
+												<ScoreDistribution value="1"
+													recordCount="16.21430500281396" />
+											</Node>
+										</Node>
+										<Node id="109" score="1" recordCount="229.42989063975557">
+											<SimplePredicate field="interest" operator="equal"
+												value="True" />
+											<ScoreDistribution value="0"
+												recordCount="52.35967596454464" />
+											<ScoreDistribution value="1"
+												recordCount="177.07021467521093" />
+										</Node>
+									</Node>
+									<Node id="110" score="1" recordCount="30.010882708040885">
+										<SimplePredicate field="aimSex" operator="equal"
+											value="True" />
+										<ScoreDistribution value="0"
+											recordCount="0.6237314597970205" />
+										<ScoreDistribution value="1"
+											recordCount="29.387151248243864" />
+									</Node>
+								</Node>
+								<Node id="111" score="0" recordCount="0.0">
+									<SimplePredicate field="orientation" operator="equal"
+										value="2" />
+									<ScoreDistribution value="0" recordCount="0.0" />
+									<ScoreDistribution value="1" recordCount="0.0" />
+								</Node>
+								<Node id="112" score="0" recordCount="18.31447788019336">
+									<SimplePredicate field="orientation" operator="equal"
+										value="3" />
+									<ScoreDistribution value="0" recordCount="12.418247427607652" />
+									<ScoreDistribution value="1" recordCount="5.896230452585708" />
+								</Node>
+							</Node>
+							<Node id="113" score="0" recordCount="123.85792349726637">
+								<SimplePredicate field="prWealth" operator="equal"
+									value="True" />
+								<ScoreDistribution value="0" recordCount="64.03747072599445" />
+								<ScoreDistribution value="1" recordCount="59.82045277127191" />
+								<Node id="114" score="0" recordCount="81.4035909445736">
+									<SimplePredicate field="prSex" operator="equal"
+										value="False" />
+									<ScoreDistribution value="0" recordCount="54.42388758782126" />
+									<ScoreDistribution value="1" recordCount="26.979703356752335" />
+									<Node id="115" score="0" recordCount="10.237314597970206">
+										<SimplePredicate field="sports" operator="equal"
+											value="False" />
+										<ScoreDistribution value="0"
+											recordCount="10.237314597970206" />
+										<ScoreDistribution value="1" recordCount="0.0" />
+									</Node>
+									<Node id="116" score="0" recordCount="71.16627634660338">
+										<SimplePredicate field="sports" operator="equal"
+											value="True" />
+										<ScoreDistribution value="0" recordCount="44.18657298985105" />
+										<ScoreDistribution value="1"
+											recordCount="26.979703356752335" />
+										<Node id="117" score="0" recordCount="45.32552693208382">
+											<SimplePredicate field="exciteme" operator="equal"
+												value="False" />
+											<ScoreDistribution value="0"
+												recordCount="23.217017954722543" />
+											<ScoreDistribution value="1"
+												recordCount="22.10850897736127" />
+											<Node id="118" score="0" recordCount="33.95940671350466">
+												<SimplePredicate field="heteroexperience"
+													operator="equal" value="False" />
+												<ScoreDistribution value="0"
+													recordCount="20.72209211553446" />
+												<ScoreDistribution value="1"
+													recordCount="13.237314597970204" />
+												<Node id="119" score="0" recordCount="19.850897736143395">
+													<SimplePredicate field="photos" operator="lessOrEqual"
+														value="2.0" />
+													<ScoreDistribution value="0"
+														recordCount="16.979703356752335" />
+													<ScoreDistribution value="1"
+														recordCount="2.8711943793910617" />
+												</Node>
+												<Node id="120" score="1" recordCount="14.108508977361268">
+													<True />
+													<ScoreDistribution value="0"
+														recordCount="3.7423887587821225" />
+													<ScoreDistribution value="1"
+														recordCount="10.366120218579145" />
+												</Node>
+											</Node>
+											<Node id="121" score="1" recordCount="11.366120218579145">
+												<SimplePredicate field="heteroexperience"
+													operator="equal" value="True" />
+												<ScoreDistribution value="0"
+													recordCount="2.494925839188082" />
+												<ScoreDistribution value="1"
+													recordCount="8.871194379391062" />
+											</Node>
+										</Node>
+										<Node id="122" score="0" recordCount="25.840749414519564">
+											<SimplePredicate field="exciteme" operator="equal"
+												value="True" />
+											<ScoreDistribution value="0" recordCount="20.9695550351285" />
+											<ScoreDistribution value="1"
+												recordCount="4.871194379391062" />
+										</Node>
+									</Node>
+								</Node>
+								<Node id="123" score="1" recordCount="42.45433255269275">
+									<SimplePredicate field="prSex" operator="equal"
+										value="True" />
+									<ScoreDistribution value="0" recordCount="9.613583138173183" />
+									<ScoreDistribution value="1" recordCount="32.840749414519564" />
+								</Node>
+							</Node>
+						</Node>
+						<Node id="124" score="1" recordCount="563.0039032006205">
+							<SimplePredicate field="aimLove" operator="equal"
+								value="True" />
+							<ScoreDistribution value="0" recordCount="51.21701795472254" />
+							<ScoreDistribution value="1" recordCount="511.78688524589796" />
+							<Node id="125" score="1" recordCount="553.0039032006206">
+								<SimplePredicate field="frPairMF" operator="equal"
+									value="False" />
+								<ScoreDistribution value="0" recordCount="45.21701795472254" />
+								<ScoreDistribution value="1" recordCount="507.786885245898" />
+								<Node id="126" score="1" recordCount="486.65807962528936">
+									<SimplePredicate field="bodyhas" operator="equal"
+										value="False" />
+									<ScoreDistribution value="0" recordCount="24.97970335675233" />
+									<ScoreDistribution value="1" recordCount="461.678376268537" />
+								</Node>
+								<Node id="127" score="1" recordCount="66.34582357533148">
+									<SimplePredicate field="bodyhas" operator="equal"
+										value="True" />
+									<ScoreDistribution value="0" recordCount="20.23731459797021" />
+									<ScoreDistribution value="1" recordCount="46.108508977361275" />
+									<Node id="128" score="1" recordCount="37.10850897736127">
+										<SimplePredicate field="prEquilibrium"
+											operator="equal" value="False" />
+										<ScoreDistribution value="0" recordCount="6.494925839188081" />
+										<ScoreDistribution value="1"
+											recordCount="30.613583138173187" />
+									</Node>
+									<Node id="129" score="1" recordCount="29.237314597970204">
+										<SimplePredicate field="prEquilibrium"
+											operator="equal" value="True" />
+										<ScoreDistribution value="0"
+											recordCount="13.742388758782123" />
+										<ScoreDistribution value="1"
+											recordCount="15.494925839188081" />
+										<Node id="130" score="0" recordCount="13.118657298985106">
+											<SimplePredicate field="age" operator="lessOrEqual"
+												value="28.0" />
+											<ScoreDistribution value="0"
+												recordCount="10.494925839188085" />
+											<ScoreDistribution value="1"
+												recordCount="2.6237314597970203" />
+										</Node>
+										<Node id="131" score="1" recordCount="16.118657298985106">
+											<True />
+											<ScoreDistribution value="0"
+												recordCount="3.2474629195940405" />
+											<ScoreDistribution value="1"
+												recordCount="12.871194379391063" />
+										</Node>
+									</Node>
+								</Node>
+							</Node>
+							<Node id="132" score="0" recordCount="10.0">
+								<SimplePredicate field="frPairMF" operator="equal"
+									value="True" />
+								<ScoreDistribution value="0" recordCount="6.0" />
+								<ScoreDistribution value="1" recordCount="4.0" />
+							</Node>
+						</Node>
+					</Node>
+				</Node>
+				<Node id="133" score="0" recordCount="787.1537861046168">
+					<True />
+					<ScoreDistribution value="0" recordCount="482.8805620608953" />
+					<ScoreDistribution value="1" recordCount="304.2732240437215" />
+					<Node id="134" score="1" recordCount="33.56596409055486">
+						<SimplePredicate field="photos" operator="lessOrEqual"
+							value="0.0" />
+						<ScoreDistribution value="0" recordCount="6.257611241217864" />
+						<ScoreDistribution value="1" recordCount="27.30835284933699" />
+					</Node>
+					<Node id="135" score="0" recordCount="753.5878220140607">
+						<True />
+						<ScoreDistribution value="0" recordCount="476.6229508196773" />
+						<ScoreDistribution value="1" recordCount="276.9648711943834" />
+						<Node id="136" score="0" recordCount="695.6455893833023">
+							<SimplePredicate field="aimSex" operator="equal"
+								value="False" />
+							<ScoreDistribution value="0" recordCount="458.36533957845944" />
+							<ScoreDistribution value="1" recordCount="237.28024980484284" />
+							<Node id="137" score="0" recordCount="160.31147540983744">
+								<SimplePredicate field="sports" operator="equal"
+									value="False" />
+								<ScoreDistribution value="0" recordCount="132.61670569867366" />
+								<ScoreDistribution value="1" recordCount="27.694769711163783" />
+							</Node>
+							<Node id="138" score="0" recordCount="535.334113973463">
+								<SimplePredicate field="sports" operator="equal"
+									value="True" />
+								<ScoreDistribution value="0" recordCount="325.74863387978354" />
+								<ScoreDistribution value="1" recordCount="209.58548009367942" />
+								<Node id="139" score="1" recordCount="306.9820452771306">
+									<SimplePredicate field="prWealth" operator="equal"
+										value="False" />
+									<ScoreDistribution value="0" recordCount="152.3793911007034" />
+									<ScoreDistribution value="1" recordCount="154.6026541764272" />
+									<Node id="140" score="0" recordCount="169.66042154566992">
+										<SimplePredicate field="age" operator="lessOrEqual"
+											value="30.0" />
+										<ScoreDistribution value="0"
+											recordCount="106.33879781420828" />
+										<ScoreDistribution value="1"
+											recordCount="63.321623731461656" />
+										<Node id="141" score="0" recordCount="67.27145012957534">
+											<SimplePredicate field="body" operator="equal"
+												value="1" />
+											<ScoreDistribution value="0"
+												recordCount="51.44219979574569" />
+											<ScoreDistribution value="1"
+												recordCount="15.829250333829659" />
+										</Node>
+										<Node id="142" score="0" recordCount="91.71213899795889">
+											<SimplePredicate field="body" operator="equal"
+												value="2" />
+											<ScoreDistribution value="0"
+												recordCount="46.25095818573324" />
+											<ScoreDistribution value="1"
+												recordCount="45.46118081222565" />
+											<Node id="143" score="1" recordCount="73.94308930567382">
+												<SimplePredicate field="aimMarriage"
+													operator="equal" value="False" />
+												<ScoreDistribution value="0"
+													recordCount="32.17683853192859" />
+												<ScoreDistribution value="1"
+													recordCount="41.766250773745234" />
+												<Node id="144" score="0" recordCount="56.02132372628091">
+													<SimplePredicate field="prCarrier"
+														operator="equal" value="False" />
+													<ScoreDistribution value="0"
+														recordCount="29.936381870659908" />
+													<ScoreDistribution value="1"
+														recordCount="26.084941855621" />
+													<Node id="145" score="1" recordCount="32.54560911497066">
+														<SimplePredicate field="aimFriendship"
+															operator="equal" value="False" />
+														<ScoreDistribution value="0"
+															recordCount="12.745410994023235" />
+														<ScoreDistribution value="1"
+															recordCount="19.800198120947424" />
+														<Node id="146" score="1" recordCount="21.64414017882543">
+															<SimplePredicate field="ispriorities"
+																operator="equal" value="False" />
+															<ScoreDistribution value="0"
+																recordCount="6.24734309153669" />
+															<ScoreDistribution value="1"
+																recordCount="15.39679708728874" />
+														</Node>
+														<Node id="147" score="0" recordCount="10.901468936145234">
+															<SimplePredicate field="ispriorities"
+																operator="equal" value="True" />
+															<ScoreDistribution value="0"
+																recordCount="6.498067902486546" />
+															<ScoreDistribution value="1"
+																recordCount="4.403401033658688" />
+														</Node>
+													</Node>
+													<Node id="148" score="0" recordCount="23.47571461131026">
+														<SimplePredicate field="aimFriendship"
+															operator="equal" value="True" />
+														<ScoreDistribution value="0"
+															recordCount="17.190970876636687" />
+														<ScoreDistribution value="1"
+															recordCount="6.284743734673573" />
+													</Node>
+												</Node>
+												<Node id="149" score="1" recordCount="17.921765579392865">
+													<SimplePredicate field="prCarrier"
+														operator="equal" value="True" />
+													<ScoreDistribution value="0"
+														recordCount="2.2404566612686825" />
+													<ScoreDistribution value="1"
+														recordCount="15.681308918124182" />
+												</Node>
+											</Node>
+											<Node id="150" score="0" recordCount="17.76904969228501">
+												<SimplePredicate field="aimMarriage"
+													operator="equal" value="True" />
+												<ScoreDistribution value="0"
+													recordCount="14.074119653804607" />
+												<ScoreDistribution value="1"
+													recordCount="3.6949300384804005" />
+											</Node>
+										</Node>
+										<Node id="151" score="0" recordCount="10.676832418135909">
+											<SimplePredicate field="body" operator="equal"
+												value="3" />
+											<ScoreDistribution value="0"
+												recordCount="8.645639832729623" />
+											<ScoreDistribution value="1"
+												recordCount="2.0311925854062856" />
+										</Node>
+										<Node id="152" score="0" recordCount="0.0">
+											<SimplePredicate field="body" operator="equal"
+												value="4" />
+											<ScoreDistribution value="0" recordCount="0.0" />
+											<ScoreDistribution value="1" recordCount="0.0" />
+										</Node>
+									</Node>
+									<Node id="153" score="1" recordCount="137.32162373146141">
+										<True />
+										<ScoreDistribution value="0" recordCount="46.0405932864953" />
+										<ScoreDistribution value="1" recordCount="91.28103044496612" />
+										<Node id="154" score="1" recordCount="120.54879000780797">
+											<SimplePredicate field="prPubService"
+												operator="equal" value="False" />
+											<ScoreDistribution value="0"
+												recordCount="46.04059328649531" />
+											<ScoreDistribution value="1"
+												recordCount="74.50819672131266" />
+											<Node id="155" score="0" recordCount="71.25058548009484">
+												<SimplePredicate field="aimLove" operator="equal"
+													value="False" />
+												<ScoreDistribution value="0"
+													recordCount="38.04059328649531" />
+												<ScoreDistribution value="1"
+													recordCount="33.20999219359953" />
+												<Node id="156" score="1" recordCount="60.25058548009482">
+													<SimplePredicate field="aimMarriage"
+														operator="equal" value="False" />
+													<ScoreDistribution value="0"
+														recordCount="28.040593286495287" />
+													<ScoreDistribution value="1"
+														recordCount="32.20999219359953" />
+													<Node id="157" score="1" recordCount="48.230288836847166">
+														<SimplePredicate field="prEquilibrium"
+															operator="equal" value="False" />
+														<ScoreDistribution value="0"
+															recordCount="19.030444964871464" />
+														<ScoreDistribution value="1"
+															recordCount="29.199843871975702" />
+														<Node id="158" score="1" recordCount="26.06088992974292">
+															<SimplePredicate field="exciteme"
+																operator="equal" value="False" />
+															<ScoreDistribution value="0"
+																recordCount="6.515222482435727" />
+															<ScoreDistribution value="1"
+																recordCount="19.545667447307192" />
+														</Node>
+														<Node id="159" score="0" recordCount="22.169398907104203">
+															<SimplePredicate field="exciteme"
+																operator="equal" value="True" />
+															<ScoreDistribution value="0"
+																recordCount="12.515222482435727" />
+															<ScoreDistribution value="1"
+																recordCount="9.654176424668476" />
+															<Node id="160" score="1" recordCount="11.2779078844655">
+																<SimplePredicate field="photos"
+																	operator="lessOrEqual" value="5.0" />
+																<ScoreDistribution value="0"
+																	recordCount="5.010148321623819" />
+																<ScoreDistribution value="1"
+																	recordCount="6.267759562841682" />
+															</Node>
+															<Node id="161" score="0" recordCount="10.891491022638705">
+																<True />
+																<ScoreDistribution value="0"
+																	recordCount="7.505074160811908" />
+																<ScoreDistribution value="1"
+																	recordCount="3.3864168618267967" />
+															</Node>
+														</Node>
+													</Node>
+													<Node id="162" score="0" recordCount="12.020296643247637">
+														<SimplePredicate field="prEquilibrium"
+															operator="equal" value="True" />
+														<ScoreDistribution value="0"
+															recordCount="9.010148321623817" />
+														<ScoreDistribution value="1"
+															recordCount="3.010148321623819" />
+													</Node>
+												</Node>
+												<Node id="163" score="0" recordCount="11.0">
+													<SimplePredicate field="aimMarriage"
+														operator="equal" value="True" />
+													<ScoreDistribution value="0" recordCount="10.0" />
+													<ScoreDistribution value="1" recordCount="1.0" />
+												</Node>
+											</Node>
+											<Node id="164" score="1" recordCount="49.29820452771317">
+												<SimplePredicate field="aimLove" operator="equal"
+													value="True" />
+												<ScoreDistribution value="0" recordCount="8.0" />
+												<ScoreDistribution value="1"
+													recordCount="41.29820452771317" />
+											</Node>
+										</Node>
+										<Node id="165" score="1" recordCount="16.77283372365359">
+											<SimplePredicate field="prPubService"
+												operator="equal" value="True" />
+											<ScoreDistribution value="0" recordCount="0.0" />
+											<ScoreDistribution value="1"
+												recordCount="16.77283372365359" />
+										</Node>
+									</Node>
+								</Node>
+								<Node id="166" score="0" recordCount="228.35206869633282">
+									<SimplePredicate field="prWealth" operator="equal"
+										value="True" />
+									<ScoreDistribution value="0" recordCount="173.36924277907966" />
+									<ScoreDistribution value="1" recordCount="54.982825917253166" />
+									<Node id="167" score="0" recordCount="173.02341920374823">
+										<SimplePredicate field="prSex" operator="equal"
+											value="False" />
+										<ScoreDistribution value="0"
+											recordCount="145.34894613583208" />
+										<ScoreDistribution value="1"
+											recordCount="27.674473067916143" />
+									</Node>
+									<Node id="168" score="0" recordCount="55.32864949258463">
+										<SimplePredicate field="prSex" operator="equal"
+											value="True" />
+										<ScoreDistribution value="0"
+											recordCount="28.020296643247647" />
+										<ScoreDistribution value="1" recordCount="27.30835284933698" />
+										<Node id="169" score="1" recordCount="37.18969555035186">
+											<SimplePredicate field="bodyhas" operator="equal"
+												value="False" />
+											<ScoreDistribution value="0"
+												recordCount="13.76268540202977" />
+											<ScoreDistribution value="1"
+												recordCount="23.427010148322086" />
+										</Node>
+										<Node id="170" score="0" recordCount="18.13895394223275">
+											<SimplePredicate field="bodyhas" operator="equal"
+												value="True" />
+											<ScoreDistribution value="0"
+												recordCount="14.257611241217862" />
+											<ScoreDistribution value="1"
+												recordCount="3.8813427010148875" />
+										</Node>
+									</Node>
+								</Node>
+							</Node>
+						</Node>
+						<Node id="171" score="1" recordCount="57.94223263075783">
+							<SimplePredicate field="aimSex" operator="equal"
+								value="True" />
+							<ScoreDistribution value="0" recordCount="18.257611241217862" />
+							<ScoreDistribution value="1" recordCount="39.68462138953997" />
+							<Node id="172" score="0" recordCount="21.267759562841682">
+								<SimplePredicate field="aimLove" operator="equal"
+									value="False" />
+								<ScoreDistribution value="0" recordCount="13.505074160811908" />
+								<ScoreDistribution value="1" recordCount="7.762685402029773" />
+								<Node id="173" score="0" recordCount="11.257611241217862">
+									<SimplePredicate field="age" operator="lessOrEqual"
+										value="29.0" />
+									<ScoreDistribution value="0" recordCount="9.505074160811908" />
+									<ScoreDistribution value="1" recordCount="1.7525370804059546" />
+								</Node>
+								<Node id="174" score="1" recordCount="10.010148321623817">
+									<True />
+									<ScoreDistribution value="0" recordCount="4.0" />
+									<ScoreDistribution value="1" recordCount="6.010148321623817" />
+								</Node>
+							</Node>
+							<Node id="175" score="1" recordCount="36.674473067916125">
+								<SimplePredicate field="aimLove" operator="equal"
+									value="True" />
+								<ScoreDistribution value="0" recordCount="4.752537080405954" />
+								<ScoreDistribution value="1" recordCount="31.92193598751017" />
+							</Node>
+						</Node>
+					</Node>
+				</Node>
+			</Node>
+		</Node>
+	</TreeModel>
+</PMML>

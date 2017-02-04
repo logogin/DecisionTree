@@ -1,0 +1,175 @@
+frPairFF = False
+|   minMaxAge = nopref
+|   |   aboutMe = none
+|   |   |   prioritySex = True: 1 (299.0/25.0)
+|   |   |   prioritySex = False
+|   |   |   |   priorityFamily = True
+|   |   |   |   |   aimMarriage = False
+|   |   |   |   |   |   materialStatus = 0
+|   |   |   |   |   |   |   dayRegime = 0: 1 (20.0/8.0)
+|   |   |   |   |   |   |   dayRegime = 1: 0 (42.0/13.0)
+|   |   |   |   |   |   |   dayRegime = 2: 0 (12.0/1.0)
+|   |   |   |   |   |   materialStatus = 1: 1 (16.0/5.0)
+|   |   |   |   |   |   materialStatus = 2: 1 (37.0/15.0)
+|   |   |   |   |   |   materialStatus = 3
+|   |   |   |   |   |   |   age <= 28: 1 (74.0/17.0)
+|   |   |   |   |   |   |   age > 28
+|   |   |   |   |   |   |   |   dayRegime = 0: 1 (15.0/3.0)
+|   |   |   |   |   |   |   |   dayRegime = 1: 0 (30.0/12.0)
+|   |   |   |   |   |   |   |   dayRegime = 2: 0 (11.0/2.0)
+|   |   |   |   |   |   materialStatus = 4: 1 (48.0/7.0)
+|   |   |   |   |   aimMarriage = True: 1 (58.0/10.0)
+|   |   |   |   priorityFamily = False: 1 (6684.0/1371.0)
+|   |   aboutMe = normal
+|   |   |   isSexLike = True: 1 (280.0/41.0)
+|   |   |   isSexLike = False
+|   |   |   |   prioritySex = True: 1 (39.0/5.0)
+|   |   |   |   prioritySex = False
+|   |   |   |   |   priorityPubService = True: 1 (24.0/3.0)
+|   |   |   |   |   priorityPubService = False
+|   |   |   |   |   |   aimMarriage = False
+|   |   |   |   |   |   |   age <= 34
+|   |   |   |   |   |   |   |   heteroExperience = 0
+|   |   |   |   |   |   |   |   |   smoking = 0
+|   |   |   |   |   |   |   |   |   |   dayRegime = 0
+|   |   |   |   |   |   |   |   |   |   |   isLanguages = True
+|   |   |   |   |   |   |   |   |   |   |   |   age <= 23: 0 (10.0/1.0)
+|   |   |   |   |   |   |   |   |   |   |   |   age > 23
+|   |   |   |   |   |   |   |   |   |   |   |   |   age <= 27: 1 (71.0/31.0)
+|   |   |   |   |   |   |   |   |   |   |   |   |   age > 27: 0 (115.0/40.0)
+|   |   |   |   |   |   |   |   |   |   |   isLanguages = False: 1 (107.0/37.0)
+|   |   |   |   |   |   |   |   |   |   dayRegime = 1: 0 (14.0/2.0)
+|   |   |   |   |   |   |   |   |   |   dayRegime = 2: 0 (4.0/1.0)
+|   |   |   |   |   |   |   |   |   smoking = 1
+|   |   |   |   |   |   |   |   |   |   orientation = 0: 0 (41.0/15.0)
+|   |   |   |   |   |   |   |   |   |   orientation = 1: 1 (15.0/5.0)
+|   |   |   |   |   |   |   |   |   |   orientation = 2: 0 (0.0)
+|   |   |   |   |   |   |   |   |   |   orientation = 3: 0 (0.0)
+|   |   |   |   |   |   |   |   |   smoking = 2: 1 (45.0/8.0)
+|   |   |   |   |   |   |   |   heteroExperience = 1: 1 (17.0/3.0)
+|   |   |   |   |   |   |   |   heteroExperience = 2: 1 (5.0/2.0)
+|   |   |   |   |   |   |   age > 34
+|   |   |   |   |   |   |   |   isFreeDay = True
+|   |   |   |   |   |   |   |   |   smoking = 0: 0 (183.0/27.0)
+|   |   |   |   |   |   |   |   |   smoking = 1
+|   |   |   |   |   |   |   |   |   |   priorityFamily = True: 0 (14.0/1.0)
+|   |   |   |   |   |   |   |   |   |   priorityFamily = False: 1 (11.0/3.0)
+|   |   |   |   |   |   |   |   |   smoking = 2: 1 (9.0/3.0)
+|   |   |   |   |   |   |   |   isFreeDay = False: 1 (31.0/11.0)
+|   |   |   |   |   |   aimMarriage = True: 1 (38.0/8.0)
+|   |   aboutMe = high
+|   |   |   isSexLike = True: 1 (74.0/13.0)
+|   |   |   isSexLike = False
+|   |   |   |   priorityCareer = True
+|   |   |   |   |   priorityFamily = True
+|   |   |   |   |   |   drugs = 0: 0 (10.0/3.0)
+|   |   |   |   |   |   drugs = 1: 1 (11.0/3.0)
+|   |   |   |   |   |   drugs = 2: 1 (0.0)
+|   |   |   |   |   |   drugs = 3: 1 (0.0)
+|   |   |   |   |   priorityFamily = False: 1 (12.0)
+|   |   |   |   priorityCareer = False
+|   |   |   |   |   isProfession = True: 0 (52.0/16.0)
+|   |   |   |   |   isProfession = False: 1 (40.0/15.0)
+|   |   aboutMe = veryhigh: 0 (2.0/1.0)
+|   minMaxAge = 18-20: 1 (357.0/29.0)
+|   minMaxAge = 18-25
+|   |   age <= 22
+|   |   |   aimSex = True: 1 (35.0/1.0)
+|   |   |   aimSex = False
+|   |   |   |   aboutMe = none: 1 (40.0/10.0)
+|   |   |   |   aboutMe = normal: 1 (16.0/5.0)
+|   |   |   |   aboutMe = high: 0 (11.0/2.0)
+|   |   |   |   aboutMe = veryhigh: 1 (0.0)
+|   |   age > 22: 1 (375.0/6.0)
+|   minMaxAge = 18-30
+|   |   age <= 23
+|   |   |   prioritySex = True: 1 (12.0)
+|   |   |   prioritySex = False
+|   |   |   |   priorityCareer = True: 0 (12.0/2.0)
+|   |   |   |   priorityCareer = False: 1 (12.0/4.0)
+|   |   age > 23: 1 (179.0/3.0)
+|   minMaxAge = 18-35: 1 (88.0/3.0)
+|   minMaxAge = 18-40: 1 (39.0/4.0)
+|   minMaxAge = 18-50: 1 (10.0)
+|   minMaxAge = 18-60: 1 (1.0)
+|   minMaxAge = 18-80: 1 (8.0/2.0)
+|   minMaxAge = 21-25
+|   |   age <= 24
+|   |   |   isHeteroExperience = True
+|   |   |   |   aboutMe = none: 1 (14.0/1.0)
+|   |   |   |   aboutMe = normal: 0 (10.0/5.0)
+|   |   |   |   aboutMe = high: 0 (2.0)
+|   |   |   |   aboutMe = veryhigh: 1 (0.0)
+|   |   |   isHeteroExperience = False
+|   |   |   |   household = 0: 0 (29.0/7.0)
+|   |   |   |   household = 1: 1 (7.0/1.0)
+|   |   |   |   household = 2: 0 (1.0)
+|   |   |   |   household = 3: 0 (37.0/4.0)
+|   |   |   |   household = 4: 0 (0.0)
+|   |   |   |   household = 5: 0 (0.0)
+|   |   |   |   household = 6: 0 (0.0)
+|   |   age > 24: 1 (130.0/11.0)
+|   minMaxAge = 21-30
+|   |   age <= 27
+|   |   |   isSexLike = True
+|   |   |   |   priorityFamily = True: 0 (19.0/7.0)
+|   |   |   |   priorityFamily = False: 1 (14.0/3.0)
+|   |   |   isSexLike = False: 0 (52.0/6.0)
+|   |   age > 27: 1 (98.0/2.0)
+|   minMaxAge = 21-35
+|   |   age <= 26: 0 (18.0/5.0)
+|   |   age > 26: 1 (85.0/2.0)
+|   minMaxAge = 21-40: 1 (34.0/5.0)
+|   minMaxAge = 21-50: 0 (3.0/1.0)
+|   minMaxAge = 21-60: 1 (0.0)
+|   minMaxAge = 21-80: 0 (2.0)
+|   minMaxAge = 26-30
+|   |   age <= 30
+|   |   |   prioritySex = True: 1 (15.0/5.0)
+|   |   |   prioritySex = False: 0 (92.0/10.0)
+|   |   age > 30: 1 (50.0/3.0)
+|   minMaxAge = 26-35
+|   |   age <= 32
+|   |   |   aimSex = True: 1 (15.0/6.0)
+|   |   |   aimSex = False: 0 (73.0/6.0)
+|   |   age > 32: 1 (52.0/4.0)
+|   minMaxAge = 26-40
+|   |   age <= 30: 0 (31.0/3.0)
+|   |   age > 30: 1 (38.0/7.0)
+|   minMaxAge = 26-50: 1 (18.0/6.0)
+|   minMaxAge = 26-60: 1 (2.0)
+|   minMaxAge = 26-80: 0 (1.0)
+|   minMaxAge = 31-35
+|   |   age <= 36: 0 (52.0/8.0)
+|   |   age > 36: 1 (13.0/3.0)
+|   minMaxAge = 31-40
+|   |   age <= 41: 0 (74.0/7.0)
+|   |   age > 41: 1 (13.0/1.0)
+|   minMaxAge = 31-50
+|   |   aimSex = True: 1 (18.0/5.0)
+|   |   aimSex = False: 0 (17.0/2.0)
+|   minMaxAge = 31-60: 0 (5.0/1.0)
+|   minMaxAge = 31-80: 0 (1.0)
+|   minMaxAge = 36-40
+|   |   age <= 45: 0 (43.0/2.0)
+|   |   age > 45: 1 (14.0/3.0)
+|   minMaxAge = 36-50
+|   |   aimSex = True: 1 (23.0/7.0)
+|   |   aimSex = False: 0 (56.0/3.0)
+|   minMaxAge = 36-60: 0 (7.0)
+|   minMaxAge = 36-80: 0 (1.0)
+|   minMaxAge = 41-50: 0 (78.0/6.0)
+|   minMaxAge = 41-60: 0 (34.0/2.0)
+|   minMaxAge = 41-80: 1 (0.0)
+|   minMaxAge = 51-60: 0 (19.0/2.0)
+|   minMaxAge = 51-80: 0 (7.0)
+|   minMaxAge = 61-80: 1 (3.0)
+frPairFF = True
+|   frPairMF = False
+|   |   orientation = 0: 1 (1020.0/22.0)
+|   |   orientation = 1: 1 (290.0/5.0)
+|   |   orientation = 2: 0 (2.0)
+|   |   orientation = 3: 0 (16.0/6.0)
+|   frPairMF = True
+|   |   age <= 23: 0 (12.0/5.0)
+|   |   age > 23: 1 (55.0/9.0)

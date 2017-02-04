@@ -20,8 +20,6 @@ import com.logogin.decisiontree.model.event.AliasChangeEvent;
 import com.logogin.decisiontree.model.event.ModelChangeEvent;
 
 /**
- * $Id$
- *
  * @created Nov 15, 2010
  * @author Pavel Danchenko
  */
@@ -175,7 +173,7 @@ public class TreeAnalyzerController extends BaseController {
     }
 
     public StringBuffer getWekaOutput(int rowIndex, TreeModelsTableModel treeModelsTableModel) {
-        return treeModels.get(treeModelsTableModel.getTreeModel(rowIndex)).dumpWekaTree();
+        return treeModels.get(treeModelsTableModel.getTreeModelId(rowIndex)).dumpWekaTree();
     }
 
     public void setDataFieldAlias(String dataFieldName, String classValue, String alias) {

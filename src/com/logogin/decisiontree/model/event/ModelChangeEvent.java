@@ -5,8 +5,6 @@ import java.util.EventObject;
 import com.logogin.decisiontree.model.DecisionTreeModel;
 
 /**
- * $Id$
- *
  * @created Dec 8, 2010
  * @author Pavel Danchenko
  */

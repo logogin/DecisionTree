@@ -3,8 +3,6 @@ package com.logogin.decisiontree.model.event;
 import java.util.EventObject;
 
 /**
- * $Id$
- *
  * @created Dec 8, 2010
  * @author Pavel Danchenko
  */

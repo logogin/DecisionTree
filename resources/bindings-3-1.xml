@@ -1,0 +1,156 @@
+<?xml version="1.0"?>
+<bindings version="2.0"
+    xmlns="http://java.sun.com/xml/ns/jaxb"
+    xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+    xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <bindings schemaLocation="pmml-3-1.xsd" node="/xs:schema">
+        <jaxb:bindings node="xs:element[@name='PMML']/xs:complexType/xs:sequence/xs:sequence">
+            <property name="model">
+                <!--
+                <baseType>
+                    <javaType name="org.dmg.pmml_3_1.Model"/>
+                </baseType>
+                -->
+            </property>
+        </jaxb:bindings>
+        <bindings node="//xs:simpleType[@name='DELIMITER']">
+            <typesafeEnumClass name="DelimiterType"/>
+        </bindings>
+        <bindings node="//xs:element[@name='Con']">
+            <class name="Connection"/>
+        </bindings>
+        <bindings node="//xs:element[@name='Aggregate']/xs:complexType/xs:attribute[@name='function']/xs:simpleType">
+            <jaxb:typesafeEnumClass name="Function"/>
+        </bindings>
+        <bindings node="//xs:simpleType[@name='ACTIVATION-FUNCTION']">
+            <typesafeEnumClass name="ActivationFunction"/>
+        </bindings>
+        <jaxb:bindings node="//xs:complexType[@name='ArrayType']/xs:attribute[@name='type']/xs:simpleType">
+            <jaxb:typesafeEnumClass name="Type"/>
+        </jaxb:bindings>
+        <!--
+        <jaxb:bindings node="//xs:element[@name='ChildParent']/xs:complexType/xs:attribute[@name='isRecursive']/xs:simpleType">
+            <jaxb:javaType name="boolean" parseMethod="javax.xml.bind.DatatypeConverter.parseBoolean" printMethod="javax.xml.bind.DatatypeConverter.printBoolean"/>
+        </jaxb:bindings>
+        -->
+        <jaxb:bindings node="//xs:element[@name='ClusteringModel']/xs:complexType/xs:attribute[@name='modelClass']/xs:simpleType">
+            <jaxb:typesafeEnumClass name="ModelClass"/>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:simpleType[@name='COMPARE-FUNCTION']">
+            <jaxb:typesafeEnumClass name="CompareFunction"/>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:element[@name='ComparisonMeasure']/xs:complexType/xs:attribute[@name='kind']/xs:simpleType">
+            <jaxb:typesafeEnumClass name="Kind"/>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:element[@name='CompoundPredicate']/xs:complexType/xs:attribute[@name='booleanOperator']/xs:simpleType">
+            <jaxb:typesafeEnumClass name="BooleanOperator"/>
+        </jaxb:bindings>
+        <!--
+        <jaxb:bindings node="//xs:element[@name='DataField']/xs:complexType/xs:attribute[@name='isCyclic']/xs:simpleType">
+            <jaxb:javaType name="boolean" parseMethod="org.dmg.pmml_3_1.BooleanAdapter.unmarshal" printMethod="org.dmg.pmml_3_1.BooleanAdapter.marshal"/>
+        </jaxb:bindings>
+        -->
+        <jaxb:bindings node="//xs:simpleType[@name='DATATYPE']">
+            <jaxb:typesafeEnumClass name="DataType"/>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:element[@name='DecisionTree']/xs:complexType/xs:attribute[@name='splitCharacteristic']/xs:simpleType">
+            <jaxb:typesafeEnumClass name="SplitCharacteristic"/>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:simpleType[@name='FIELD-USAGE-TYPE']">
+            <jaxb:typesafeEnumClass name="FieldUsageType"/>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:simpleType[@name='GAP']">
+            <jaxb:typesafeEnumClass name="Gap"/>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:element[@name='GeneralRegressionModel']/xs:complexType/xs:attribute[@name='modelType']/xs:simpleType">
+            <jaxb:typesafeEnumClass name="ModelType"/>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:element[@name='Interval']/xs:complexType/xs:attribute[@name='closure']/xs:simpleType">
+            <jaxb:typesafeEnumClass name="Closure"/>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:element[@name='INT-SparseArray']">
+            <jaxb:class name="IntSparseArray"/>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:simpleType[@name='INVALID-VALUE-TREATMENT-METHOD']">
+            <jaxb:typesafeEnumClass name="InvalidValueTreatmentMethod"/>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:simpleType[@name='LINK-FUNCTION']">
+            <jaxb:typesafeEnumClass name="LinkFunction"/>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:element[@name='Matrix']/xs:complexType/xs:attribute[@name='kind']/xs:simpleType">
+            <jaxb:typesafeEnumClass name="Kind"/>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:simpleType[@name='MINING-FUNCTION']">
+            <jaxb:typesafeEnumClass name="MiningFunction"/>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:simpleType[@name='MISSING-VALUE-STRATEGY']">
+            <jaxb:typesafeEnumClass name="MissingValueStrategy"/>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:simpleType[@name='MISSING-VALUE-TREATMENT-METHOD']">
+            <jaxb:typesafeEnumClass name="MissingValueTreatmentMethod"/>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:simpleType[@name='NN-NORMALIZATION-METHOD']">
+            <jaxb:typesafeEnumClass name="NnNormalizationMethod"/>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:element[@name='NormDiscrete']/xs:complexType/xs:attribute[@name='method']/xs:simpleType">
+            <jaxb:typesafeEnumClass name="Method"/>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:simpleType[@name='NO-TRUE-CHILD-STRATEGY']">
+            <jaxb:typesafeEnumClass name="NoTrueChildStrategy"/>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:simpleType[@name='OPTYPE']">
+            <jaxb:typesafeEnumClass name="OpType"/>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:simpleType[@name='OUTLIER-TREATMENT-METHOD']">
+            <jaxb:typesafeEnumClass name="OutlierTreatmentMethod"/>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:element[@name='REAL-SparseArray']">
+            <jaxb:class name="RealSparseArray"/>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:element[@name='RegressionModel']/xs:complexType/xs:attribute[@name='modelType']/xs:simpleType">
+            <jaxb:typesafeEnumClass name="ModelType"/>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:simpleType[@name='REGRESSIONNORMALIZATIONMETHOD']">
+            <jaxb:typesafeEnumClass name="RegressionNormalizationMethod"/>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:simpleType[@name='RESULT-FEATURE']">
+            <jaxb:typesafeEnumClass name="ResultFeature"/>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:element[@name='RuleSelectionMethod']/xs:complexType/xs:attribute[@name='criterion']/xs:simpleType">
+            <jaxb:typesafeEnumClass name="Criterion"/>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:element[@name='SimplePredicate']/xs:complexType/xs:attribute[@name='operator']/xs:simpleType">
+            <jaxb:typesafeEnumClass name="Operator"/>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:element[@name='SimpleSetPredicate']/xs:complexType/xs:attribute[@name='booleanOperator']/xs:simpleType">
+            <jaxb:typesafeEnumClass name="BooleanOperator"/>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:simpleType[@name='SVM-REPRESENTATION']">
+            <jaxb:typesafeEnumClass name="SvmRepresentation"/>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:element[@name='Target']/xs:complexType/xs:attribute[@name='castInteger']/xs:simpleType">
+            <jaxb:typesafeEnumClass name="CastInteger"/>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:element[@name='TextModelNormalization']/xs:complexType">
+            <bindings node="//xs:attribute[@name='localTermWeights']/xs:simpleType">
+                <jaxb:typesafeEnumClass name="LocalTermWeights"/>
+            </bindings>
+            <bindings node="//xs:attribute[@name='globalTermWeights']/xs:simpleType">
+                <jaxb:typesafeEnumClass name="GlobalTermWeights"/>
+            </bindings>
+            <bindings node="//xs:attribute[@name='documentNormalization']/xs:simpleType">
+                <jaxb:typesafeEnumClass name="DocumentNormalization"/>
+            </bindings>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:element[@name='TextModelSimiliarity']/xs:complexType/xs:attribute[@name='similarityType']/xs:simpleType">
+            <jaxb:typesafeEnumClass name="SimilarityType"/>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:element[@name='TreeModel']/xs:complexType/xs:attribute[@name='splitCharacteristic']/xs:simpleType">
+            <jaxb:typesafeEnumClass name="SplitCharacteristic"/>
+        </jaxb:bindings>
+        <jaxb:bindings node="xs:element[@name='Value']/xs:complexType/xs:attribute[@name='property']/xs:simpleType">
+            <jaxb:typesafeEnumClass name="Property"/>
+        </jaxb:bindings>
+    </bindings>
+</bindings>

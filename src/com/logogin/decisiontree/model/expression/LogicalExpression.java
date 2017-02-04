@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.ListIterator;
 
 /**
- * $Id$
- *
  * @created Sep 6, 2010
  * @author Pavel Danchenko
  */

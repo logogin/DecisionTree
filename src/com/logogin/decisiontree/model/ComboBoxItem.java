@@ -1,8 +1,6 @@
 package com.logogin.decisiontree.model;
 
 /**
- * $Id$
- *
  * @created Nov 26, 2010
  * @author Pavel Danchenko
  */

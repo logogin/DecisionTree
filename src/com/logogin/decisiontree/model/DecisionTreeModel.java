@@ -28,8 +28,6 @@ import com.logogin.decisiontree.model.expression.LogicalExpression;
 import com.logogin.decisiontree.model.expression.LogicalTerm;
 
 /**
- * $Id$
- *
  * @created Nov 18, 2010
  * @author Pavel Danchenko
  */
@@ -217,12 +215,14 @@ public class DecisionTreeModel {
 
 
         while (!nodeStack.isEmpty()) {
+            Node node = nodeStack.pop();
             boolean newline = false;
             int depth = depthStack.pop();
-            for (int i = 0; i < depth; i++) {
-                text.append("|   ");
-            }
-            Node node = nodeStack.pop();
+            //if ( null == node.getTrue() ) {
+                for (int i = 0; i < depth; i++) {
+                    text.append("|   ");
+                }
+            //}
             LogicalExpression expr = new LogicalExpression();
             List<Node> children = node.getNodes();
             List<SimplePredicate> predicates = node.getSimplePredicates();
@@ -246,7 +246,7 @@ public class DecisionTreeModel {
                             text.append("/").append(numIncorrect);
                         }
                         text.append(")");
-                        //text.append(" id=").append(child.getId());
+                        text.append(" id=").append(child.getId());
                         newline = true;
                     } else {
                         nodeStack.push(child);
@@ -265,7 +265,7 @@ public class DecisionTreeModel {
                     text.append("/").append(numIncorrect);
                 }
                 text.append(")");
-                //text.append(" id=").append(node.getId());
+                text.append(" id=").append(node.getId());
 //                result.add(new Rule(expr, node.getScore(), node
 //                        .getRecordCount(), getScoreDistributionRecordCount(
 //                        node, node.getScore())));

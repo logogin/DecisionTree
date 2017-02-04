@@ -1,4 +1,4 @@
-package logogin.decisiontree.model;
+package com.logogin.decisiontree.model;
 
 import java.io.File;
 
@@ -10,8 +10,6 @@ import com.logogin.decisiontree.model.JAXBUtil;
 import com.logogin.decisiontree.model.Rule;
 
 /**
- * $Id$
- *
  * @created Dec 8, 2010
  * @author Pavel Danchenko
  */
@@ -20,9 +18,9 @@ public class DecisionTreeModelTest {
 
     @Test
     public void calculateRules() throws Exception {
-        DecisionTreeModel treeModel = new DecisionTreeModel("d:/Temp/pmmls/spain100000.pmml"
+        DecisionTreeModel treeModel = new DecisionTreeModel("pmmls/spain100000.pmml"
                 , "spain100000.pmml"
-                , JAXBUtil.unmarshal(new File("d:/Temp/pmmls/spain100000.pmml"), true));
+                , JAXBUtil.unmarshal(new File("pmmls/spain100000.pmml"), true));
         Assert.assertEquals(67, treeModel.getRulesCount());
         Assert.assertEquals(40, treeModel.getRulesCountForScore("0"));
         Assert.assertEquals(27, treeModel.getRulesCountForScore("1"));
@@ -42,9 +40,9 @@ public class DecisionTreeModelTest {
 
     @Test
     public void testLatviaModel() throws Exception {
-        DecisionTreeModel treeModel = new DecisionTreeModel("d:/Temp/dating_ru_latvia.pmml"
+        DecisionTreeModel treeModel = new DecisionTreeModel("dating_ru_latvia.pmml"
                 , "dating_ru_latvia.pmml"
-                , JAXBUtil.unmarshal(new File("d:/Temp/dating_ru_latvia.pmml"), true));
+                , JAXBUtil.unmarshal(new File("dating_ru_latvia.pmml"), true));
         Assert.assertEquals(139, treeModel.getRulesCountForScore("0"));
         Assert.assertEquals(36, treeModel.getRelativeRulesCountForScore("0", 0.9));
         double total = 0.0;

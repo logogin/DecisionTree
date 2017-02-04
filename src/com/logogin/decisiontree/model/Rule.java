@@ -3,8 +3,6 @@ package com.logogin.decisiontree.model;
 import com.logogin.decisiontree.model.expression.LogicalExpression;
 
 /**
- * $Id$
- *
  * @created Oct 19, 2010
  * @author Pavel Danchenko
  */

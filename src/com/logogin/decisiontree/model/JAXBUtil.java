@@ -20,8 +20,6 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
 /**
- * $Id$
- *
  * @created Sep 10, 2010
  * @author Pavel Danchenko
  */

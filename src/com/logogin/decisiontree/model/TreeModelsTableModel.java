@@ -6,8 +6,6 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 /**
- * $Id$
- *
  * @created Nov 24, 2010
  * @author Pavel Danchenko
  */
@@ -84,7 +82,7 @@ public class TreeModelsTableModel extends AbstractTableModel {
         fireTableRowsInserted(getRowCount() - 1, getRowCount() - 1);
     }
 
-    public String getTreeModel(int rowIndex) {
+    public String getTreeModelId(int rowIndex) {
         return (String)getValueAt(rowIndex, getColumnCount());
     }
 

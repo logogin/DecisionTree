@@ -8,8 +8,6 @@ import java.util.Set;
 import javax.swing.table.AbstractTableModel;
 
 /**
- * $Id$
- *
  * @created Nov 16, 2010
  * @author Pavel Danchenko
  */

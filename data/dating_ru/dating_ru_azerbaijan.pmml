@@ -1,0 +1,812 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PMML version="3.1" xmlns="http://www.dmg.org/PMML-3_1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<Header copyright="Administrator">
+<Application name="KNIME" version="2.2"/>
+</Header>
+<DataDictionary numberOfFields="42">
+<DataField name="photos" optype="categorical" dataType="string">
+<Value value="none"/>
+<Value value="normal"/>
+<Value value="high"/>
+<Value value="veryhigh"/>
+</DataField>
+<DataField name="age" optype="continuous" dataType="double">
+<Interval closure="closedClosed" leftMargin="18.0" rightMargin="73.0"/>
+</DataField>
+<DataField name="frPairFF" optype="categorical" dataType="string">
+<Value value="False"/>
+<Value value="True"/>
+</DataField>
+<DataField name="frPairMF" optype="categorical" dataType="string">
+<Value value="False"/>
+<Value value="True"/>
+</DataField>
+<DataField name="frPairMM" optype="categorical" dataType="string">
+<Value value="False"/>
+<Value value="True"/>
+</DataField>
+<DataField name="minMaxAge" optype="categorical" dataType="string">
+<Value value="nopref"/>
+<Value value="18-20"/>
+<Value value="18-25"/>
+<Value value="18-30"/>
+<Value value="18-35"/>
+<Value value="18-40"/>
+<Value value="18-50"/>
+<Value value="18-60"/>
+<Value value="18-80"/>
+<Value value="21-25"/>
+<Value value="21-30"/>
+<Value value="21-35"/>
+<Value value="21-40"/>
+<Value value="21-50"/>
+<Value value="21-60"/>
+<Value value="21-80"/>
+<Value value="26-30"/>
+<Value value="26-35"/>
+<Value value="26-40"/>
+<Value value="26-50"/>
+<Value value="26-60"/>
+<Value value="26-80"/>
+<Value value="31-35"/>
+<Value value="31-40"/>
+<Value value="31-50"/>
+<Value value="31-60"/>
+<Value value="31-80"/>
+<Value value="36-40"/>
+<Value value="36-50"/>
+<Value value="36-60"/>
+<Value value="36-80"/>
+<Value value="41-50"/>
+<Value value="41-60"/>
+<Value value="41-80"/>
+<Value value="51-60"/>
+<Value value="51-80"/>
+<Value value="61-80"/>
+</DataField>
+<DataField name="aimFriendship" optype="categorical" dataType="string">
+<Value value="True"/>
+<Value value="False"/>
+</DataField>
+<DataField name="aimLove" optype="categorical" dataType="string">
+<Value value="True"/>
+<Value value="False"/>
+</DataField>
+<DataField name="aimMarriage" optype="categorical" dataType="string">
+<Value value="False"/>
+<Value value="True"/>
+</DataField>
+<DataField name="aimOther" optype="categorical" dataType="string">
+<Value value="False"/>
+<Value value="True"/>
+</DataField>
+<DataField name="aimSex" optype="categorical" dataType="string">
+<Value value="True"/>
+<Value value="False"/>
+</DataField>
+<DataField name="marriage" optype="categorical" dataType="string">
+<Value value="0"/>
+<Value value="1"/>
+<Value value="2"/>
+<Value value="3"/>
+<Value value="4"/>
+</DataField>
+<DataField name="kids" optype="categorical" dataType="string">
+<Value value="0"/>
+<Value value="1"/>
+<Value value="2"/>
+<Value value="3"/>
+<Value value="4"/>
+</DataField>
+<DataField name="isBody" optype="categorical" dataType="string">
+<Value value="True"/>
+<Value value="False"/>
+</DataField>
+<DataField name="isProfession" optype="categorical" dataType="string">
+<Value value="True"/>
+<Value value="False"/>
+</DataField>
+<DataField name="dayRegime" optype="categorical" dataType="string">
+<Value value="0"/>
+<Value value="1"/>
+<Value value="2"/>
+</DataField>
+<DataField name="isLanguages" optype="categorical" dataType="string">
+<Value value="True"/>
+<Value value="False"/>
+</DataField>
+<DataField name="materialStatus" optype="categorical" dataType="string">
+<Value value="0"/>
+<Value value="1"/>
+<Value value="2"/>
+<Value value="3"/>
+<Value value="4"/>
+</DataField>
+<DataField name="household" optype="categorical" dataType="string">
+<Value value="0"/>
+<Value value="1"/>
+<Value value="2"/>
+<Value value="3"/>
+<Value value="4"/>
+<Value value="5"/>
+<Value value="6"/>
+</DataField>
+<DataField name="isPriorities" optype="categorical" dataType="string">
+<Value value="True"/>
+<Value value="False"/>
+</DataField>
+<DataField name="priorityCareer" optype="categorical" dataType="string">
+<Value value="True"/>
+<Value value="False"/>
+</DataField>
+<DataField name="priorityEquilibrium" optype="categorical" dataType="string">
+<Value value="True"/>
+<Value value="False"/>
+</DataField>
+<DataField name="priorityFamily" optype="categorical" dataType="string">
+<Value value="True"/>
+<Value value="False"/>
+</DataField>
+<DataField name="priorityPubService" optype="categorical" dataType="string">
+<Value value="True"/>
+<Value value="False"/>
+</DataField>
+<DataField name="priorityRealization" optype="categorical" dataType="string">
+<Value value="True"/>
+<Value value="False"/>
+</DataField>
+<DataField name="prioritySex" optype="categorical" dataType="string">
+<Value value="True"/>
+<Value value="False"/>
+</DataField>
+<DataField name="priorityWealth" optype="categorical" dataType="string">
+<Value value="True"/>
+<Value value="False"/>
+</DataField>
+<DataField name="orientation" optype="categorical" dataType="string">
+<Value value="0"/>
+<Value value="1"/>
+<Value value="2"/>
+<Value value="3"/>
+</DataField>
+<DataField name="isHeteroExperience" optype="categorical" dataType="string">
+<Value value="True"/>
+<Value value="False"/>
+</DataField>
+<DataField name="heteroExperience" optype="categorical" dataType="string">
+<Value value="0"/>
+<Value value="1"/>
+<Value value="2"/>
+</DataField>
+<DataField name="sexFrequency" optype="categorical" dataType="string">
+<Value value="0"/>
+<Value value="1"/>
+<Value value="2"/>
+<Value value="3"/>
+<Value value="4"/>
+<Value value="5"/>
+</DataField>
+<DataField name="isSexLike" optype="categorical" dataType="string">
+<Value value="True"/>
+<Value value="False"/>
+</DataField>
+<DataField name="isCar" optype="categorical" dataType="string">
+<Value value="True"/>
+<Value value="False"/>
+</DataField>
+<DataField name="isFreeDay" optype="categorical" dataType="string">
+<Value value="True"/>
+<Value value="False"/>
+</DataField>
+<DataField name="isInterest" optype="categorical" dataType="string">
+<Value value="True"/>
+<Value value="False"/>
+</DataField>
+<DataField name="isSports" optype="categorical" dataType="string">
+<Value value="True"/>
+<Value value="False"/>
+</DataField>
+<DataField name="isMusic" optype="categorical" dataType="string">
+<Value value="True"/>
+<Value value="False"/>
+</DataField>
+<DataField name="smoking" optype="categorical" dataType="string">
+<Value value="0"/>
+<Value value="1"/>
+<Value value="2"/>
+</DataField>
+<DataField name="alcohol" optype="categorical" dataType="string">
+<Value value="0"/>
+<Value value="1"/>
+<Value value="2"/>
+<Value value="3"/>
+</DataField>
+<DataField name="drugs" optype="categorical" dataType="string">
+<Value value="0"/>
+<Value value="1"/>
+<Value value="2"/>
+<Value value="3"/>
+</DataField>
+<DataField name="aboutMe" optype="categorical" dataType="string">
+<Value value="none"/>
+<Value value="normal"/>
+<Value value="high"/>
+<Value value="veryhigh"/>
+</DataField>
+<DataField name="gender" optype="categorical" dataType="string">
+<Value value="0"/>
+<Value value="1"/>
+</DataField>
+</DataDictionary>
+<TreeModel modelName="DecisionTree" functionName="classification" splitCharacteristic="multiSplit">
+<MiningSchema>
+<MiningField name="photos"/>
+<MiningField name="age"/>
+<MiningField name="frPairFF"/>
+<MiningField name="frPairMF"/>
+<MiningField name="frPairMM"/>
+<MiningField name="minMaxAge"/>
+<MiningField name="aimFriendship"/>
+<MiningField name="aimLove"/>
+<MiningField name="aimMarriage"/>
+<MiningField name="aimOther"/>
+<MiningField name="aimSex"/>
+<MiningField name="marriage"/>
+<MiningField name="kids"/>
+<MiningField name="isBody"/>
+<MiningField name="isProfession"/>
+<MiningField name="dayRegime"/>
+<MiningField name="isLanguages"/>
+<MiningField name="materialStatus"/>
+<MiningField name="household"/>
+<MiningField name="isPriorities"/>
+<MiningField name="priorityCareer"/>
+<MiningField name="priorityEquilibrium"/>
+<MiningField name="priorityFamily"/>
+<MiningField name="priorityPubService"/>
+<MiningField name="priorityRealization"/>
+<MiningField name="prioritySex"/>
+<MiningField name="priorityWealth"/>
+<MiningField name="orientation"/>
+<MiningField name="isHeteroExperience"/>
+<MiningField name="heteroExperience"/>
+<MiningField name="sexFrequency"/>
+<MiningField name="isSexLike"/>
+<MiningField name="isCar"/>
+<MiningField name="isFreeDay"/>
+<MiningField name="isInterest"/>
+<MiningField name="isSports"/>
+<MiningField name="isMusic"/>
+<MiningField name="smoking"/>
+<MiningField name="alcohol"/>
+<MiningField name="drugs"/>
+<MiningField name="aboutMe"/>
+<MiningField name="gender" usageType="predicted"/>
+</MiningSchema>
+<Node id="0" score="1" recordCount="11732.0">
+<True/>
+<ScoreDistribution value="0" recordCount="1433.0"/>
+<ScoreDistribution value="1" recordCount="10299.0"/>
+<Node id="1" score="1" recordCount="217.0">
+<SimplePredicate field="minMaxAge" operator="equal" value="18-20"/>
+<ScoreDistribution value="0" recordCount="13.0"/>
+<ScoreDistribution value="1" recordCount="204.0"/>
+</Node>
+<Node id="2" score="1" recordCount="325.0">
+<SimplePredicate field="minMaxAge" operator="equal" value="18-25"/>
+<ScoreDistribution value="0" recordCount="21.0"/>
+<ScoreDistribution value="1" recordCount="304.0"/>
+</Node>
+<Node id="3" score="1" recordCount="304.0">
+<SimplePredicate field="minMaxAge" operator="equal" value="18-30"/>
+<ScoreDistribution value="0" recordCount="14.0"/>
+<ScoreDistribution value="1" recordCount="290.0"/>
+</Node>
+<Node id="4" score="1" recordCount="218.0">
+<SimplePredicate field="minMaxAge" operator="equal" value="18-35"/>
+<ScoreDistribution value="0" recordCount="6.0"/>
+<ScoreDistribution value="1" recordCount="212.0"/>
+</Node>
+<Node id="5" score="1" recordCount="164.0">
+<SimplePredicate field="minMaxAge" operator="equal" value="18-40"/>
+<ScoreDistribution value="0" recordCount="4.0"/>
+<ScoreDistribution value="1" recordCount="160.0"/>
+</Node>
+<Node id="6" score="1" recordCount="58.0">
+<SimplePredicate field="minMaxAge" operator="equal" value="18-50"/>
+<ScoreDistribution value="0" recordCount="2.0"/>
+<ScoreDistribution value="1" recordCount="56.0"/>
+</Node>
+<Node id="7" score="1" recordCount="5.0">
+<SimplePredicate field="minMaxAge" operator="equal" value="18-60"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="5.0"/>
+</Node>
+<Node id="8" score="1" recordCount="30.0">
+<SimplePredicate field="minMaxAge" operator="equal" value="18-80"/>
+<ScoreDistribution value="0" recordCount="4.0"/>
+<ScoreDistribution value="1" recordCount="26.0"/>
+</Node>
+<Node id="9" score="1" recordCount="138.0">
+<SimplePredicate field="minMaxAge" operator="equal" value="21-25"/>
+<ScoreDistribution value="0" recordCount="23.0"/>
+<ScoreDistribution value="1" recordCount="115.0"/>
+<Node id="10" score="1" recordCount="81.0">
+<SimplePredicate field="age" operator="lessOrEqual" value="27.0"/>
+<ScoreDistribution value="0" recordCount="23.0"/>
+<ScoreDistribution value="1" recordCount="58.0"/>
+<Node id="11" score="1" recordCount="6.0">
+<SimplePredicate field="photos" operator="equal" value="high"/>
+<ScoreDistribution value="0" recordCount="1.0"/>
+<ScoreDistribution value="1" recordCount="5.0"/>
+</Node>
+<Node id="12" score="0" recordCount="25.0">
+<SimplePredicate field="photos" operator="equal" value="none"/>
+<ScoreDistribution value="0" recordCount="17.0"/>
+<ScoreDistribution value="1" recordCount="8.0"/>
+</Node>
+<Node id="13" score="1" recordCount="49.0">
+<SimplePredicate field="photos" operator="equal" value="normal"/>
+<ScoreDistribution value="0" recordCount="5.0"/>
+<ScoreDistribution value="1" recordCount="44.0"/>
+</Node>
+<Node id="14" score="1" recordCount="1.0">
+<SimplePredicate field="photos" operator="equal" value="veryhigh"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="1.0"/>
+</Node>
+</Node>
+<Node id="15" score="1" recordCount="57.0">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="57.0"/>
+</Node>
+</Node>
+<Node id="16" score="1" recordCount="143.0">
+<SimplePredicate field="minMaxAge" operator="equal" value="21-30"/>
+<ScoreDistribution value="0" recordCount="42.0"/>
+<ScoreDistribution value="1" recordCount="101.0"/>
+<Node id="17" score="0" recordCount="39.0">
+<SimplePredicate field="age" operator="lessOrEqual" value="25.0"/>
+<ScoreDistribution value="0" recordCount="32.0"/>
+<ScoreDistribution value="1" recordCount="7.0"/>
+</Node>
+<Node id="18" score="1" recordCount="104.0">
+<True/>
+<ScoreDistribution value="0" recordCount="10.0"/>
+<ScoreDistribution value="1" recordCount="94.0"/>
+</Node>
+</Node>
+<Node id="19" score="1" recordCount="110.0">
+<SimplePredicate field="minMaxAge" operator="equal" value="21-35"/>
+<ScoreDistribution value="0" recordCount="10.0"/>
+<ScoreDistribution value="1" recordCount="100.0"/>
+<Node id="20" score="0" recordCount="11.0">
+<SimplePredicate field="age" operator="lessOrEqual" value="26.0"/>
+<ScoreDistribution value="0" recordCount="7.0"/>
+<ScoreDistribution value="1" recordCount="4.0"/>
+</Node>
+<Node id="21" score="1" recordCount="99.0">
+<True/>
+<ScoreDistribution value="0" recordCount="3.0"/>
+<ScoreDistribution value="1" recordCount="96.0"/>
+</Node>
+</Node>
+<Node id="22" score="1" recordCount="78.0">
+<SimplePredicate field="minMaxAge" operator="equal" value="21-40"/>
+<ScoreDistribution value="0" recordCount="7.0"/>
+<ScoreDistribution value="1" recordCount="71.0"/>
+</Node>
+<Node id="23" score="1" recordCount="23.0">
+<SimplePredicate field="minMaxAge" operator="equal" value="21-50"/>
+<ScoreDistribution value="0" recordCount="2.0"/>
+<ScoreDistribution value="1" recordCount="21.0"/>
+</Node>
+<Node id="24" score="1" recordCount="2.0">
+<SimplePredicate field="minMaxAge" operator="equal" value="21-60"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="2.0"/>
+</Node>
+<Node id="25" score="0" recordCount="0.0">
+<SimplePredicate field="minMaxAge" operator="equal" value="21-80"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+</Node>
+<Node id="26" score="0" recordCount="113.0">
+<SimplePredicate field="minMaxAge" operator="equal" value="26-30"/>
+<ScoreDistribution value="0" recordCount="59.0"/>
+<ScoreDistribution value="1" recordCount="54.0"/>
+<Node id="27" score="0" recordCount="88.0">
+<SimplePredicate field="age" operator="lessOrEqual" value="32.0"/>
+<ScoreDistribution value="0" recordCount="59.0"/>
+<ScoreDistribution value="1" recordCount="29.0"/>
+<Node id="28" score="0" recordCount="29.0">
+<SimplePredicate field="smoking" operator="equal" value="0"/>
+<ScoreDistribution value="0" recordCount="22.0"/>
+<ScoreDistribution value="1" recordCount="7.0"/>
+</Node>
+<Node id="29" score="0" recordCount="37.0">
+<SimplePredicate field="smoking" operator="equal" value="1"/>
+<ScoreDistribution value="0" recordCount="32.0"/>
+<ScoreDistribution value="1" recordCount="5.0"/>
+</Node>
+<Node id="30" score="1" recordCount="22.0">
+<SimplePredicate field="smoking" operator="equal" value="2"/>
+<ScoreDistribution value="0" recordCount="5.0"/>
+<ScoreDistribution value="1" recordCount="17.0"/>
+</Node>
+</Node>
+<Node id="31" score="1" recordCount="25.0">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="25.0"/>
+</Node>
+</Node>
+<Node id="32" score="1" recordCount="118.0">
+<SimplePredicate field="minMaxAge" operator="equal" value="26-35"/>
+<ScoreDistribution value="0" recordCount="49.0"/>
+<ScoreDistribution value="1" recordCount="69.0"/>
+<Node id="33" score="0" recordCount="78.0">
+<SimplePredicate field="age" operator="lessOrEqual" value="34.0"/>
+<ScoreDistribution value="0" recordCount="49.0"/>
+<ScoreDistribution value="1" recordCount="29.0"/>
+<Node id="34" score="0" recordCount="24.0">
+<SimplePredicate field="age" operator="lessOrEqual" value="28.0"/>
+<ScoreDistribution value="0" recordCount="23.0"/>
+<ScoreDistribution value="1" recordCount="1.0"/>
+</Node>
+<Node id="35" score="1" recordCount="54.0">
+<True/>
+<ScoreDistribution value="0" recordCount="26.0"/>
+<ScoreDistribution value="1" recordCount="28.0"/>
+<Node id="36" score="1" recordCount="35.0">
+<SimplePredicate field="aimLove" operator="equal" value="False"/>
+<ScoreDistribution value="0" recordCount="11.0"/>
+<ScoreDistribution value="1" recordCount="24.0"/>
+<Node id="37" score="1" recordCount="25.0">
+<SimplePredicate field="priorityFamily" operator="equal" value="False"/>
+<ScoreDistribution value="0" recordCount="5.0"/>
+<ScoreDistribution value="1" recordCount="20.0"/>
+</Node>
+<Node id="38" score="0" recordCount="10.0">
+<SimplePredicate field="priorityFamily" operator="equal" value="True"/>
+<ScoreDistribution value="0" recordCount="6.0"/>
+<ScoreDistribution value="1" recordCount="4.0"/>
+</Node>
+</Node>
+<Node id="39" score="0" recordCount="19.0">
+<SimplePredicate field="aimLove" operator="equal" value="True"/>
+<ScoreDistribution value="0" recordCount="15.0"/>
+<ScoreDistribution value="1" recordCount="4.0"/>
+</Node>
+</Node>
+</Node>
+<Node id="40" score="1" recordCount="40.0">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="40.0"/>
+</Node>
+</Node>
+<Node id="41" score="1" recordCount="92.0">
+<SimplePredicate field="minMaxAge" operator="equal" value="26-40"/>
+<ScoreDistribution value="0" recordCount="19.0"/>
+<ScoreDistribution value="1" recordCount="73.0"/>
+<Node id="42" score="1" recordCount="61.0">
+<SimplePredicate field="age" operator="lessOrEqual" value="39.0"/>
+<ScoreDistribution value="0" recordCount="19.0"/>
+<ScoreDistribution value="1" recordCount="42.0"/>
+<Node id="43" score="1" recordCount="36.0">
+<SimplePredicate field="priorityEquilibrium" operator="equal" value="False"/>
+<ScoreDistribution value="0" recordCount="6.0"/>
+<ScoreDistribution value="1" recordCount="30.0"/>
+</Node>
+<Node id="44" score="0" recordCount="25.0">
+<SimplePredicate field="priorityEquilibrium" operator="equal" value="True"/>
+<ScoreDistribution value="0" recordCount="13.0"/>
+<ScoreDistribution value="1" recordCount="12.0"/>
+<Node id="45" score="1" recordCount="1.0">
+<SimplePredicate field="photos" operator="equal" value="high"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="1.0"/>
+</Node>
+<Node id="46" score="0" recordCount="11.0">
+<SimplePredicate field="photos" operator="equal" value="none"/>
+<ScoreDistribution value="0" recordCount="8.0"/>
+<ScoreDistribution value="1" recordCount="3.0"/>
+</Node>
+<Node id="47" score="1" recordCount="13.0">
+<SimplePredicate field="photos" operator="equal" value="normal"/>
+<ScoreDistribution value="0" recordCount="5.0"/>
+<ScoreDistribution value="1" recordCount="8.0"/>
+</Node>
+<Node id="48" score="0" recordCount="0.0">
+<SimplePredicate field="photos" operator="equal" value="veryhigh"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+</Node>
+</Node>
+</Node>
+<Node id="49" score="1" recordCount="31.0">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="31.0"/>
+</Node>
+</Node>
+<Node id="50" score="1" recordCount="30.0">
+<SimplePredicate field="minMaxAge" operator="equal" value="26-50"/>
+<ScoreDistribution value="0" recordCount="6.0"/>
+<ScoreDistribution value="1" recordCount="24.0"/>
+</Node>
+<Node id="51" score="0" recordCount="0.0">
+<SimplePredicate field="minMaxAge" operator="equal" value="26-60"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+</Node>
+<Node id="52" score="0" recordCount="0.0">
+<SimplePredicate field="minMaxAge" operator="equal" value="26-80"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+</Node>
+<Node id="53" score="0" recordCount="57.0">
+<SimplePredicate field="minMaxAge" operator="equal" value="31-35"/>
+<ScoreDistribution value="0" recordCount="33.0"/>
+<ScoreDistribution value="1" recordCount="24.0"/>
+<Node id="54" score="0" recordCount="44.0">
+<SimplePredicate field="age" operator="lessOrEqual" value="36.0"/>
+<ScoreDistribution value="0" recordCount="32.0"/>
+<ScoreDistribution value="1" recordCount="12.0"/>
+<Node id="55" score="0" recordCount="0.0">
+<SimplePredicate field="photos" operator="equal" value="high"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+</Node>
+<Node id="56" score="0" recordCount="33.0">
+<SimplePredicate field="photos" operator="equal" value="none"/>
+<ScoreDistribution value="0" recordCount="28.0"/>
+<ScoreDistribution value="1" recordCount="5.0"/>
+</Node>
+<Node id="57" score="1" recordCount="11.0">
+<SimplePredicate field="photos" operator="equal" value="normal"/>
+<ScoreDistribution value="0" recordCount="4.0"/>
+<ScoreDistribution value="1" recordCount="7.0"/>
+</Node>
+<Node id="58" score="0" recordCount="0.0">
+<SimplePredicate field="photos" operator="equal" value="veryhigh"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+</Node>
+</Node>
+<Node id="59" score="1" recordCount="13.0">
+<True/>
+<ScoreDistribution value="0" recordCount="1.0"/>
+<ScoreDistribution value="1" recordCount="12.0"/>
+</Node>
+</Node>
+<Node id="60" score="0" recordCount="51.0">
+<SimplePredicate field="minMaxAge" operator="equal" value="31-40"/>
+<ScoreDistribution value="0" recordCount="28.0"/>
+<ScoreDistribution value="1" recordCount="23.0"/>
+<Node id="61" score="0" recordCount="28.0">
+<SimplePredicate field="age" operator="lessOrEqual" value="36.0"/>
+<ScoreDistribution value="0" recordCount="24.0"/>
+<ScoreDistribution value="1" recordCount="4.0"/>
+</Node>
+<Node id="62" score="1" recordCount="23.0">
+<True/>
+<ScoreDistribution value="0" recordCount="4.0"/>
+<ScoreDistribution value="1" recordCount="19.0"/>
+</Node>
+</Node>
+<Node id="63" score="1" recordCount="31.0">
+<SimplePredicate field="minMaxAge" operator="equal" value="31-50"/>
+<ScoreDistribution value="0" recordCount="6.0"/>
+<ScoreDistribution value="1" recordCount="25.0"/>
+<Node id="64" score="0" recordCount="10.0">
+<SimplePredicate field="age" operator="lessOrEqual" value="40.0"/>
+<ScoreDistribution value="0" recordCount="6.0"/>
+<ScoreDistribution value="1" recordCount="4.0"/>
+</Node>
+<Node id="65" score="1" recordCount="21.0">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="21.0"/>
+</Node>
+</Node>
+<Node id="66" score="0" recordCount="5.0">
+<SimplePredicate field="minMaxAge" operator="equal" value="31-60"/>
+<ScoreDistribution value="0" recordCount="4.0"/>
+<ScoreDistribution value="1" recordCount="1.0"/>
+</Node>
+<Node id="67" score="0" recordCount="2.0">
+<SimplePredicate field="minMaxAge" operator="equal" value="31-80"/>
+<ScoreDistribution value="0" recordCount="1.0"/>
+<ScoreDistribution value="1" recordCount="1.0"/>
+</Node>
+<Node id="68" score="0" recordCount="51.0">
+<SimplePredicate field="minMaxAge" operator="equal" value="36-40"/>
+<ScoreDistribution value="0" recordCount="27.0"/>
+<ScoreDistribution value="1" recordCount="24.0"/>
+<Node id="69" score="0" recordCount="39.0">
+<SimplePredicate field="age" operator="lessOrEqual" value="43.0"/>
+<ScoreDistribution value="0" recordCount="27.0"/>
+<ScoreDistribution value="1" recordCount="12.0"/>
+</Node>
+<Node id="70" score="1" recordCount="12.0">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="12.0"/>
+</Node>
+</Node>
+<Node id="71" score="0" recordCount="42.0">
+<SimplePredicate field="minMaxAge" operator="equal" value="36-50"/>
+<ScoreDistribution value="0" recordCount="23.0"/>
+<ScoreDistribution value="1" recordCount="19.0"/>
+<Node id="72" score="0" recordCount="29.0">
+<SimplePredicate field="age" operator="lessOrEqual" value="46.0"/>
+<ScoreDistribution value="0" recordCount="23.0"/>
+<ScoreDistribution value="1" recordCount="6.0"/>
+</Node>
+<Node id="73" score="1" recordCount="13.0">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="13.0"/>
+</Node>
+</Node>
+<Node id="74" score="1" recordCount="7.0">
+<SimplePredicate field="minMaxAge" operator="equal" value="36-60"/>
+<ScoreDistribution value="0" recordCount="3.0"/>
+<ScoreDistribution value="1" recordCount="4.0"/>
+</Node>
+<Node id="75" score="0" recordCount="1.0">
+<SimplePredicate field="minMaxAge" operator="equal" value="36-80"/>
+<ScoreDistribution value="0" recordCount="1.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+</Node>
+<Node id="76" score="0" recordCount="33.0">
+<SimplePredicate field="minMaxAge" operator="equal" value="41-50"/>
+<ScoreDistribution value="0" recordCount="24.0"/>
+<ScoreDistribution value="1" recordCount="9.0"/>
+</Node>
+<Node id="77" score="1" recordCount="11.0">
+<SimplePredicate field="minMaxAge" operator="equal" value="41-60"/>
+<ScoreDistribution value="0" recordCount="5.0"/>
+<ScoreDistribution value="1" recordCount="6.0"/>
+</Node>
+<Node id="78" score="1" recordCount="1.0">
+<SimplePredicate field="minMaxAge" operator="equal" value="41-80"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="1.0"/>
+</Node>
+<Node id="79" score="0" recordCount="6.0">
+<SimplePredicate field="minMaxAge" operator="equal" value="51-60"/>
+<ScoreDistribution value="0" recordCount="6.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+</Node>
+<Node id="80" score="1" recordCount="1.0">
+<SimplePredicate field="minMaxAge" operator="equal" value="51-80"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="1.0"/>
+</Node>
+<Node id="81" score="1" recordCount="4.0">
+<SimplePredicate field="minMaxAge" operator="equal" value="61-80"/>
+<ScoreDistribution value="0" recordCount="1.0"/>
+<ScoreDistribution value="1" recordCount="3.0"/>
+</Node>
+<Node id="82" score="1" recordCount="9261.0">
+<SimplePredicate field="minMaxAge" operator="equal" value="nopref"/>
+<ScoreDistribution value="0" recordCount="990.0"/>
+<ScoreDistribution value="1" recordCount="8271.0"/>
+<Node id="83" score="1" recordCount="90.0">
+<SimplePredicate field="photos" operator="equal" value="high"/>
+<ScoreDistribution value="0" recordCount="5.0"/>
+<ScoreDistribution value="1" recordCount="85.0"/>
+</Node>
+<Node id="84" score="1" recordCount="5645.0">
+<SimplePredicate field="photos" operator="equal" value="none"/>
+<ScoreDistribution value="0" recordCount="774.0"/>
+<ScoreDistribution value="1" recordCount="4871.0"/>
+<Node id="85" score="1" recordCount="5338.0">
+<SimplePredicate field="priorityFamily" operator="equal" value="False"/>
+<ScoreDistribution value="0" recordCount="679.0"/>
+<ScoreDistribution value="1" recordCount="4659.0"/>
+</Node>
+<Node id="86" score="1" recordCount="307.0">
+<SimplePredicate field="priorityFamily" operator="equal" value="True"/>
+<ScoreDistribution value="0" recordCount="95.0"/>
+<ScoreDistribution value="1" recordCount="212.0"/>
+<Node id="87" score="1" recordCount="202.0">
+<SimplePredicate field="prioritySex" operator="equal" value="False"/>
+<ScoreDistribution value="0" recordCount="87.0"/>
+<ScoreDistribution value="1" recordCount="115.0"/>
+<Node id="88" score="0" recordCount="151.0">
+<SimplePredicate field="heteroExperience" operator="equal" value="0"/>
+<ScoreDistribution value="0" recordCount="76.0"/>
+<ScoreDistribution value="1" recordCount="75.0"/>
+<Node id="89" score="0" recordCount="49.0">
+<SimplePredicate field="smoking" operator="equal" value="0"/>
+<ScoreDistribution value="0" recordCount="32.0"/>
+<ScoreDistribution value="1" recordCount="17.0"/>
+<Node id="90" score="0" recordCount="34.0">
+<SimplePredicate field="isMusic" operator="equal" value="False"/>
+<ScoreDistribution value="0" recordCount="19.0"/>
+<ScoreDistribution value="1" recordCount="15.0"/>
+<Node id="91" score="1" recordCount="14.0">
+<SimplePredicate field="priorityCareer" operator="equal" value="False"/>
+<ScoreDistribution value="0" recordCount="4.0"/>
+<ScoreDistribution value="1" recordCount="10.0"/>
+</Node>
+<Node id="92" score="0" recordCount="20.0">
+<SimplePredicate field="priorityCareer" operator="equal" value="True"/>
+<ScoreDistribution value="0" recordCount="15.0"/>
+<ScoreDistribution value="1" recordCount="5.0"/>
+</Node>
+</Node>
+<Node id="93" score="0" recordCount="15.0">
+<SimplePredicate field="isMusic" operator="equal" value="True"/>
+<ScoreDistribution value="0" recordCount="13.0"/>
+<ScoreDistribution value="1" recordCount="2.0"/>
+</Node>
+</Node>
+<Node id="94" score="0" recordCount="68.0">
+<SimplePredicate field="smoking" operator="equal" value="1"/>
+<ScoreDistribution value="0" recordCount="39.0"/>
+<ScoreDistribution value="1" recordCount="29.0"/>
+<Node id="95" score="0" recordCount="34.0">
+<SimplePredicate field="isProfession" operator="equal" value="False"/>
+<ScoreDistribution value="0" recordCount="26.0"/>
+<ScoreDistribution value="1" recordCount="8.0"/>
+</Node>
+<Node id="96" score="1" recordCount="34.0">
+<SimplePredicate field="isProfession" operator="equal" value="True"/>
+<ScoreDistribution value="0" recordCount="13.0"/>
+<ScoreDistribution value="1" recordCount="21.0"/>
+<Node id="97" score="0" recordCount="10.0">
+<SimplePredicate field="priorityCareer" operator="equal" value="False"/>
+<ScoreDistribution value="0" recordCount="7.0"/>
+<ScoreDistribution value="1" recordCount="3.0"/>
+</Node>
+<Node id="98" score="1" recordCount="24.0">
+<SimplePredicate field="priorityCareer" operator="equal" value="True"/>
+<ScoreDistribution value="0" recordCount="6.0"/>
+<ScoreDistribution value="1" recordCount="18.0"/>
+</Node>
+</Node>
+</Node>
+<Node id="99" score="1" recordCount="34.0">
+<SimplePredicate field="smoking" operator="equal" value="2"/>
+<ScoreDistribution value="0" recordCount="5.0"/>
+<ScoreDistribution value="1" recordCount="29.0"/>
+</Node>
+</Node>
+<Node id="100" score="1" recordCount="44.0">
+<SimplePredicate field="heteroExperience" operator="equal" value="1"/>
+<ScoreDistribution value="0" recordCount="5.0"/>
+<ScoreDistribution value="1" recordCount="39.0"/>
+</Node>
+<Node id="101" score="0" recordCount="7.0">
+<SimplePredicate field="heteroExperience" operator="equal" value="2"/>
+<ScoreDistribution value="0" recordCount="6.0"/>
+<ScoreDistribution value="1" recordCount="1.0"/>
+</Node>
+</Node>
+<Node id="102" score="1" recordCount="105.0">
+<SimplePredicate field="prioritySex" operator="equal" value="True"/>
+<ScoreDistribution value="0" recordCount="8.0"/>
+<ScoreDistribution value="1" recordCount="97.0"/>
+</Node>
+</Node>
+</Node>
+<Node id="103" score="1" recordCount="3475.0">
+<SimplePredicate field="photos" operator="equal" value="normal"/>
+<ScoreDistribution value="0" recordCount="206.0"/>
+<ScoreDistribution value="1" recordCount="3269.0"/>
+</Node>
+<Node id="104" score="1" recordCount="51.0">
+<SimplePredicate field="photos" operator="equal" value="veryhigh"/>
+<ScoreDistribution value="0" recordCount="5.0"/>
+<ScoreDistribution value="1" recordCount="46.0"/>
+</Node>
+</Node>
+</Node>
+</TreeModel>
+</PMML>

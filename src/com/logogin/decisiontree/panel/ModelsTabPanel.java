@@ -267,7 +267,7 @@ public class ModelsTabPanel extends javax.swing.JPanel {
         DefaultTableModel rulesTableModel = (DefaultTableModel)rulesTable.getModel();
         rulesTableModel.setRowCount(0);
 
-        String selectedTreeModelId = ((TreeModelsTableModel)modelsTable.getModel()).getTreeModel(rowIndex);
+        String selectedTreeModelId = ((TreeModelsTableModel)modelsTable.getModel()).getTreeModelId(rowIndex);
         List<Rule> rules = app.getController().getTreeModel(selectedTreeModelId).getRules();
         int i = 1;
         DecimalFormat format = new DecimalFormat("#,##0.0#");
@@ -334,7 +334,7 @@ public class ModelsTabPanel extends javax.swing.JPanel {
             Double scoreThreshold = Double.valueOf(scoreThresholdText.getText());
             Double coverageThreshold = Double.valueOf(coverageThresholdText.getText())/100.0;
 
-            String treeModelId = ((TreeModelsTableModel)modelsTable.getModel()).getTreeModel(rowIndex);
+            String treeModelId = ((TreeModelsTableModel)modelsTable.getModel()).getTreeModelId(rowIndex);
             propertiesFrame.setTreeModel(treeModelId, scoreThreshold, coverageThreshold);
             app.show(propertiesFrame);
         }

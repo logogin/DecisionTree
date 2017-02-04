@@ -2,8 +2,6 @@ package com.logogin.decisiontree.model.expression;
 
 
 /**
- * $Id$
- *
  * @created Sep 6, 2010
  * @author Pavel Danchenko
  */

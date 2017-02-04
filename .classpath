@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="test/com"/>
+	<classpathentry kind="lib" path="lib/CopyLibs/org-netbeans-modules-java-j2seproject-copylibstask.jar"/>
+	<classpathentry kind="lib" path="lib/jaxb/activation.jar"/>
+	<classpathentry kind="lib" path="lib/jaxb/jaxb-api.jar"/>
+	<classpathentry kind="lib" path="lib/jaxb/jaxb-impl.jar"/>
+	<classpathentry kind="lib" path="lib/jaxb/jaxb-xjc.jar"/>
+	<classpathentry kind="lib" path="lib/jaxb/jaxb1-impl.jar"/>
+	<classpathentry kind="lib" path="lib/jaxb/jsr173_api.jar"/>
+	<classpathentry kind="lib" path="lib/junit_4/junit-4.5-src.jar"/>
+	<classpathentry kind="lib" path="lib/junit_4/junit-4.5.jar"/>
+	<classpathentry kind="lib" path="lib/junit/junit-3.8.2.jar"/>
+	<classpathentry kind="lib" path="lib/swing-app-framework/appframework-1.0.3.jar" sourcepath="D:/Downloads/Sources/AppFramework-1.03/src"/>
+	<classpathentry kind="lib" path="lib/swing-app-framework/swing-worker-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/knime-ext-weka/knime-weka.jar" sourcepath="lib/knime-ext-weka/knime-wekasrc"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="D:/Program Files/Java/jdk1.6.0_21/lib/jconsole.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

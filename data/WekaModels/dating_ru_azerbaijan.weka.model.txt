@@ -1,0 +1,104 @@
+minMaxAge = nopref
+|   photos = none
+|   |   priorityFamily = True
+|   |   |   prioritySex = True: 1 (105.0/8.0)
+|   |   |   prioritySex = False
+|   |   |   |   heteroExperience = 0
+|   |   |   |   |   smoking = 0
+|   |   |   |   |   |   isMusic = True: 0 (15.0/2.0)
+|   |   |   |   |   |   isMusic = False
+|   |   |   |   |   |   |   priorityCareer = True: 0 (20.0/5.0)
+|   |   |   |   |   |   |   priorityCareer = False: 1 (14.0/4.0)
+|   |   |   |   |   smoking = 1
+|   |   |   |   |   |   isProfession = True
+|   |   |   |   |   |   |   priorityCareer = True: 1 (24.0/6.0)
+|   |   |   |   |   |   |   priorityCareer = False: 0 (10.0/3.0)
+|   |   |   |   |   |   isProfession = False: 0 (34.0/8.0)
+|   |   |   |   |   smoking = 2: 1 (34.0/5.0)
+|   |   |   |   heteroExperience = 1: 1 (44.0/5.0)
+|   |   |   |   heteroExperience = 2: 0 (7.0/1.0)
+|   |   priorityFamily = False: 1 (5338.0/679.0)
+|   photos = normal: 1 (3475.0/206.0)
+|   photos = high: 1 (90.0/5.0)
+|   photos = veryhigh: 1 (51.0/5.0)
+minMaxAge = 18-20: 1 (217.0/13.0)
+minMaxAge = 18-25: 1 (325.0/21.0)
+minMaxAge = 18-30: 1 (304.0/14.0)
+minMaxAge = 18-35: 1 (218.0/6.0)
+minMaxAge = 18-40: 1 (164.0/4.0)
+minMaxAge = 18-50: 1 (58.0/2.0)
+minMaxAge = 18-60: 1 (5.0)
+minMaxAge = 18-80: 1 (30.0/4.0)
+minMaxAge = 21-25
+|   age <= 27
+|   |   photos = none: 0 (25.0/8.0)
+|   |   photos = normal: 1 (49.0/5.0)
+|   |   photos = high: 1 (6.0/1.0)
+|   |   photos = veryhigh: 1 (1.0)
+|   age > 27: 1 (57.0)
+minMaxAge = 21-30
+|   age <= 25: 0 (39.0/7.0)
+|   age > 25: 1 (104.0/10.0)
+minMaxAge = 21-35
+|   age <= 26: 0 (11.0/4.0)
+|   age > 26: 1 (99.0/3.0)
+minMaxAge = 21-40: 1 (78.0/7.0)
+minMaxAge = 21-50: 1 (23.0/2.0)
+minMaxAge = 21-60: 1 (2.0)
+minMaxAge = 21-80: 1 (0.0)
+minMaxAge = 26-30
+|   age <= 32
+|   |   smoking = 0: 0 (29.0/7.0)
+|   |   smoking = 1: 0 (37.0/5.0)
+|   |   smoking = 2: 1 (22.0/5.0)
+|   age > 32: 1 (25.0)
+minMaxAge = 26-35
+|   age <= 34
+|   |   age <= 28: 0 (24.0/1.0)
+|   |   age > 28
+|   |   |   aimLove = True: 0 (19.0/4.0)
+|   |   |   aimLove = False
+|   |   |   |   priorityFamily = True: 0 (10.0/4.0)
+|   |   |   |   priorityFamily = False: 1 (25.0/5.0)
+|   age > 34: 1 (40.0)
+minMaxAge = 26-40
+|   age <= 39
+|   |   priorityEquilibrium = True
+|   |   |   photos = none: 0 (11.0/3.0)
+|   |   |   photos = normal: 1 (13.0/5.0)
+|   |   |   photos = high: 1 (1.0)
+|   |   |   photos = veryhigh: 0 (0.0)
+|   |   priorityEquilibrium = False: 1 (36.0/6.0)
+|   age > 39: 1 (31.0)
+minMaxAge = 26-50: 1 (30.0/6.0)
+minMaxAge = 26-60: 1 (0.0)
+minMaxAge = 26-80: 1 (0.0)
+minMaxAge = 31-35
+|   age <= 36
+|   |   photos = none: 0 (33.0/5.0)
+|   |   photos = normal: 1 (11.0/4.0)
+|   |   photos = high: 0 (0.0)
+|   |   photos = veryhigh: 0 (0.0)
+|   age > 36: 1 (13.0/1.0)
+minMaxAge = 31-40
+|   age <= 36: 0 (28.0/4.0)
+|   age > 36: 1 (23.0/4.0)
+minMaxAge = 31-50
+|   age <= 40: 0 (10.0/4.0)
+|   age > 40: 1 (21.0)
+minMaxAge = 31-60: 0 (5.0/1.0)
+minMaxAge = 31-80: 0 (2.0/1.0)
+minMaxAge = 36-40
+|   age <= 43: 0 (39.0/12.0)
+|   age > 43: 1 (12.0)
+minMaxAge = 36-50
+|   age <= 46: 0 (29.0/6.0)
+|   age > 46: 1 (13.0)
+minMaxAge = 36-60: 1 (7.0/3.0)
+minMaxAge = 36-80: 0 (1.0)
+minMaxAge = 41-50: 0 (33.0/9.0)
+minMaxAge = 41-60: 1 (11.0/5.0)
+minMaxAge = 41-80: 1 (1.0)
+minMaxAge = 51-60: 0 (6.0)
+minMaxAge = 51-80: 1 (1.0)
+minMaxAge = 61-80: 1 (4.0/1.0)

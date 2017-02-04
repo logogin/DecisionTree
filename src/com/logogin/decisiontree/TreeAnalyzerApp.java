@@ -4,9 +4,16 @@
 
 package com.logogin.decisiontree;
 
+import java.awt.EventQueue;
+import java.awt.Toolkit;
+import java.io.IOException;
+
 import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
 
+import com.logogin.decisiontree.controller.EventQueueProxy;
+import com.logogin.decisiontree.controller.OutputViewer;
+import com.logogin.decisiontree.controller.SwingConsole;
 import com.logogin.decisiontree.controller.TreeAnalyzerController;
 
 /**
@@ -27,6 +34,14 @@ public class TreeAnalyzerApp extends SingleFrameApplication {
     @Override
     protected void startup() {
         //controller = new TreeAnalyzerController();
+        //EventQueue queue = Toolkit.getDefaultToolkit().getSystemEventQueue();
+        //queue.push(new EventQueueProxy());
+//        try {
+//            new SwingConsole();
+//        } catch (IOException ex) {
+//            ex.printStackTrace();
+//        }
+        OutputViewer.init();
         show(new TreeAnalyzerView(this));
     }
 
